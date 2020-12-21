@@ -1,0 +1,18 @@
+{
+  "name": "w1_nodejs",
+  "version": "1.0.0",
+  "description": "* 模块化\r     * 为什么要模块化\r         * 维护迭代\r         * 分工\r     * 分类\r         * 内置模块\r             * fs\r             * http\r             * url\r             * path\r         * 自定义模块\r             * 定义模块\r                 * module.exports\r                 * exports\r             * 引用模块\r                 * require\r         * 第三方模块\r             * express\r     * 规范\r         * commonJS        NodeJS\r         * AMD             require.js\r         * CMD             sea.js\r         * ES Module       ES6",
+  "main": "mime.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "laoxie",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

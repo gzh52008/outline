@@ -1,0 +1,11 @@
+# 过滤文件夹
+node_modules/
+/doc/
+
+# 过滤文件
+*.zip
+*.rar
+*.7z
+
+*.mp3
+*.mp4
