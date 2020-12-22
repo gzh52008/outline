@@ -11,6 +11,7 @@
  // 引入mime类型
  const mime = require('./mime');
 
+
 //  const server = http.createServer(function(request,response){
 //     // 每一次请求都执行这里的代码
 
