@@ -7,11 +7,31 @@
     <title>商品详情</title>
 </head>
 <body>
+    <h1>商品详情</h1>
     <div id="goods">
         
     </div>
     <script>
-        
+        // 获取id
+        let id;
+        let params = location.search.slice(1).split('&');// [id=10,username=jj]
+        params.forEach(item=>{
+            let arr = item.split('=');
+            if(arr[0] === 'id'){
+                id = arr[1];
+            }
+        });
+
+        if(id){
+            let xhr = new XMLHttpRequest();
+            xhr.onload = function(){
+                let data = JSON.parse(xhr.responseText);
+                console.log('data=',data);
+                goods.innerHTML = xhr.responseText;
+            }
+            xhr.open('get','http://localhost:2008/goods/'+id,true);
+            xhr.send();
+        }
     </script>
 </body>
 </html>

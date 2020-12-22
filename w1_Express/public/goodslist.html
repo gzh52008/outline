@@ -5,13 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>商品列表</title>
+    <style>
+        #goodslist ul{overflow:hidden;list-style:none;padding:0;margin:0;}
+        #goodslist li{float:left;margin:10px;padding:15px;border:1px solid #ddd;}
+    </style>
 </head>
 <body>
+    <h1>商品列表</h1>
     <div id="goodslist">
         
     </div>
     <script>
+        const goodslist = document.querySelector('#goodslist');
+        const xhr = new XMLHttpRequest();
+        xhr.onload = function(){
+            let data = JSON.parse(xhr.responseText);
+            console.log('data=',data);
+
+            render(data);
+        }
+        xhr.open('get','http://localhost:2008/goodslist',true);
+        xhr.send();
         
+
+        function render(data){
+            let ul = document.createElement('ul');
+            ul.innerHTML = data.map(item=>{
+                return `<li data-id="${item.id}">
+                    <img src="${item.imgurl}" />
+                    <h4>${item.name}</h4>
+                    <p class="price">价格：<span>${item.price}</span></p>    
+                </li>`
+            }).join('\n');
+            goodslist.appendChild(ul);
+        }
+
+        // 点击商品进入详情页面
+        goodslist.onclick = function(e){
+            if(['img','h4'].includes(e.target.tagName.toLowerCase())){
+                let currentLi = e.target.parentElement;
+                location.href = '/goods.html?id=' + currentLi.dataset.id;
+            }
+        }
     </script>
 </body>
 </html>

@@ -1,4 +1,5 @@
 const express = require('express');
+const allRouter = require('./api')
 
 // 启动一个服务器
 const app = express();
@@ -24,30 +25,34 @@ app.use(middleware);
 //     res.send({a:10,b:20})
 // })
 
-let goodslist = [];
-for(let i=0;i<20;i++){
-    let goods = {
-        id:i+1,
-        name:'goods'+i,
-        imgurl:'img/goods'+i + '.jpg',
-        price:(Math.random()*10000).toFixed(2)
-    }
-    goodslist.push(goods);
-}
+// let goodslist = [];
+// for(let i=0;i<20;i++){
+//     let goods = {
+//         id:i+1,
+//         name:'goods'+i,
+//         imgurl:'img/goods'+i + '.jpg',
+//         price:(Math.random()*10000).toFixed(2)
+//     }
+//     goodslist.push(goods);
+// }
 
 // 路由
-app.use('/goodslist',function(req,res,next){
-    // 只有访问路径为/goodslist时才会进入这个中间件
-    res.send(goodslist);
-})
+// app.use('/goodslist',function(req,res,next){
+//     // 只有访问路径为/goodslist时才会进入这个中间件
+//     res.send(goodslist);
+// })
+
 // 动态路由
-app.get('/goods/:id',function(req,res,next){
-    // 获取动态路由参数
-    const {id} = req.params;
-    // const result = goodslist.filter(item=>item.id==id);
-    const result = goodslist.find(item=>item.id==id)
-    res.send(result);
-})
+// app.get('/goods/:id',function(req,res,next){
+//     // 获取动态路由参数
+//     const {id} = req.params;
+//     // const result = goodslist.filter(item=>item.id==id);
+//     const result = goodslist.find(item=>item.id==id)
+//     res.send(result);
+// })
+
+// 数据接口
+app.use('/api',allRouter);
 
 // 监听端口
 app.listen(2008,()=>{

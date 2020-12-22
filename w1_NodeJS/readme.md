@@ -95,3 +95,23 @@
     * 分类
         * 内置中间件
             * express.static()
+* 接口(路由)
+    * RESTful规范
+        * 利用不同的请求类型实现不同的接口
+        * 利用不同的访问路径实现不同的接口
+    * 模块化 + 中间件
+        * express.Router()
+    * 请求类型
+        * get               查
+        * post              增
+        * put/patch         改
+        * delete            删
+* 传参
+    * 动态路由： /goods/:id
+        > 获取：req.params.id
+    * url查询参数：/goods/list?page=1&size10&category=phone
+        > 一般用于get请求，获取：req.query.page
+    * 请求体：利用express中间express.urlencoded(),express.json()
+        > 获取：req.body
+    * 请求头
+        > req.get(name)

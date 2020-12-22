@@ -8,5 +8,12 @@
 </head>
 <body>
     <h1>Express测试</h1>
+
+    <script>
+        let xhr = new XMLHttpRequest();
+        xhr.open('post','http://localhost:2008/api/goods',true);
+        xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+        xhr.send(`name=huawei mate40&price=5998`);
+    </script>
 </body>
 </html>
