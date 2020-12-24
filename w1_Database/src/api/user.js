@@ -1,5 +1,6 @@
 const express = require('express');
 const mysql = require('../db/mysql');
+const mongo = require('../db/mongodb');
 const router = express.Router();
 const {formatData} = require('../utils')
 
@@ -57,5 +58,27 @@ router.get('/',async (req,res)=>{
     }
 })
 
+// 注册新用户
+router.post('/reg',async (req,res)=>{
+    const {username,password} = req.body;
+
+    const result = await mongo.create('user',{username,password});
+    if(result){
+        res.send(formatData())
+    }else{
+        res.send(formatData({code:400}))
+    }
+});
+
+router.get('/login',async (req,res)=>{
+    const {username,password} = req.query;
+
+    const result = await mongo.find('user',{username,password});
+    if(result.length>0){
+        res.send(formatData())
+    }else{
+        res.send(formatData({code:400}))
+    }
+})
 
 module.exports = router;

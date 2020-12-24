@@ -268,6 +268,37 @@
 
 ## day1-4
 
+### 面试题
+* 事件传播
+    * 冒泡：
+        * 事件委托
+    * 捕获：
+        btn.addEventListener('click',function(){},true)
+    * 事件源对象：触发事件的节点对象
+        > 在事件传播过程中不会改变： event.target
+    * 阻止事件传播
+        > event.stopPropagation(), event.cancelBubble=true;
+* ES6中的扩展运算符: `...`
+    * 扩展操作
+    * 剩余操作
+    ```js
+        var goods = {name:'goods1',price:998,qty:10};
+        var good2 = {...goods,price:1998}
+
+        function sum(a,...b){
+
+        }
+        sum(10,20,30);
+        sum(10,20,30,40);
+
+        let {name,...o} = goods;
+
+        let arr = [10,6,98,2,3,22,44,12,6,2,44];
+        Math.max(...arr);// 等效于Math.max(10,6,98,2,3,22,44,12)
+
+        [...new Set(arr)]
+    ```
+
 ### 复习
 * mysql
     * 增删该查（CRUD）
@@ -282,3 +313,11 @@
             * 连接池
 ### 知识点
 * mongoDB
+
+
+* mongoDB与mySQL对比
+类型            数据库              表              数据
+mysql           database            table           row
+mongoDB         database            collection      document
+
+
