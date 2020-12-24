@@ -262,6 +262,23 @@
             * 年龄前5名用户：`select * from user order by age*1 litmit 0,5`
 * 在nodejs中使用mysql
     1. 安装：npm i mysql
-    2. 
+    2. 引入：require('mysql')
 * 统一前后端交互数据格式
     > {code,data,msg}
+
+## day1-4
+
+### 复习
+* mysql
+    * 增删该查（CRUD）
+        * C: insert into 表(field1,field2....) values()
+        * D: delete from 表 where条件
+        * U: update 表 set field=value where条件
+        * R: select * from 表
+    * 在Node中使用mysql
+        > 第三方模块：mysql
+        * 连接数据库
+            * 连接对象
+            * 连接池
+### 知识点
+* mongoDB
