@@ -343,3 +343,17 @@ mongoDB         database            collection      document
 ### 知识点
 * ObjectId： mongodb.ObjectId
     > 5fe44705b66bed4848f34799 -> ObjectId("5fe44705b66bed4848f34799")
+* 搭建项目
+    1. 创建目录
+        * doc           文档目录
+        * src           源码（后端）
+        * public        静态资源服务器（前端）
+        * package.json  项目配置文件
+    2. 安装依赖
+        > --save/-S, --save-dev/-D  -> npm install --production
+        * express
+        * mongodb
+        * bootstrap
+    3. 编写服务器
+    4. 编写模块
+        

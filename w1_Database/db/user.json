@@ -1,0 +1,4 @@
+{"_id":{"$oid":"5fe3f8b15fdf57d03ed2d2d2"},"username":"laoxie","password":"123654","role":"admin","email":"laoxie@laoxie.com"}
+{"_id":{"$oid":"5fe3f98b5fdf57d03ed2d2d3"},"username":"tiantian","password":"t123","role":"vip","email":"tt@laoxie.com","isDanshen":false}
+{"_id":{"$oid":"5fe3f98b5fdf57d03ed2d2d4"},"username":"zeze","password":"12","role":"member","age":27.0,"isDanshen":false}
+{"_id":{"$oid":"5fe55df177cdeb3eec9bd7ac"},"username":"jingjingplus","password":"12345"}

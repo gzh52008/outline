@@ -1,0 +1,19 @@
+{
+  "name": "w1_project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "laoxie",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^4.5.3",
+    "express": "^4.17.1",
+    "mongodb": "^3.6.3"
+  }
+}
