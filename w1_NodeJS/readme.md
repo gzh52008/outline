@@ -313,6 +313,9 @@
             * 连接池
 ### 知识点
 * mongoDB
+* 在NodeJS中使用mongoDB：驱动
+    * mongodb
+    * mongoose
 
 
 * mongoDB与mySQL对比
@@ -320,4 +323,23 @@
 mysql           database            table           row
 mongoDB         database            collection      document
 
+* 在Nodejs中操作mongo
+    * mongodb
+* 封装增删该查
+    * create()
+    * remove()
+    * update()
+    * find()
+* 统一前后端交互的数据格式
+    > {code,data,msg}
+    * code: 
+        * 200：成功
+        * 400：失败
+    * data: 数据，没有数据时为空数组
+    * msg：提示信息
 
+## day1-5
+
+### 知识点
+* ObjectId： mongodb.ObjectId
+    > 5fe44705b66bed4848f34799 -> ObjectId("5fe44705b66bed4848f34799")

@@ -10,8 +10,7 @@
 <body>
     <div class="container">
         <h1>免费注册</h1>
-        <div >
-
+        <div>
             <div class="form-group">
                 <label for="username">用户名</label>
                 <input type="text" class="form-control" id="username" aria-describedby="emailHelp">
@@ -22,8 +21,8 @@
                 <input type="password" class="form-control" id="password">
             </div>
             <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" id="mdl">
-                <label class="form-check-label" for="mdl">下次面登陆</label>
+                <input type="checkbox" class="form-check-input" id="xy">
+                <label class="form-check-label" for="xy">同意《xxx协议》</label>
             </div>
             <button type="submit" class="btn btn-success">注册</button>
 
@@ -33,13 +32,19 @@
         document.addEventListener('DOMContentLoaded',function(){
             let username = document.querySelector('#username');
             let password = document.querySelector('#password');
-            let mdl = document.querySelector('#mdl');
+            let xy = document.querySelector('#xy');
             let btn = document.querySelector('.btn');
 
+            let valid = true;
+
             btn.onclick = function(){
-                let _username = username.value;
-                let _password = password.value;
-                let _mdl = mdl.checked;
+                let _username = username.value.trim();
+                let _password = password.value.trim();
+                let _mdl = xy.checked;
+
+                if(!valid){
+                    return;
+                }
 
                 let xhr = new XMLHttpRequest();
                 xhr.onload = function(){
@@ -53,6 +58,27 @@
                 xhr.open('post','/api/user/reg',true);
                 xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
                 xhr.send(`username=${_username}&password=${_password}`)
+            }
+
+            // 检测用户名是否已被注册
+            let xhr_check = new XMLHttpRequest();
+            xhr_check.onload = function(){
+                let data = JSON.parse(xhr_check.responseText);
+                if(data.code === 200){
+                    username.classList.add('is-valid');
+                    username.classList.remove('is-invalid');
+                    valid = true;
+                }else if(data.code === 400){
+                    username.classList.remove('is-valid');
+                    username.classList.add('is-invalid');
+                    valid = false;
+                }
+            }
+            username.onchange = function(){
+                let _username = username.value;
+
+                xhr_check.open('get','/api/user/check?username='+_username,true);
+                xhr_check.send();
             }
         })
     </script>
