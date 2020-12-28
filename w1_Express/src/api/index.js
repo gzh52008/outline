@@ -5,6 +5,7 @@ const router = express.Router();
 const goodsRouter = require('./goods');
 const userRouter = require('./user');
 const cartRouter = require('./cart');
+const cors = require('../filter/cors');
 
 // router.all('*', function(req, res, next) {
 //     // 设置响应头
@@ -20,19 +21,7 @@ const cartRouter = require('./cart');
 //     // }
 // });
 
-router.use(function(req, res, next){
-    
-    res.header("Access-Control-Allow-Origin", "*");
-    res.set("Access-Control-Allow-Methods", "POST,PUT,PATCH");
-    res.set("Access-Control-Allow-Headers", "Content-Type");
-
-    // 处理预请求，预请求不需要响应内容，只需要响应200状态码
-    if(req.method=="OPTIONS") {
-        res.sendStatus(200);/*让options请求快速返回*/
-    } else{
-        next();
-    }
-})
+router.use(cors);
 
 router.use(express.urlencoded(),express.json())
 
@@ -61,8 +50,6 @@ router.get('/jsonp',(req,res)=>{
     res.send(`${callback}(${JSON.stringify(data)})`);
 });
 
-
-
 // CORS请求
 router.post('/cors',(req,res)=>{
     let data = [{
@@ -75,7 +62,29 @@ router.post('/cors',(req,res)=>{
         role:'vip'
     }]
     res.send(data)
-})
+});
+
+// 服务器代理: 利用http-proxy-middleware中间件实现
+// 1. 引入
+const { createProxyMiddleware } = require('http-proxy-middleware');
+
+// 2. 添加代理配置
+const mstProxy = createProxyMiddleware({
+    // 目标服务器
+    target: 'https://offer.qfh5.cn', 
+    changeOrigin: true,
+    pathRewrite:{
+        // 目标：https://offer.qfh5.cn/api/iq?sort=hot
+        // 我的数据接口：http://localhost:2008/api/mst/iq?sort=hot
+        // 代理过程：
+        // 1. 替换域名：https://offer.qfh5.cn/api/mst/iq?sort=hot
+        // 2. 替换路径：https://offer.qfh5.cn/api/iq?sort=hot
+        // 3. 发起请求并返回数据给前端
+        '^/api/mst': '/api',
+    }
+});
+
+router.use('/mst',mstProxy);
 
 
 module.exports = router;

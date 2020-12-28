@@ -390,7 +390,7 @@ mongoDB         database            collection      document
         * 上线
 * 跨域解决方案
     * jsonp
-        * 利用script标签请求数据（js代码为全局函数的执行，并传递数据）
+        > 利用script标签请求数据（js代码为全局函数的执行，并传递数据）
         * 关键点
             * 全局函数
             * script标签发起请求，并传递**函数名**
@@ -402,4 +402,32 @@ mongoDB         database            collection      document
     * CORS：跨域资源共享（Cross Origin Resource Sharing）
         * 简单请求与复杂请求（修改了请求头的请求）
             * 复杂请求下浏览器会自动发起OPTIONS预请求
+    
+    > 以上两种跨域解决方案，都需要服务器的支持
+
     * 服务器代理
+        > 利用服务器没有跨域限制的特性，在自己的服务器中向目标服务器请求数据，得到数据后，响应给前端
+    * 爬虫
+        > 获取html结构，筛选需要的内容
+        * 分析html结构
+        * 正则表达式
+* 页面渲染模式
+    * 客户端渲染BSR(Browser Side Rendering)：html结构在浏览器生成
+        * 前后端分离
+        * 一般会有数据接口
+        * 请求步骤
+            1. 请求html页面，返回空的html页面
+            2. 请求js文件，返回js内容
+            3. 解释js代码，发起ajax请求，并返回数据
+            4. 在浏览器端生成html结构并写入页面
+            5. 浏览器渲染html
+        * 优点
+            * 用户体验更好
+            * 更好分工与维护
+    * 服务端渲染SSR(Server Side Rendering)：html结构在服务器生成
+        * 前后端不分离
+        * 请求步骤
+            1. 请求html页面，返回完整html结构
+            2. 浏览器渲染html
+        * 优点：
+            * 速度快，一般用于首页优化

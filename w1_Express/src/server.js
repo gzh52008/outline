@@ -25,22 +25,22 @@ app.use(middleware);
 //     res.send({a:10,b:20})
 // })
 
-// let goodslist = [];
-// for(let i=0;i<20;i++){
-//     let goods = {
-//         id:i+1,
-//         name:'goods'+i,
-//         imgurl:'img/goods'+i + '.jpg',
-//         price:(Math.random()*10000).toFixed(2)
-//     }
-//     goodslist.push(goods);
-// }
+let goodslist = [];
+for(let i=0;i<20;i++){
+    let goods = {
+        id:i+1,
+        name:'goods'+i,
+        imgurl:'img/goods'+i + '.jpg',
+        price:(Math.random()*10000).toFixed(2)
+    }
+    goodslist.push(goods);
+}
 
 // 路由
-// app.use('/goodslist',function(req,res,next){
-//     // 只有访问路径为/goodslist时才会进入这个中间件
-//     res.send(goodslist);
-// })
+app.use('/goodslist',function(req,res,next){
+    // 只有访问路径为/goodslist时才会进入这个中间件
+    res.send(goodslist);
+})
 
 // 动态路由
 // app.get('/goods/:id',function(req,res,next){
@@ -53,6 +53,37 @@ app.use(middleware);
 
 // 数据接口
 app.use('/api',allRouter);
+
+// 商品列表：利用SSR渲染方式（服务器生成html结构）
+app.get('/goodses.html',(req,res)=>{
+    // 生成html结构
+    let html = `<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta http-equiv="X-UA-Compatible" content="ie=edge">
+            <title>商品列表</title>
+            <style>
+                #goodslist ul{overflow:hidden;list-style:none;padding:0;margin:0;}
+                #goodslist li{float:left;margin:10px;padding:15px;border:1px solid #ddd;}
+            </style>
+        </head>
+        <body>
+            <div class="goodslist">
+                <ul>
+            
+    `
+    for(let i=0;i<20;i++){
+        html += `<li>
+            <h4>goods${i+1}</h4>
+            <p class="price"><span>${parseInt(Math.random()*901)+100}</span></p>
+            <button>购买</button>
+        </li>`
+    }
+    html += `</ul></div></body></html>`;
+    res.send(html);
+})
 
 // 监听端口
 app.listen(2008,()=>{
