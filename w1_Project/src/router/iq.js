@@ -51,7 +51,7 @@ router.delete('/:id',async (req,res)=>{
     }
 });
 
-// 删除面试题
+//修改面试题
 router.put('/:id',async (req,res)=>{
     let {id} = req.params; 
     let {question,category,difficulty,hot} = req.body;
