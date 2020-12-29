@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>性感主播在线健身</title>
+    <style>
+		ul{list-style: none;padding:0;margin:0;}
+		.chat-list{position:relative;width:600px;margin:0 auto;}
+		.chat-list ul{padding:10px;min-height:200px;max-height:400px;overflow-y:auto;border:1px solid #ddd;}
+		.chat-list li{float:left;clear:both;margin:10px 0;padding:5px;line-height:2;border-radius:5px;background-color:#efefef;}
+        .chat-list li h4{margin:0;}
+		.chat-list li.active{float:right;background-color:#58bc58;color:#fff;}
+		.chat-list textarea{display:block;min-height:50px;margin:10px 0;width:100%;box-sizing: border-box;}
+		.userStatus{opacity:0;position: absolute;left:0;top:30px;right:0;padding:5px 10px;text-align:center;color:#999;background-color: rgba(98, 223, 98, 0.5);transition: all 1s;}
+		.login{text-align:right;}
+	</style>
+</head>
+<body>
+    <h1>H2008直播间</h1>
+    <div id="chat" class="chat-list">
+		<div class="login"><input type="text" name="username" id="username"><button class="btn-login">进入</button><button class="btn-logout">退出</a></div>
+		<ul>
+		</ul>
+		<textarea></textarea>
+		<button class="btn-send">提交</button>
+		<div class="userStatus"></div>
+	</div>
+    <script>
+       /**
+        *  客户端WebSocket
+            * 连接socket服务器
+            * 发送消息给socket服务器
+                * 统一消息格式：{username,msg,date,type}
+                    * type
+                        * 0：退出聊天室
+                        * 1: 进入聊天室
+                        * 2：发送消息
+        */
+
+        let chat = document.querySelector('#chat');
+        let login = chat.querySelector('.login');
+        let username = login.children[0];
+        let btnLogin = login.children[1];
+        let btnLogout = login.children[2];
+
+        let msglist = chat.querySelector('ul');
+        let msg = chat.querySelector('textarea');
+        let btnSend = chat.querySelector('.btn-send');
+        let userStatus = chat.querySelector('.userStatus');
+
+        let socket;
+        let datalist = [];
+        let socketUrl = 'ws://localhost:2008';
+
+        // 登录&退出
+        login.onclick = (e)=>{
+            
+            let _username = username.value.trim();
+            if(e.target.className === 'btn-login'){
+                // 进入聊天室
+
+                if(socket){
+                    return;
+                }
+
+
+                if(_username === ''){
+                    alert('请输入大名')
+                    return;
+                }
+
+                // 连接 socket 服务器
+                socket = new WebSocket(socketUrl);
+
+                // 监听 socket 的连接
+                socket.onopen = function(){
+                    // 连接服务器城后触发open事件
+                    userStatus.innerText = "服务已连接 "+socketUrl;
+
+                    const data = {
+                        username:username.value,
+                        msg:'',
+                        date:Date.now(),
+                        type:1
+                    }
+
+                    // 向服务器发送用户进入消息
+                    socket.send(JSON.stringify(data));
+
+                    // 禁用用户名修改
+                    username.disabled = true;
+                    btnLogin.disabled = true;
+                }
+
+                // 接收服务器广播的消息
+                socket.onmessage = (e)=>{
+                    const data = JSON.parse(e.data);
+
+                    switch(data.type){
+                        case 0:
+                            userStatus.style.opacity = 1;
+                            userStatus.innerText = `${data.username} 在 ${formatDate(data.date)} 退出直播间`;
+                            setTimeout(()=>{
+                                userStatus.style.opacity = 0;
+                            },5000)
+                            break;
+                        case 1:
+                            userStatus.style.opacity = 1;
+                            userStatus.innerText = `${data.username} 在 ${formatDate(data.date)} 进入直播间`;
+                            setTimeout(()=>{
+                                userStatus.style.opacity = 0;
+                            },5000)
+                            break;
+                        case 2:
+                            datalist.push(data);
+                            render();
+                    }
+                }
+
+                // 当前用户退出事件
+                socket.onclose = ()=>{
+                    username.disabled = false;
+                    btnLogin.disabled = false;
+                    socket = null;
+                }
+            }else if(e.target.className === 'btn-logout'){console.log(666)
+                // 退出聊天室
+                const data = {
+                        username:username.value,
+                        msg:'',
+                        date:Date.now(),
+                        type:0
+                    }
+                socket.send(JSON.stringify(data));
+                
+                socket.close()
+            }
+        }
+    
+        // 发送消息
+        // 1.客户端发送消息给服务端（统一格式）
+        // 2.socket服务器把消息广播给所有连接到服务器的人
+        btnSend.onclick = ()=>{
+            const data = {
+                username:username.value,
+                msg:msg.value,
+                date:Date.now(),
+                type:2
+            }
+            socket.send(JSON.stringify(data));
+
+            msg.value = '';
+            msg.focus();
+        }
+
+        function render(){
+            msglist.innerHTML = datalist.map(item=>`<li class="${item.username === username.value ? 'active':''}">
+                <h4>${item.username}：</h4>
+                <div class="content">${item.msg}</div>
+                <time>${formatDate(item.date)}</time>
+            </li>`).join('')
+        }
+
+        function formatDate(date){
+            let d = new Date(date);
+
+            let year = d.getFullYear();
+            let month = d.getMonth()+1;
+            let day = d.getDate();
+            let hours = d.getHours();
+            let min = d.getMinutes();
+            let sec = d.getSeconds();
+
+            hours = hours<10 ? '0' +hours : hours
+            min = min<10 ? '0' +min : min
+            sec = sec<10 ? '0' +sec : sec
+
+            return `${year}-${month}-${day} ${hours}:${min}:${sec}`
+        }
+    </script>
+</body>
+</html>

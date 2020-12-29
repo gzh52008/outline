@@ -440,6 +440,7 @@ mongoDB         database            collection      document
     * request
     * cheerio   
     * 爬取图片
+### 知识点
 * fs模块
     * fs.readFile()
     * fs.writeFile()
@@ -457,3 +458,19 @@ mongoDB         database            collection      document
         ```
 * 编码
     * 图片base64：`data:image/png;base64,编码`
+
+* 协议
+    * http(s)：
+        * 短连接
+        * 无状态
+        * 只能客户端主动，服务器被动
+    * socket
+        * 长连接
+        * 有状态
+        * 服务器可以主动
+
+* websocket
+    * 服务端
+        > 使用第三方模块`ws`
+    * 客户端
+        > 需要支持websocket的浏览器
