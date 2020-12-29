@@ -411,6 +411,7 @@ mongoDB         database            collection      document
         > 获取html结构，筛选需要的内容
         * 分析html结构
         * 正则表达式
+        * 爬取图片
 * 页面渲染模式
     * 客户端渲染BSR(Browser Side Rendering)：html结构在浏览器生成
         * 前后端分离
@@ -431,3 +432,28 @@ mongoDB         database            collection      document
             2. 浏览器渲染html
         * 优点：
             * 速度快，一般用于首页优化
+
+## day2-2
+
+### 复习
+* 爬虫
+    * request
+    * cheerio   
+    * 爬取图片
+* fs模块
+    * fs.readFile()
+    * fs.writeFile()
+    * 目录操作
+        * mkdir()
+    * Stream：流，一般用于打文件的读写
+        * 读取流：`fs.createReadStream(path)`
+        * 写入流：`fs.createWriteStream(path)`
+        * 管道流：pipe()
+
+        ```js
+            gulp.src('./src/js/*.js')
+            .pipe(uglify())
+            .pipe()
+        ```
+* 编码
+    * 图片base64：`data:image/png;base64,编码`
