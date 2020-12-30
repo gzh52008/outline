@@ -143,18 +143,21 @@ Vue.js 是一个基于MVVM模式的一套渐进式框架。它是以数据驱动
 
 * 存储器属性（getter & setter）
 ```js
+    // 字面量写法
     let laoxie = {
         firstName:'lao',
         lastName:'xie',
         get fullName(){
             return this.firstName + ' ' + lastName
         },
-        set(val){
+        set fullName(val){
             let username = val.split(' ');
             this.firstname = username[0];
             this.lastName = username[1];
         }
     }
+
+    // 也可以使用Object.defineProperty()设置
 ```
 
 * 设置响应式属性

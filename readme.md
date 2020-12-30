@@ -549,16 +549,39 @@ mongoDB         database            collection      document
 * Vue的使用
     * 数据绑定
         * 单向绑定：
-            * {{}}
-            * v-bind
+            * {{}}：绑定在内容上
+            * v-text
+            * v-html
+            * v-bind：绑定在属性上
                 > 格式：v-bind:attr="data"
         * 双向绑定: v-model
-            > 单向绑定+事件
+            > 单向绑定+事件， v-model的原理：v-bind:value + v-on:input
             1. 数据层->视图层
             2. 视图层->数据层
     * 数据驱动
         > 逻辑思维的转变：从节点操作改成数据操作
     * 指令：html的自定义属性
-        * v-bind
-        * v-model
-        * v-on
+        * v-bind    单项数据绑定（属性）
+        * v-model   双向数据绑定
+        * v-on      绑定事件
+        * v-for     遍历数据
+        * v-show    是否显示（显示与隐藏，如有频繁的显示隐藏操作，建议使用v-show，否则建议使用v-if）
+        * v-if      实现显示（创建与删除，）
+* 响应式属性
+    > 数据的改变会更新视图
+
+    * 属性特性
+        * 存储器属性
+            * configurable  可配置性（Boolean）
+            * enumerable    可枚举性（Boolean）
+            * getter        监听属性的读取
+            * setter        监听属性的修改
+        * 值属性
+            * configurable  可配置性（Boolean）
+            * enumerable    可枚举性（Boolean）
+            * writable      可写性
+            * value         值
+    > 传统方式**添加**的属性，默认属性特性为true；通过Object.defineProperty()**添加**的属性，默认属性特性为false
+* 数据绑定
+    > v-on
+    * 事件传参

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>tab标签切换</title>
+    <script src="js/vue.js"></script>
+    <style>
+        .tab .title{border-bottom:2px solid #ccc;overflow: hidden;}
+        .tab .title span{float: left;padding:0 15px;height:50px;line-height: 50px;border:1px solid #efefef;border-bottom:none;}
+        .tab .title span.active{border:1px solid #ccc;background-color:#ffc}
+        .tab .content{border:1px solid #ddd;padding:15px}
+    </style>
+</head>
+
+<body>
+    <h1>tab标签切换</h1>
+    <div id="app">
+        {{}}： <span>{{tabs[2].name}}</span><br>
+        v-text: <span v-text="tabs[2].name"></span><br>
+        v-html:  <span v-html="tabs[2].name"></span>
+        <div class="tab">
+            <div class="title">
+                <!-- <span class="active">laoxie</span>
+                <span>zeze</span>
+                <span>jingjing</span> -->
+                <span v-for="(item,idx) in tabs" v-bind:class="{active:idx===currentIndex,'tab-item':true}" v-on:click="changeTab(idx)">{{item.name}}</span>
+            </div>
+            <div class="content">
+                <!-- <div>laoxie喜欢大保健</div>
+                <div>zeze也喜欢大保健</div>
+                <div>jingjing最喜欢跟laoxie大保健</div> -->
+                <div v-for="(item,idx) in tabs" v-show="idx===currentIndex">{{item.name + item.hobby}}</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /**
+            * tab标签切换
+                     
+         */
+        const vm = new Vue({
+            el:'#app',
+            data:{
+                tabs:[{
+                    name:'laoxie',
+                    hobby:'喜欢大保健'
+                },{
+                    name:'zeze',
+                    hobby:'喜欢看大保健'
+                },{
+                    name:'<strong>jingjing</strong>',
+                    hobby:'最喜欢跟laoxie大保健'
+                }],
+                currentIndex:0,
+            },
+            methods:{
+                changeTab:function(idx){
+                    console.log('idx=',idx);
+                    this.currentIndex = idx;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

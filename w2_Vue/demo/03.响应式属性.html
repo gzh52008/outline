@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>03.响应式属性</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <h1>03.响应式属性</h1>
+    <div id="app">
+        <p>用户名：{{username}}</p>
+        <input type="text" v-bind:value="age" v-on:input="changeAge" />
+        <input type="text" v-model="username" />
+    </div>
+
+    <div id="myapp">
+
+    </div>
+
+    <script>
+        /**
+            * 03.响应式属性
+                 > 数据的改变会更新视图
+
+                   
+         */
+
+        let vm = new Vue({
+            el: '#app',
+
+            data: {
+                username: 'jingjing',
+                age: 32
+            },
+            methods: {
+                changeAge(e) {
+                    console.log('e=', e);
+                    this.age = e.target.value;
+                }
+            }
+        });
+
+        let myData = {
+            username: 'laoxie',
+            password: 123456,
+            role: 'admin',
+
+
+            //  //  要在数据被修改时更新视图，必须能监听到数据被修改的操作
+            // // 监听属性的读取操作：当age属性被读取时，执行这个函数
+            // get age() {
+            //     // 为所欲为
+            //     console.log('读取age属性');
+            //     return 18;
+            // },
+            // //  监听属性的修改操作：当age属性被修改时，执行这个函数
+            // set age(newValue) {
+            //     console.log('修改操作',newValue);
+
+            //     // 更新视图
+            //     myapp.innerText = newValue;
+            // }
+        }
+        // myData.id = '10086';
+        Object.defineProperty(myData,'id',{
+            configurable:true, // 总开关，用以设置其他属性特性
+            enumerable:false,
+            writable:false,
+            value:10086
+        });
+        // 修改username为不可枚举
+        // Object.defineProperty(myData,'username',{
+        //     enumerable:false
+        // })
+
+        // myapp.innerText = myData.age;
+
+        //    便利data数据，把数据变成getter&setter
+        let responsive = {};
+        for(let key in myData){console.log('key=',key);
+            // Object.defineProperty(target,key,descriptor)
+            // target: 目标对象
+            // key： 属性名
+            // descriptor: 属性特性
+
+            Object.defineProperty(responsive,key,{
+                configurable:true,
+                enumerable:true,
+                get(){
+                    return myData[key];
+                },
+                set(newValue){
+                    myData[key] = newValue;
+                    render();
+                }
+            })
+        }
+
+        render();
+
+        // responsive.username; // laoxie
+        // responsive.password = 'lx123';
+        
+        function render(){
+            myapp.innerText = '用户名：'+myData.username + ', 密码：' + myData.password;
+        }
+    </script>
+</body>
+
+</html>

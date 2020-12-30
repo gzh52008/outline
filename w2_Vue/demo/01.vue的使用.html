@@ -11,11 +11,10 @@
     <h1>01.vue的使用</h1>
     <!-- View视图层 -->
     <div id="app">
+        <!-- 能写在视图层中的数据，一定是Vue实例的属性 -->
         <p>用户名：{{username}}</p>
         <input type="text" v-bind:value="age" v-on:input="changeAge" />
         <input type="text" v-model="username" />
-
-
     </div>
 
     <script>
