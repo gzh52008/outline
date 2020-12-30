@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>01.vue的使用</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <h1>01.vue的使用</h1>
+    <!-- View视图层 -->
+    <div id="app">
+        <p>用户名：{{username}}</p>
+        <input type="text" v-bind:value="age" v-on:input="changeAge" />
+        <input type="text" v-model="username" />
+
+
+    </div>
+
+    <script>
+        /**
+            * vue的使用
+         */
+
+        //  model数据层
+        let data = {
+            username:'jingjing',
+            age:32
+        }
+
+        //  ViewModel控制层
+         let vm = new Vue({
+             // 关联视图层
+             el:'#app',
+
+             // 关联数据层
+             data:data,
+
+             methods:{
+                //  用来编写事件处理函数和工具函数
+                changeAge(e){
+                    console.log('e=',e);
+                    this.age = e.target.value;
+                }
+             }
+         });
+
+    </script>
+</body>
+</html>

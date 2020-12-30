@@ -17,9 +17,11 @@ const wss = new ws.Server({
 });
 
 wss.on('connection',(client)=>{
-    client.on('close',()=>{
-
-    });
+    // console.log(wss.clients.has(client),wss.clients.size);
+    // client.on('close',()=>{
+    //     // 清除客户端
+    //     console.log(wss.clients.has(client),wss.clients.size);
+    // });
     client.on('message',(data)=>{
         // 服务端只做一件事情：把用户发来的消息广播给其他用户
         wss.clients.forEach(client=>{
