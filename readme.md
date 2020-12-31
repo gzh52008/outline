@@ -585,3 +585,61 @@ mongoDB         database            collection      document
 * 数据绑定
     > v-on
     * 事件传参
+
+## day2-4
+
+### 复习
+* 架构模式
+    * MVC
+    * MVP
+    * MVVM
+    * 分层
+        * Model         数据层
+        * View          视图层
+        * Controller    控制器
+        * Presenter     松耦合的控制器
+        * ViewModel
+* 响应式属性
+    > 实例化Vue时，会遍历data中所有属性，把它们转成存储器属性（getter&setter），并写入Vue的实例
+
+* 数据绑定
+    * 单向
+        * {{}}
+        * v-text
+        * v-html
+        ```js
+            <div v-text="username">用户名：</div>
+            <div>用户名：{{username}}</div>
+        ```
+        * v-bind
+    * 双向数据绑定：v-model
+        * 视图->数据：事件（input,change...）
+        * 数据->视图：getter&setter
+* 指令：vue定义的html属性
+    * v-text
+    * v-html
+    * v-bind: :
+    * v-model
+    * v-on: @
+    * v-for
+    * v-show
+    * v-if/v-else-if/v-else
+    ```js
+        show = 10;
+        <div v-if="show===1">1</div>
+        <div v-else-if="show===2">2</div>
+        <div v-else>3</div>
+    ```
+*  数据驱动
+    > 逻辑思维的转变：从节点操作改成数据操作
+
+### 知识点
+* todolist
+    * 查：遍历显示
+    * 增：添加
+    * 删：删除数据
+    * 改
+
+* 特殊属性
+    * ref
+        > 给原生添加ref属性后，可以通过`this.$refs`获取所有的ref

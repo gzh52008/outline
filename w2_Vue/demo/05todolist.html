@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>05todolist</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div class="container p-3">
+        <h1 class="text-center">todolist待办事项列表</h1>
+        <div id="app">
+            <div class="input-group mt-3">
+                <input type="text" class="form-control" ref="input" v-model="event" />
+                <div class="input-group-append">
+                    <button class="btn btn-success" v-on:click="addItem">添加</button>
+                </div>
+            </div>
+            <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">代办事项</th>
+                        <th scope="col">是否完成</th>
+                        <th scope="col">操作</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="(item,idx) in todolist" :id="item.id" :class="{'table-success':item.complete}">
+                        <th scope="row">{{idx+1}}</th>
+                        <td>{{item.event}}</td>
+                        <td>{{item.complete ? '是':'否'}}</td>
+                        <td>
+                            <!-- <div class="btn-group"> -->
+
+                                <button class="btn btn-outline-primary btn-sm" @click="completeItem(item.id)">完成</button>
+                                <button class="btn btn-outline-danger btn-sm" @click="removeItem(item.id)">删除</button>
+                            <!-- </div> -->
+
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+        </div>
+
+    </div>
+
+    <script>
+        /**
+            * todolist待办事项列表
+         */
+
+         const vm = new Vue({
+             el:'#app',
+             data:{
+                 todolist:[{
+                     id:1,
+                     event:'定个小目标睡一整天',
+                     complete:false
+                 },{
+                     id:2,
+                     event:'赚他一个亿',
+                     complete:false
+                 },{
+                     id:3,
+                     event:'迎娶白富美，达到人生巅峰',
+                     complete:false
+                 },{
+                     id:4,
+                     event:'出人CEO，达到疯癫状态',
+                     complete:false
+                 }],
+                 maxId:4,
+                 event:''
+             },
+             methods:{
+                //  添加
+                addItem(){
+                    let newEvent = {
+                        id:++this.maxId,
+                        event:this.event,
+                        complete:false,
+                    }
+                    this.todolist.push(newEvent);
+
+                    // 清空并自动获得焦点
+                    this.event = '';
+
+                    this.$refs.input.focus();
+
+                },
+                // 删除
+                removeItem(id){
+                    this.todolist = this.todolist.filter(item=>item.id!=id);
+                },
+
+                // 修改
+                completeItem(id){
+                    this.todolist.forEach(item=>{
+                        if(item.id == id){
+                            item.complete = true;
+                        }
+                    })
+                }
+             }
+         })
+
+
+    </script>
+</body>
+
+</html>

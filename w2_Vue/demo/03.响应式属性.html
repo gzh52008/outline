@@ -48,6 +48,7 @@
             username: 'laoxie',
             password: 123456,
             role: 'admin',
+            _age:18
 
 
             //  //  要在数据被修改时更新视图，必须能监听到数据被修改的操作
@@ -55,16 +56,19 @@
             // get age() {
             //     // 为所欲为
             //     console.log('读取age属性');
-            //     return 18;
+            //     return this._age;
             // },
             // //  监听属性的修改操作：当age属性被修改时，执行这个函数
             // set age(newValue) {
             //     console.log('修改操作',newValue);
-
+            //        this._age = newValue;
             //     // 更新视图
             //     myapp.innerText = newValue;
             // }
         }
+        myData.age;//18;
+        myData.age = 20;//;
+        
         // myData.id = '10086';
         Object.defineProperty(myData,'id',{
             configurable:true, // 总开关，用以设置其他属性特性
