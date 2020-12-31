@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>06.设置响应式属性的方式</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div class="container p-3">
+        <h1 class="text-center">06.设置响应式属性的方式</h1>
+        <div id="app">
+            <p>姓名：{{username}}</p>
+            <p>成绩：{{score}}</p>
+            <p>总成绩：{{total}}</p>
+            <p>爱好：{{hobby}}</p>
+        </div>
+    </div>
+
+    <script>
+        /**
+            * 06.设置响应式属性的方式
+                * data
+                * Vue.set()/this.$set()
+                * computed
+            * 数据变异方法实现视图更新
+                > 被Vue重写的方法
+                
+                 
+            * 后添加的属性不会成为响应式属性
+            * 后添加的属性如何变成响应式属性
+                * Vue.set(target,key,val)
+                    > target对象不能是 Vue 实例，或者 Vue 实例的根数据对象
+         */
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                username: 'laoxie',
+                score: {
+                    chinese: 90,
+                    math: 100,
+                    english: 15
+                },
+                hobby: ['敲代码', '大保健', '与静静去大保健']
+            },
+            computed: {
+                total() {
+                    console.log('计算总成绩');
+                    let total = 0;
+                    for (let key in this.score) {
+                        total += this.score[key];
+                    }
+                    return total;
+                }
+            }
+
+            // this.$set()
+        })
+
+
+    </script>
+</body>
+
+</html>

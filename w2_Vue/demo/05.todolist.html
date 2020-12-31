@@ -15,7 +15,7 @@
         <h1 class="text-center">todolist待办事项列表</h1>
         <div id="app">
             <div class="input-group mt-3">
-                <input type="text" class="form-control" ref="input" v-model="event" />
+                <input type="text" class="form-control" ref="input" v-model="event" @keyup.enter="addItem" />
                 <div class="input-group-append">
                     <button class="btn btn-success" v-on:click="addItem">添加</button>
                 </div>
@@ -45,6 +45,7 @@
                       </tr>
                     </tbody>
                   </table>
+                  <div class="border border-secondary p-3">代办事项：{{todolist.length}}，完成：{{completelist.length}}，未完成：{{uncompletelist.length}}</div>
         </div>
 
     </div>
@@ -60,7 +61,7 @@
                  todolist:[{
                      id:1,
                      event:'定个小目标睡一整天',
-                     complete:false
+                     complete:true
                  },{
                      id:2,
                      event:'赚他一个亿',
@@ -76,6 +77,26 @@
                  }],
                  maxId:4,
                  event:''
+             },
+             // 计算属性：一般用于对data数据进行过滤，映射，计算等操作
+             // 计算属性为存储器属性，默认为getter
+             // 计算属性具有缓存功能
+             computed:{
+                completelist:function(){
+                    console.log('666')
+                    return this.todolist.filter(item=>item.complete)
+                },
+                uncompletelist:function(){
+                    return this.todolist.filter(item=>!item.complete)
+                }
+                // test:{
+                //     get(){
+                //        return this.maxId; 
+                //     },
+                //     set(newVal){
+                //         this.maxId = newVal;
+                //     }
+                // }
              },
              methods:{
                 //  添加
