@@ -18,14 +18,14 @@
         </div>
     </div>
     <template id="todoItem">
-        <tr v-for="(item,idx) in datalist" :id="item.id" :class="{'table-success':item.complete}">
+        <tr :id="item.id" :class="{'table-success':item.complete}">
             <th scope="row">{{idx+1}}</th>
             <td>{{item.event}}</td>
             <td>{{item.complete ? '是':'否'}}</td>
             <td>
 
-                <button class="btn btn-outline-primary btn-sm" @click="completeItem(item.id)">完成</button>
-                <button class="btn btn-outline-danger btn-sm" @click="removeItem(item.id)">删除</button>
+                <button class="btn btn-outline-primary btn-sm" @click="complete(item.id)">完成</button>
+                <button class="btn btn-outline-danger btn-sm" @click="remove(item.id)">删除</button>
 
             </td>
         </tr>
@@ -49,27 +49,19 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(item,idx) in datalist" :id="item.id" :class="{'table-success':item.complete}">
-                    <th scope="row">{{idx+1}}</th>
-                    <td>{{item.event}}</td>
-                    <td>{{item.complete ? '是':'否'}}</td>
-                    <td>
-
-                        <button class="btn btn-outline-primary btn-sm" @click="completeItem(item.id)">完成</button>
-                        <button class="btn btn-outline-danger btn-sm" @click="removeItem(item.id)">删除</button>
-
-                    </td>
-                </tr>
+                <!-- <tr is="todo-item" v-for="(item,idx) in datalist" :key="item.id" :item="item" :idx="idx" :complete="complete" :remove="remove"></tr> -->
+                <tr is="todo-item" v-for="(item,idx) in datalist" :key="item.id" :item="item" :idx="idx"></tr>
             </tbody>
         </table>
     </template>
     <template id="todoStatus">
         <div class="border border-secondary p-3">
-            代办事项：{{datalist.length}}，完成：{{completelist.length}}，未完成：{{uncompletelist.length}}</div>
+            待办事项：{{datalist.length}}，完成：{{completelist.length}}，未完成：{{uncompletelist.length}}</div>
     </template>
     <template id="todolist">
         <div class="todolist">
             <todo-add v-on:add="addItem"></todo-add>
+            <!-- <todo-content :datalist="datalist" :complete="completeItem" :remove="removeItem"></todo-content> -->
             <todo-content :datalist="datalist"></todo-content>
             <todo-status :datalist="datalist"></todo-status>
         </div>
@@ -84,9 +76,69 @@
                         * options: 组件配置选项（几乎与Vue实例一致）
                     * 局部组件：components
          */
+        // 定义一个Vue实例，用于传输数据
+        // const Bus = new Vue();
 
+        const todoAdd = {
+            data:function(){
+                return {
+                    event: ''
+                }
+            },
+            template: `#todoAdd`,
+            methods:{
+                addItem(){
+                    // 触发自定义事件
+                    this.$emit('add',this.event);
 
+                    // this.$on('add',)// 与v-on一致
 
+                    // 清空并自动获得焦点
+                    this.event = '';
+
+                    this.$refs.input.focus();
+                }
+            }
+        }
+        const todoItem = {
+            // props:['item','idx','complete','remove'],
+            props:['item','idx'],
+            template: '#todoItem',
+            methods:{
+                complete(id){
+                    // 触发事件并传递数据
+                    // Bus.$emit('complete',id);
+                    this.$root.$emit('complete',id);
+                },
+                remove(id){
+                    // Bus.$emit('remove',id);
+                    this.$root.$emit('remove',id);
+                }
+            },
+
+        }
+        const todoContent = {
+            // 接收props数据: props中的数据会自动成为组件实例的属性
+            // props: ['datalist','complete','remove'],
+            props: ['datalist'],
+            template: '#todoContent',
+            components: {
+                todoItem
+            }
+        }
+
+        const todoStatus = {
+            props: ['datalist'],
+            computed: {
+                completelist() {
+                    return this.datalist.filter(item => item.complete)
+                },
+                uncompletelist() {
+                    return this.datalist.filter(item => !item.complete)
+                }
+            },
+            template: '#todoStatus'
+        }
 
         //  定义todolist组件
         Vue.component('todolist', {
@@ -116,54 +168,15 @@
             template: `#todolist`,
             components: {
                 // 定义todoAdd组件
-                todoAdd: {
-                    data:function(){
-                        return {
-                            event: ''
-                        }
-                    },
-                    template: `#todoAdd`,
-                    methods:{
-                        addItem(){
-                            // 触发自定义事件
-                            this.$emit('add',this.event);
-
-                            // this.$on('add',)// 与v-on一致
-
-                            // 清空并自动获得焦点
-                            this.event = '';
-
-                            this.$refs.input.focus();
-                        }
-                    }
-                },
+                todoAdd,
                 // 定义todoContent组件
-                todoContent: {
-                    // 接收props数据: props中的数据会自动成为组件实例的属性
-                    props: ['datalist'],
-                    template: '#todoContent',
-                    components: {
-                        todoItem: {
-                            template: '#todoItem'
-                        }
-                    }
-                },
+                todoContent,
                 // 定义todoStatus组件
-                todoStatus: {
-                    props: ['datalist'],
-                    computed: {
-                        completelist() {
-                            return this.datalist.filter(item => item.complete)
-                        },
-                        uncompletelist() {
-                            return this.datalist.filter(item => !item.complete)
-                        }
-                    },
-                    template: '#todoStatus'
-                }
+                todoStatus
 
             },
             methods:{
+                // 添加
                 addItem(data){
                     let newEvent = {
                         id:++this.maxId,
@@ -185,6 +198,19 @@
                         }
                     })
                 }
+            },
+
+            // 生命周期函数：在某个节点会自动执行的函数
+            created(){
+                // Vue实例创建完成后执行这里的代码（自动）
+
+                // 给事件总线添加两个自定义事件
+                // Bus.$on('complete',this.completeItem);
+                // Bus.$on('remove',this.removeItem);
+                this.$root.$on('complete',this.completeItem);
+                this.$root.$on('remove',this.removeItem);
+
+                // console.log('todolist=',this);
             }
         });
 
@@ -195,83 +221,9 @@
                 title: '模板'
             },
             //  template:'<div>laoxie{{title}}</div>'
-        })
+        });
 
-        //  const vm = new Vue({
-        //      el:'#app',
-        //      data:{
-        //          todolist:[{
-        //              id:1,
-        //              event:'定个小目标睡一整天',
-        //              complete:true
-        //          },{
-        //              id:2,
-        //              event:'赚他一个亿',
-        //              complete:false
-        //          },{
-        //              id:3,
-        //              event:'迎娶白富美，达到人生巅峰',
-        //              complete:false
-        //          },{
-        //              id:4,
-        //              event:'出人CEO，达到疯癫状态',
-        //              complete:false
-        //          }],
-        //          maxId:4,
-        //          event:''
-        //      },
-        //      // 计算属性：一般用于对data数据进行过滤，映射，计算等操作
-        //      // 计算属性为存储器属性，默认为getter
-        //      // 计算属性具有缓存功能
-        //      computed:{
-        //         completelist:function(){
-        //             console.log('666')
-        //             return this.todolist.filter(item=>item.complete)
-        //         },
-        //         uncompletelist:function(){
-        //             return this.todolist.filter(item=>!item.complete)
-        //         }
-        //         // test:{
-        //         //     get(){
-        //         //        return this.maxId; 
-        //         //     },
-        //         //     set(newVal){
-        //         //         this.maxId = newVal;
-        //         //     }
-        //         // }
-        //      },
-        //      methods:{
-        //         //  添加
-        //         addItem(){
-        //             let newEvent = {
-        //                 id:++this.maxId,
-        //                 event:this.event,
-        //                 complete:false,
-        //             }
-        //             this.todolist.push(newEvent);
-
-        //             // 清空并自动获得焦点
-        //             this.event = '';
-
-        //             this.$refs.input.focus();
-
-        //         },
-        //         // 删除
-        //         removeItem(id){
-        //             this.todolist = this.todolist.filter(item=>item.id!=id);
-        //         },
-
-        //         // 修改
-        //         completeItem(id){
-        //             this.todolist.forEach(item=>{
-        //                 if(item.id == id){
-        //                     item.complete = true;
-        //                 }
-        //             })
-        //         }
-        //      }
-        //  })
-
+        console.log('vm=',vm);
 
     </script>
 </body>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>08.父子通讯与数据类型校验</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div class="container p-3">
+        <h1 class="text-center">08.父子通讯与数据类型校验</h1>
+        <div id="app">
+           <data-list :data="hotlist" :idx="10" age="19" username="laoxie" class="box"></data-list>
+           <data-list></data-list>
+           <!-- <data-list :data="iqInfo"></data-list> -->
+        </div>
+    </div>
+    <template id="datalist">
+        <div>
+            <h1>datalist</h1>
+            <ul>
+                <li v-for="item in data">{{item}}</li>
+            </ul>
+        </div>
+    </template>
+    <script>
+        /*
+            父子通讯
+        */
+
+        const dataList = {
+            props:{
+                // 类型校验
+                // data:Array
+                data:{
+                    type:Array,
+                    // required:true,
+                    default:function(){
+                        return []
+                    }
+                },
+                idx:{
+                    type:[String,Number]
+                },
+                age:{
+                    validator: function (val) {
+                        // 这个值必须大于等于60，否则报错
+                        return val>=18 && val<=30
+                    }
+                }
+            },
+            data(){
+                return {
+
+                }
+            },
+            template:'#datalist'
+        }
+
+        const vm = new Vue({
+            el:'#app',
+            data:{
+                hotlist:['Vue组件的定义方式有那些','Vue组件通讯方式有那些','Vue组件与Vue的实例配置哪些不同点'],
+                iqInfo:{
+                    name:'Vue组件通讯方式有那些',
+                    id:123,
+                    hot:1234
+                }
+            },
+            components:{
+                dataList
+            }
+        })
+    </script>
+</body>
+
+</html>
