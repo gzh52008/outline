@@ -15,7 +15,7 @@
         <h1 class="text-center">08.父子通讯与数据类型校验</h1>
         <div id="app">
            <data-list :data="hotlist" :idx="10" age="19" username="laoxie" class="box"></data-list>
-           <data-list></data-list>
+           <data-list ref="dl"></data-list>
            <!-- <data-list :data="iqInfo"></data-list> -->
         </div>
     </div>
@@ -73,6 +73,9 @@
             },
             components:{
                 dataList
+            },
+            created(){
+                this.$refs.dl.idx
             }
         })
     </script>

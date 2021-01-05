@@ -719,3 +719,75 @@ mongoDB         database            collection      document
     * 对象
     * 数字
     * 字符串
+
+## day3-2
+
+### 复习
+* 组件: 为了复用、分工、维护
+    > 组件也是一个Vue实例, template, data必须为函数
+    * 定义方式
+        * 全局
+        * 局部
+    * 组件通讯
+        * 父->子：props
+            * 父组件定义
+            * 子组件接收
+        * 子->父：
+            * 自定义事件
+                * 绑定
+                    * v-on
+                    * $on()
+                * 触发
+                    * $emit()
+                * 移除
+                    * $off()
+            * 把父组件的函数传到子组件执行
+        * 兄弟->兄弟
+        * 深层次组件通讯
+            * 逐层传递（不推荐）
+            * 事件总线：Bus, $root
+    * 组件层级
+        * 父组件：$parent
+        * 子组件: $children
+        * 根组件：$root
+        * 应用
+            * 子组件获取父组件的数据、方法：
+                * props传递
+                * $parent.show()
+            * 父组件获取子组件的数据、方法
+                * $children[0].show()
+                * ref
+                    * 给html元素设置ref属性，得到元素节点
+                    * 给组件设置ref属性，得到组件实例
+* 数据流：与组件层级有关
+    * 单向数据流：主流框架全部采用单项数据流
+    * 双向数据流：angularJS
+* 数据绑定：与分层有关
+    * 单向绑定
+    * 双向绑定
+* 数据类型校验
+    * props:['idx']
+    * props:{
+        idx:[Number,String]
+    }
+    * 默认值：default
+    * 必填: required
+    * 自定义校验规则: validator(){}
+
+### 知识点
+* Vue-cli
+    * 安装：` npm i -g @vue/cli`
+    * 创建项目：`vue create projectName`
+    * 目录结构
+        * node_modules      项目依赖（第三方模块）
+        * public            网站根目录
+        * src               源码
+        * .gitignore        git过滤清单
+        * babel.config.js   babel的配置文件
+        * package.json      项目配置文件
+        * package-lock.json 锁定依赖版本
+    * 启动项目
+        * npm script    npm脚本命令
+            * 运行：`npm run xxx`
+* ESModule
+* Vue单文件组件
