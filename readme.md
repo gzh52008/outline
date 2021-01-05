@@ -782,6 +782,7 @@ mongoDB         database            collection      document
         * node_modules      项目依赖（第三方模块）
         * public            网站根目录
         * src               源码
+            * main.js       入口文件
         * .gitignore        git过滤清单
         * babel.config.js   babel的配置文件
         * package.json      项目配置文件
@@ -789,5 +790,35 @@ mongoDB         database            collection      document
     * 启动项目
         * npm script    npm脚本命令
             * 运行：`npm run xxx`
-* ESModule
+
+* 模块化开发规范
+    * 分类
+        * commonJS
+        * AMD
+        * CMD
+        * ESModule
+    * 导入
+        * commonJS: require()
+        * AMD/CMD: require()
+        * ESModule: import
+            > 格式： import xxx from url; import {xxx} from url
+    * 导出
+        * commonJS: module.exports
+        *  AMD/CMD: define()
+        * ESMoudle: export
+            > export后只能跟`function`、`class`、`var`、`let`、`const`、`default`、`{}`
+
 * Vue单文件组件
+    > 后缀为：`.vue`
+* webpack
+* ESlint
+* Vue生命周期函数
+    > 了解生命周期函数在什么时候执行，每个生命周期函数中适合做什么操作
+    * beforeCreate
+    * created
+    * beofreMount
+    * mounted
+    * beforeUpdate
+    * updated
+    * beforeDestroy
+    * destroyed

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>09.ESModule</title>
+</head>
+<body>
+    <!-- <script type="module" src="./module/request.js"></script> -->
+    <script type="module">
+        /**
+         * 在浏览器端使用ESModule 
+         */
+        import ajax,{baseUrl,request} from './module/request.js';
+        console.log('ajax',ajax);
+        console.log('baseUrl',baseUrl);
+        console.log('request',request);
+    </script>
+</body>
+</html>
