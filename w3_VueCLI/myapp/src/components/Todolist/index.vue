@@ -1,8 +1,7 @@
 <template>
   <div class="todolist container">
-    <div id="test" ref="test">{{datalist}}</div>
     <TodoAdd v-on:add="addItem"></TodoAdd>
-    <TodoContent :datalist="datalist"></TodoContent>
+    <TodoContent :datalist="datalist" v-on:selectall="selectAll"></TodoContent>
     <TodoStatus :datalist="datalist"></TodoStatus>
   </div>
 </template>
@@ -22,22 +21,26 @@ export default {
         {
           id: 1,
           event: "定个小目标睡Ta一整天",
-          complete: true
+          complete: true,
+          checked:false,
         },
         {
           id: 2,
           event: "赚他一个亿",
-          complete: false
+          complete: false,
+          checked:false,
         },
         {
           id: 3,
           event: "迎娶白富美，达到人生巅峰",
-          complete: false
+          complete: false,
+          checked:true,
         },
         {
           id: 4,
           event: "出人CEO，达到疯癫状态",
-          complete: false
+          complete: false,
+          checked:false,
         }
       ],
       maxId: 4
@@ -70,23 +73,27 @@ export default {
           item.complete = true;
         }
       });
+    },
+    selectItem(id){
+      this.datalist = this.datalist.map(item=>{
+        if(item.id == id){
+          item.checked = !item.checked;
+        }
+        return item;
+      })
+    },
+    selectAll(checked){
+      this.datalist = this.datalist.map(item=>{
+        item.checked = checked;
+        return item;
+      })
     }
   },
-  beforeCreate(){
-    console.log('beforeCreate.datalist=',this.datalist)
-  },
   created(){
-    console.log('created.datalist=',this.datalist)
-
     Bus.$on('complete',this.completeItem)
     Bus.$on('remove',this.removeItem)
+    Bus.$on('select',this.selectItem)
   },
-  beforeMount(){
-    console.log('beforeMounte=',this.$refs.test.innerHTML)
-  },
-  mounted(){
-     console.log('mounted=',document.querySelector('#test').innerHTML)
-  }
 };
 </script>
 <style>

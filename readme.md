@@ -929,9 +929,10 @@ mongoDB         database            collection      document
         * 更新阶段
             1. beforeUpdate     更新前
             2. updated          更新后
-
-
-
+        * 销毁阶段
+            1. beforeDestory    销毁前
+            2. destoryed        销毁后
+### 知识点
 * 虚拟DOM（VirtualDOM）: 虚拟节点的集合（虚拟节点是结构类似与真实DOM节点的js对象）
     * 真实DOM：浏览器在解析html结构时，按照层级把每个元素渲染成Node节点，所有节点组合成一个树状结构的形状的**DOM树**
         > 节点的频繁操作会影响页面性能，节点操作不可避免，但可以减少
@@ -947,6 +948,32 @@ mongoDB         database            collection      document
             </ul>
         </div>
 
+        {
+            type:'div',
+            props:{className:'datalist'},
+            children:[
+                {type:'h1',props:null,children:[]}
+                {type:'ul',props:{className:'list'},children:[
+                    {type:'li',children:'' props:{key:1}}
+                    {type:'li',children:'' props:{key:2}}
+                ]}
+            ]
+        }
+
+
+        {
+            type:'div',
+            props:{className:'datalist clearfix'},
+            children:[
+                {type:'h1',props:null,children:[]}
+                {type:'ul',props:{className:'list'},children:[
+                    {type:'li',children:'', props:{key:2}}
+                    {type:'li',children:'', props:{key:1}}
+                ]}
+            ]
+        }
+        
+
         <div>{{username}}</div>
 
         vm.username = 'laoxie'
@@ -955,3 +982,25 @@ mongoDB         database            collection      document
         vm.username = 'laoxie'
 
     ```
+* 插槽slot
+    * 定义：组件内容->组件模板（由组件外传入组件内）
+        * 默认插槽: default
+        * 命名插槽: name="xxx"
+            > 命名插槽可以让我们更精确地放置数据位置
+        ```js
+            // 默认插槽
+            <slot/>
+            // 命名插槽
+            <slot name="list" />
+        ```
+    * 使用：v-slot（简写：#）
+        > v-slot只能写在template或组件上
+        ```js
+            <template v-slot:list>
+                // 这里的代码会写入到组件内的list命名插槽上
+            </template>
+        ```
+    * 作用域插槽（有组件内传向组件外）
+        > 为了实现可定制化
+* 事件
+    * v-on绑定在组件上的事件，默认无法生效

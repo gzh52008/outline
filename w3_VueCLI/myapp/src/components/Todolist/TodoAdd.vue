@@ -2,11 +2,13 @@
   <div class="input-group mt-3">
     <input type="text" class="form-control" ref="input" v-model="event" @keyup.enter="addItem" />
     <div class="input-group-append">
-      <button class="btn btn-success" @click="addItem">添加</button>
+      <!-- <button class="btn btn-success" @click="addItem">添加</button> -->
+      <TodoButton class="btn-success" @click.native="addItem">添加</TodoButton>
     </div>
   </div>
 </template>
 <script>
+import TodoButton from './TodoButton.vue'
 export default {
   name: "TodoAdd",
   data: function() {
@@ -27,6 +29,9 @@ export default {
 
       this.$refs.input.focus();
     }
+  },
+  components:{
+    TodoButton
   }
 };
 </script>
