@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>11.节点频繁操作对性能的影响</title>
+</head>
+<body>
+    <h1>11.节点频繁操作对性能的影响</h1>
+    <div class="box">0</div>
+    <script>
+        // 把.box中的数字，从1改成1000
+        /*
+            节点操作数量    花费时间
+            30000           1500ms
+            20001           1200ms
+            10002           40ms
+            3               2ms
+        */
+        console.time('jj')
+        var box = document.querySelector('.box');
+        var num = box.innerText;
+        for(var i=1;i<=10000;i++){
+            num++;
+        }
+        box.innerText = num;
+        console.timeEnd('jj')
+    </script>
+</body>
+</html>

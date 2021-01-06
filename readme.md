@@ -800,7 +800,7 @@ mongoDB         database            collection      document
     * 导入
         * commonJS: require()
         * AMD/CMD: require()
-        * ESModule: import
+        * ESModule: import，静态引入
             > 格式： import xxx from url; import {xxx} from url
     * 导出
         * commonJS: module.exports
@@ -822,3 +822,136 @@ mongoDB         database            collection      document
     * updated
     * beforeDestroy
     * destroyed
+
+## day3-3
+
+### 面试题
+* 模块化开发规范与区别
+    * commonJS      NodeJS              同步
+    * ESMoudle      ES6                 同步（静态引入）
+    * AMD/CMD       require.js/sea.js   异步
+* Vue的computed与methods、data的区别
+    ```js
+        new Vue({
+            data:{
+                total:100
+            },
+            computed:{ // 缓存
+                //sum(){ // getter
+                    // 花费10s
+                //},
+                sum:{
+                    get(){
+                        return this.total;
+                    },
+                    set(newVal){
+                        this.total = newVal
+                    }
+                }
+            },
+            methods:{
+                cal(){
+                    // 花费10s
+                }
+            }
+        })
+
+        cal();
+        cal();
+        sum
+        sum
+    ```
+* jQuery中链式调用的原理
+```js
+    $('button').addClass('btn')
+    $('button').on('click',function(){})
+    $('button').attr('type','submit')
+
+    $('button').addClass('btn').on('click',function(){}).attr('type','submit')
+    // 在每个方法内返回实例this
+
+    addClass(){
+
+        return this
+    },
+    on(){
+
+        return this
+    },
+    attr(){
+
+        return this;
+    }
+```
+### 复习
+* Vue-cli
+    * 安装：全局安装（为了在命令行使用，需要配置环境变量）
+    * 使用：创建vue项目
+        ```bash
+            vue create projectName
+        ```
+* ESModule
+    * 导出：定义模块并导出
+        > 模块对象，ESModule把一个文件当作一个模块，一个模块就有一个模块对象
+        * export: 给模块对象添加属性
+            * function
+            * let
+            * const
+            * var
+            * class
+            * default   给模块对象添加默认属性default
+            * {}        给模块对象批量添加属性
+            ```js
+                export {}
+                export default {}
+            ```
+        * as 改名
+        ```js
+            exoprt { laoxie as jingjing}
+        ```
+    * 导入：引入别的模块
+        > 具有缓存特性：多次导入不会影响性能
+        * import:
+            * `import xx from <url> `   引入模块对象中的default属性
+            * `import {xx} from <url>`  引入模块对象中的xx属性
+            * `import {xx as xxx} from <url>`  引入模块对象中的xx属性，并赋值给xxx变量
+            * `import * as xx  from <url>` 引入模块对象中所有属性并复制给xx变量
+
+* vue单文件组件
+    > 把html结构，js代码，css样式放在同一个文件中，后缀名为`.vue`
+* vue生命周期
+    * 生命周期函数
+        * 实例化阶段
+            1. beforeCreate     创建前（无法获取实例属性）
+            2. created          创建后（可以获取实例属性）
+            3. beforeMount      挂载前（数据挂载到视图前）
+            4. mounted          挂载后（数据成功挂载到视图）
+        * 更新阶段
+            1. beforeUpdate     更新前
+            2. updated          更新后
+
+
+
+* 虚拟DOM（VirtualDOM）: 虚拟节点的集合（虚拟节点是结构类似与真实DOM节点的js对象）
+    * 真实DOM：浏览器在解析html结构时，按照层级把每个元素渲染成Node节点，所有节点组合成一个树状结构的形状的**DOM树**
+        > 节点的频繁操作会影响页面性能，节点操作不可避免，但可以减少
+    * Vue是如何减少节点操作的呢：VirtualDOM
+        * diff算法：在一个更新周期内，对比虚拟DOM前后状态，找出差异项，然后跟新真实DOM节点
+            * key: 唯一且稳定
+    ```js
+        <div class="datalist">
+            <h1></h1>
+            <ul class="list">
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+
+        <div>{{username}}</div>
+
+        vm.username = 'laoxie'
+        vm.username = 'jj'
+        vm.username = 'jj'
+        vm.username = 'laoxie'
+
+    ```
