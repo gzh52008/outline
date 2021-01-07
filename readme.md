@@ -1004,3 +1004,63 @@ mongoDB         database            collection      document
         > 为了实现可定制化
 * 事件
     * v-on绑定在组件上的事件，默认无法生效
+
+## day3-4
+
+### 复习
+* VirtualDOM
+    * diff算法
+    * key
+* 插槽slot： v-slot
+    * 外->内（组件内容->组件模板）
+        * 默认插槽: name="default"
+        * 命名插槽：name="xx"
+            ```js
+                <slot/>
+                <slot name="xx" />
+            ```
+        * 使用
+            ```js
+                <mycomponent>
+                    // 这里的内容会插入到默认插槽中
+                    <template v-slot:xx>
+                        // 这里的内容会插入到xx命名插槽中
+                    </template
+                </mycomponent>
+            ```
+    * 内->外：作用域插槽
+        > 可定制化结构
+        * 定义
+            ```js
+                <slot name="a" psw="b" />
+                <slot name="xx" name="c" psw="d" />
+            ```
+        * 使用
+            ```js
+                <mycomponent>
+                    <template v-slot:default="{name,psw}">
+
+                    </template>
+                    <template v-slot:xx="scope">
+                        // 这里的内容会插入到xx命名插槽中
+                    </template
+                </mycomponent>
+            ````
+* 指令与修饰符
+```js
+    <mycomponent username="laoxie" class="btn" a="10" b="20" c="30" v-bind="{a:10,b:20,c:30}" />
+
+    {
+        name:'mycomponent',
+        // props:['username'],// 接收props会成为组件实例的属性，不接收会成为组件根元素的属性（自动合并）
+    }
+```
+* 内置组件
+    * slot
+    * component 组件容器
+        * is
+    * keep-alive
+* vue版本
+    * 完整版
+        > 完整版=运行时版本+编译器(template->render)
+    * 运行时版本（runtime-only）

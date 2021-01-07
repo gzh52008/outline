@@ -23,6 +23,8 @@
     </Slots>
 
     <Dcomponent/>
+
+    <keepalive/>
   </div>
 </template>
 
@@ -33,6 +35,7 @@ import Todolist from './components/Todolist/index.vue';
 
 import Slots from './components/Slots.vue';
 import Dcomponent from './components/Dcomponent.vue';
+import Keepalive from './components/Keepalive.vue';
 
 export default {
   name: 'App',
@@ -41,7 +44,8 @@ export default {
     // Datalist,
     Todolist,
     Slots,
-    Dcomponent
+    Dcomponent,
+    Keepalive
   }
 }
 </script>
