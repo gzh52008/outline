@@ -1055,6 +1055,8 @@ mongoDB         database            collection      document
         // props:['username'],// 接收props会成为组件实例的属性，不接收会成为组件根元素的属性（自动合并）
     }
 ```
+
+### 知识点
 * 内置组件
     * slot
     * component 组件容器
@@ -1064,3 +1066,38 @@ mongoDB         database            collection      document
     * 完整版
         > 完整版=运行时版本+编译器(template->render)
     * 运行时版本（runtime-only）
+
+* 多页面应用: MPA(Multiple Page Application)
+    > 通过a标签跳转
+* 单页面应用：SPA(Single Page Application)
+    > 整个应用只有一个index.html页面
+    * 路由：实现单页面多视图
+        * 通过hash实现：锚点
+* VueRouter
+    * 路由类型
+        * hash路由：根据hash值不同，渲染不同的内容（开发阶段推荐）
+        * history路由（生产阶段推荐）
+    * 使用
+        1. 安装与引用: import
+        2. 使用：Vue.use()
+        3. 实例化路由并配置
+            ```js
+                new VueRouter({
+                    routes:[{
+                        path,
+                        component
+                    }]
+                })
+            ```
+        4. 注入根实例
+    * 内置组件
+        * 显示路由内容：`<router-view/>`
+        * 跳转页面：`<router-link/>`
+    * 导航
+        * 声明式导航
+        * 编程式导航
+            * $router   路由对象，一般用于路由跳转
+            * $route    当前路由信息，保存当前页面的信息
+
+* watch
+    > 监听属性修改，可以监听子属性
