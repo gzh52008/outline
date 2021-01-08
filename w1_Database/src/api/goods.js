@@ -44,5 +44,16 @@ router.get('/',async(req,res)=>{
     }
 });
 
+router.get('/:id',async (req,res)=>{
+    let {id} = req.params;
+    let sql = `select * from goods where id=${id}`;
+    try{
+        const result = await mysql.query(sql);
+        res.send(formatData({data:result[0]}));
+    }catch(err){
+        res.send(formatData({code:400,data:err}))
+    }
+})
+
 
 module.exports = router;

@@ -112,6 +112,15 @@ body{
   del{color:#999}
   span{color:#f00}
 }
+@for $i from 1 to 6{
+  .m-#{$i}{
+    margin:$i*0.3em;
+  }
+  .p-#{$i}{
+    padding:$i*0.3em;
+  }
+}
+
 nav a {
   margin: 0 10px;
 }

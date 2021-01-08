@@ -1104,6 +1104,17 @@ mongoDB         database            collection      document
 
 ## day3-5
 
+### 面试题
+* 生命周期函数执行过程
+    1. beforeCreate
+    2. created
+    3. beforeMount
+    4. mounted
+* props与data
+    * props为父组件传入的数据
+    * data为组件的数据
+
+
 ### 复习
 * VueRouter
     * hash路由（默认）： #
@@ -1142,3 +1153,15 @@ mongoDB         database            collection      document
 
 ### 知识点
 * axios
+* 路由传参
+    * 动态路由
+        * 路径上使用变量：`/goods/:id`
+        * 接收：$route.params
+        > 如果通过params传递id，则必须使用name跳转
+    * url参数
+        > 写在问号后的参数：`/goods?id=2`
+        * 接收：$route.query
+    * params传参
+        > 跳转是传参：$router.push({path:'/goods',params:{}})，刷新后消失
+        * 接收：$route.params
+    

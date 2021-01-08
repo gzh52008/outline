@@ -7,6 +7,7 @@ import Discover from '../views/Discover.vue';
 import Cart from '../views/Cart.vue';
 import Login from '../views/Login.vue';
 import Reg from '../views/Reg.vue';
+import Goods from '../views/Goods.vue';
 
 
 // 2. 使用
@@ -32,8 +33,13 @@ const router = new VueRouter({
     path:'/discover',
     component:Discover
   },{
+    name:'cart',
     path:'/cart',
     component:Cart
+  },{
+    name:'goods',
+    path:'/goods/:id', // 路径匹配/goods/xxx这个格式时，才渲染Goods组件
+    component:Goods
   }]
 });
 

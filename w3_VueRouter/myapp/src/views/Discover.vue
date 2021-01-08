@@ -1,28 +1,40 @@
 <template>
   <div class="discover">
       <header>
-          <el-button @click="changeSort('price')">
+          <el-button type="primary" plain size="mini" @click="changeSort('price')">
               价格
               <i :class="{'el-icon-bottom':sort=='price-desc','el-icon-top':sort=='price-asc'}"></i>
         </el-button>
       </header>
     <el-row :gutter="20">
-      <el-col :span="6" v-for="item in goodslist" :key="item.id" style="margin-top:20px">
+      <el-col :xs="12" :sm="8" :md="6" :lg="4" v-for="item in goodslist" :key="item.id" style="margin-top:20px">
         <el-card :body-style="{ padding: '0px',height:'220px' }">
           <img
             :src="item.imgurl"
             class="image"
+            @click="gotoDetail(item.id)"
           />
           <div style="padding: 14px;">
             <h4>{{item.name}}</h4>
             <div class="bottom clearfix">
               <p class="price"><span>{{item.price}}</span></p>
-              <el-button type="text" class="button">商品详情</el-button>
+              <el-button type="text" class="button" @click="gotoDetail(item.id)">商品详情</el-button>
             </div>
           </div>
         </el-card>
       </el-col>
     </el-row>
+    <el-divider></el-divider>
+    <el-pagination
+    background
+    layout="total,prev, pager, next,sizes"
+    :total="200"
+    :page-size="size"
+    :page-sizes="[10,20,30,50]"
+    @current-change="pageChange"
+    @size-change="sizeChange"
+    >
+</el-pagination>
   </div>
 </template>
 <script>
@@ -32,8 +44,10 @@ export default {
   name: "Discover",
   data() {
     return {
-        sort:'',
-        goodslist: []
+        sort:null,
+        goodslist: [],
+        page:1,
+        size:10
     };
   },
   async created() {
@@ -42,13 +56,40 @@ export default {
   },
   methods:{
       changeSort(type){
-          this.sort = type + `-${this.sort.includes('desc') ? 'asc':'desc'}`
-          this.getData({sort:this.sort});// price-desc
+          this.sort = type + `-${this.sort&&this.sort.includes('desc') ? 'asc':'desc'}`
+          this.getData();// price-desc
       },
-      async getData(params){
-           const { data } = await axios.get("http://localhost:2008/api/goods",{params});
+      async getData(){
+          let {page,size,sort} = this;
+           const { data } = await axios.get("http://localhost:2008/api/goods",{
+               params:{page,size,sort}
+            });
             console.log("data=", data);
             this.goodslist = data.data;
+      },
+      pageChange(currentPage){
+          this.page = currentPage;
+          
+          this.getData()
+      },
+      sizeChange(currentSize){
+          this.size = currentSize;
+          this.getData();
+      },
+      gotoDetail(id){
+        //   this.$router.push('/goods/'+id + '?id='+id);
+          this.$router.push({
+            //   path:'/goods',
+            name:"goods",
+              params:{
+                  id,
+                  username:'laoxie'
+              },
+              query:{
+                  a:10,
+                  b:20
+              }
+          });
       }
   }
 };
