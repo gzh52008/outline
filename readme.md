@@ -1101,3 +1101,44 @@ mongoDB         database            collection      document
 
 * watch
     > 监听属性修改，可以监听子属性
+
+## day3-5
+
+### 复习
+* VueRouter
+    * hash路由（默认）： #
+    * 使用步骤
+        1. 安装引用
+        2. 使用Vue.use()
+        3. 实例化路由并配置
+            * mode: hash（默认）,history
+            * routes
+                * path
+                * component
+        4. 注入实例
+        5. 使用
+            * 显示：<router-view/>
+            * 导航
+                * 声明式导航：<router-link/>
+                    * to
+                    * event
+                    * tag
+                    * active-class/exact-active-class
+                    * replace
+                * 编程式导航
+                    * $router   路由对象，一般用与路由跳转
+                        * push()
+                        * replace()
+                        * go()/back()/forward()
+                    * $route    当前路由信息
+* watch
+    > 监听实例属性，还可以监听实例属性的子属性
+* SPA: 
+* UI框架
+    * ElementUI 饿了么团队出品
+    * iView 腾讯出品
+    * ant-design  蚂蚁金服
+    * vue-strap twitter
+
+### 知识点
+* axios

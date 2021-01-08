@@ -22,12 +22,22 @@ router.post('/',async (req,res)=>{console.log(666)
 
 router.get('/',async(req,res)=>{
     // 接收get参数
-    let {page,size,sort='addtime'} = req.query;
+    let {page=1,size=10,sort='addtime'} = req.query;
     let idx = (page-1)*size;
     size *=1;
-    let sql = `select * from goods order by ${sort}*1 limit ${idx},${size}`;
+    sort = sort.split('-');
+    let sql = `select * from goods order by`;
+    if(sort[0] == 'price'){
+       sql +=` ${sort[0]}*1`
+    }else {
+        sql +=` ${sort[0]}`
+    }
+    if(sort[1]){
+        sql += ` ${sort[1]}`
+    }
+    sql += ` limit ${idx},${size}`;console.log('sql',sql);
     try{
-        const result = await mysql.query(sql);console.log(result);
+        const result = await mysql.query(sql);
         res.send(formatData({data:result}));
     }catch(err){
         res.send(formatData({code:400,data:err}))

@@ -101,9 +101,16 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 body{
   margin:0;
+}
+.price{
+  span::before,del::before{
+    content:'￥'
+  }
+  del{color:#999}
+  span{color:#f00}
 }
 nav a {
   margin: 0 10px;
