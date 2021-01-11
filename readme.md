@@ -1150,6 +1150,7 @@ mongoDB         database            collection      document
     * iView 腾讯出品
     * ant-design  蚂蚁金服
     * vue-strap twitter
+    * VantUI    有赞（移动端电商）
 
 ### 知识点
 * axios
@@ -1209,6 +1210,23 @@ mongoDB         database            collection      document
     * 服务器存储
 ### 知识点
 * 路由多视图
+* 动态路由
+    * 动态路由的改变，并更不会使组件的产生创建与销毁
+        * watch
+        * 路由守卫：路由生命周期函数
+            * 全局守卫：写在路由配置文件中
+                > 任何的跳转都会执行的函数
+                * beforeEach()
+                * afterEach()
+            * 组件内的守卫：写在路由组件内
+                * beforeRouteEnter()
+                * beforeRouteUpdate()
+                * beforeRouteLeave()
+            * 路由独享的守卫: 写在路由配置中
+                * beforeEnter()
+            * 应用：页面访问权限
+        * 路由跳转
+            * 激活组件: to
+            * 失活的组件: from
+        
 
-
-姓名    github账号

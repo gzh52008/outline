@@ -8,6 +8,7 @@ import Cart from '../views/Cart.vue';
 import Login from '../views/Login.vue';
 import Reg from '../views/Reg.vue';
 import Goods from '../views/Goods.vue';
+import NotFound from '../views/NotFound.vue';
 
 
 // 2. 使用
@@ -27,7 +28,12 @@ const router = new VueRouter({
     //   left:
     //   main:
     // }
-  },{
+  },
+  {
+    path:'/',
+    redirect:'/home'
+  },
+  {
     path:'/reg',
     component:Reg
   },{
@@ -52,8 +58,37 @@ const router = new VueRouter({
   },{
     name:'goods',
     path:'/goods/:id', // 路径匹配/goods/xxx这个格式时，才渲染Goods组件
-    component:Goods
+    component:Goods,
+    beforeEnter(to,from,next){
+      console.log('beforeEnter')
+      next();
+    }
+  },{
+    path:'/notfound',
+    name:'NotFound',
+    component:NotFound
+  },{
+    path:'/*',
+    // redirect:'/notfound',
+    redirect:{name:'NotFound'}
   }]
 });
+
+// 全局路由守卫
+// 开始导航
+router.beforeEach(function(to,from,next){
+  console.log('beforeEach=',to.path,from.path);
+  next();
+})
+
+// 确认导航
+router.beforeResolve((to,from,next)=>{
+  console.log('beforeResolve=',to.path,from.path);
+  next();
+})
+// 结束导航
+router.afterEach(function(to,from){
+  console.log('afterEach=',to.path,from.path);
+})
 
 export default router;

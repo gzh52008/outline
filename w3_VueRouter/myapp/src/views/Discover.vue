@@ -7,18 +7,18 @@
         </el-button>
       </header>
     <el-row :gutter="20">
-      <el-col :xs="12" :sm="8" :md="6" :lg="4" v-for="item in goodslist" :key="item.id" style="margin-top:20px">
+      <el-col :xs="12" :sm="8" :md="6" :lg="4" v-for="item in goodslist" :key="item._id" style="margin-top:20px">
         <el-card :body-style="{ padding: '0px',height:'220px' }">
           <img
             :src="item.imgurl"
             class="image"
-            @click="gotoDetail(item.id)"
+            @click="gotoDetail(item._id)"
           />
           <div style="padding: 14px;">
             <h4>{{item.name}}</h4>
             <div class="bottom clearfix">
-              <p class="price"><span>{{item.price}}</span></p>
-              <el-button type="text" class="button" @click="gotoDetail(item.id)">商品详情</el-button>
+              <p class="price"><del>{{item.price}}</del><span>{{item.sale_price}}</span></p>
+              <el-button type="text" class="button" @click="gotoDetail(item._id)">商品详情</el-button>
             </div>
           </div>
         </el-card>
@@ -82,16 +82,26 @@ export default {
             //   path:'/goods',
             name:"goods",
               params:{
-                  id,
-                  username:'laoxie'
+                  id
               },
-              query:{
-                  a:10,
-                  b:20
-              }
           });
       }
-  }
+  },
+  // 组件内路由守卫
+    beforeRouteEnter:function(to,from,next){
+        console.log('Discover.beforeRouteEnter')
+        next();
+    },
+    // 等效于watch:{'$route':function(to,from){}}
+    beforeRouteUpdate(to,from,next){
+        console.log('Discover.beforeRouteUpdate',to,from)
+        this.getData(to.params.id);
+        next();
+    },
+    beforeRouteLeave(to,from,next){
+        console.log('Discover.beforeRouteLeave')
+        next();
+    },
 };
 </script>
 <style lang="scss">

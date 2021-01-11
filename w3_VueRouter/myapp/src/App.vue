@@ -34,8 +34,10 @@
         <el-button type="text" @click="goto('/login')">登录</el-button>
       </el-col>
     </el-row>
-    <button @click="$router.push({name:'cart',params:{a:10,b:20}})">购物车</button>
+    <!-- <button @click="$router.push({name:'cart',params:{a:10,b:20}})">购物车</button> -->
+    <!-- <keep-alive> -->
     <router-view />
+    <!-- </keep-alive> -->
     <!-- <div class="left">
       <router-view name="left" />
     </div>
@@ -87,8 +89,8 @@ export default {
   // 监听数据：监听实例的属性
   watch: {
     // 监听路由变化，实现高亮效果
-    "$route.path": function(newVal, oldVal) {
-      console.log(newVal, oldVal);
+    "$route.path": function(newVal) {
+      // console.log(newVal, oldVal);
       this.current = newVal;
     }
   },
