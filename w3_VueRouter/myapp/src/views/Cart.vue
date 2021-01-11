@@ -5,6 +5,15 @@
 </template>
 <script>
 export default {
-    name:'Cart'
+    name:'Cart',
+    props:['a'],
+    data(){
+        return {
+            name:'cart',
+        }
+    },
+    created(){
+        console.log('Cart=',this.$route.params,this);
+    }
 }
 </script>

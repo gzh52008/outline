@@ -1164,4 +1164,51 @@ mongoDB         database            collection      document
     * params传参
         > 跳转是传参：$router.push({path:'/goods',params:{}})，刷新后消失
         * 接收：$route.params
-    
+
+## day4-1
+### 复习
+* 路由跳转
+    * path
+    * name
+* 路由传参
+    * 跳转时传参
+        * params: 
+            > 通过$route.prams获取，但刷新后消失（动态路由例外）
+            * 动态路由: 配置路由时路径为变量`/goods/:id`
+                > 获取：$route.prams.id
+        * query
+            > 通过this.$route.query获取，刷新后数据依然存在
+            ```js
+                this.$router.push({
+                    path:'/goods',
+                    params:{
+                        id:123
+                    },
+                    query:{
+                        username:"lx"
+                        psw:'123456'
+                    }
+                })
+                // 特殊params:动态路由
+                this.$router.push({
+                    name:'goods',// 等效于：path:/goods/123
+                    params:{
+                        id:123
+                    },
+                    query:{
+
+                    }
+                })
+            ```
+    * 定义时传参：props
+* 数据持久化
+    * url参数
+        * path
+        * query
+    * 本地存储
+    * 服务器存储
+### 知识点
+* 路由多视图
+
+
+姓名    github账号

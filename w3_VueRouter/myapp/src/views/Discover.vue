@@ -61,7 +61,7 @@ export default {
       },
       async getData(){
           let {page,size,sort} = this;
-           const { data } = await axios.get("http://localhost:2008/api/goods",{
+           const { data } = await axios.get("http://localhost:3000/api/goods",{
                params:{page,size,sort}
             });
             console.log("data=", data);

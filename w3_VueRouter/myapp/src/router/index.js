@@ -22,7 +22,11 @@ const router = new VueRouter({
   routes:[{
     // 当浏览器地址为/home时，渲染Home组件的内容
     path:'/home',
-    component:Home
+    component:Home,
+    // components:{
+    //   left:
+    //   main:
+    // }
   },{
     path:'/reg',
     component:Reg
@@ -35,7 +39,16 @@ const router = new VueRouter({
   },{
     name:'cart',
     path:'/cart',
-    component:Cart
+    // 定义时传参：props
+    // 1. Boolean方式：等效于<Cart v-bind="$route.params" />
+    // props:true,
+    // 2. Object方式：等效于<Cart v-bind="{pageName:'CartPage',step:1}" />
+    // props:{pageName:'CartPage',step:1},
+    // 3. Function方法：把函数返回值作为props
+    props:function(){
+      return {a:true,b:false,c:100}
+    },
+    component:Cart, // <Cart a='10' b='20' />
   },{
     name:'goods',
     path:'/goods/:id', // 路径匹配/goods/xxx这个格式时，才渲染Goods组件

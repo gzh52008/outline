@@ -34,8 +34,14 @@
         <el-button type="text" @click="goto('/login')">登录</el-button>
       </el-col>
     </el-row>
-
+    <button @click="$router.push({name:'cart',params:{a:10,b:20}})">购物车</button>
     <router-view />
+    <!-- <div class="left">
+      <router-view name="left" />
+    </div>
+    <div class="main">
+      <router-view name="main" />
+    </div> -->
   </div>
 </template>
 
