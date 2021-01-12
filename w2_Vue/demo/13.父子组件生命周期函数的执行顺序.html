@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>13.父子组件生命周期函数的执行顺序</title>
+    <script src="js/vue.js"></script>
+    
+</head>
+<body>
+    <div id="app">
+        父组件：{{name}}
+       <son :myparent="name"></son>
+    </div>
+   
+    <script>
+        /**
+            13.父子组件生命周期函数的执行顺序
+        */
+       
+        let vm = new Vue({
+            el:'#app',
+            data:{
+                name:'Vm',
+            },
+            beforeCreate(){
+                console.log('vm.beforeCreate')
+            },
+            created(){
+                console.log('vm.created')
+            },
+            beforeMount(){
+                console.log('vm.beforeMounte')
+            },
+            mounted(){
+                console.log('vm.mounted')
+            },
+            components:{
+                son:{
+                    props:['myparent'],
+                    data(){
+                        return {name:"Sub"}
+                    },
+                    template:`<div>{{name}}</div>`,
+                    beforeCreate(){
+                        console.log('sub.beforeCreate')
+                        console.log(this.myparent);
+                    },
+                    created(){
+                        console.log('sub.created',this.myparent)
+                    },
+                    beforeMount(){
+                        console.log('sub.beforeMounte')
+                    },
+                    mounted(){
+                        console.log('sub.mounted')
+                    },
+                }
+            }
+        })
+        
+    </script>
+</body>
+</html>

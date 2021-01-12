@@ -1229,4 +1229,50 @@ mongoDB         database            collection      document
             * 激活组件: to
             * 失活的组件: from
         
+## day4-2
 
+### 面试题
+* 虚拟DOM
+    * diff算法
+    * key: 唯一且稳定
+        * 没有key：采用复用原则
+* 子组件在哪个生命周期函数最先获取到props传入的数据
+    > created
+* 父子组件的生命周期执行顺序
+    1. 父组件beforeCreate
+    2. 父组件created
+    3. 父组件beforeMount
+    4. 子组件beforeCreate
+    5. 子组件created
+    6. 子组件beforeMount
+    7. 子组件mounted
+    8. 父组件mounted
+### 复习
+* 路由多视图
+* watch
+    > $route
+* 路由守卫
+    * 全局守卫
+        > 是路由实例的方法，写在路由配置文件中
+        * router.beforeEach()
+        * router.beforeResolve()
+        * router.afterEach()
+    * 路由独享
+        > 写在路由配置中
+        * beforeEnter
+    * 组件内的守卫
+        * beforeRouteEnter
+        * beforeRouteUpdate
+        * beforeRouteLeave
+    * 路由守卫参数
+        * to
+        * from
+        * next()
+* 路由重定向: redirect
+    * / -> /home
+    * 404
+### 知识点
+* 子路由: children
+* ref
+    * 写在html元素上：得到html元素节点
+    * 写在组件上：得到组件实例
