@@ -45,7 +45,7 @@
   </div>
 </template>
 <script>
-import axios from "axios";
+// import {request} from '../utils'
 export default {
   name: "Goods",
   data() {
@@ -68,8 +68,8 @@ export default {
     
 
     // 获取热门商品
-    const { data: hotlist } = await axios.get(
-      "http://localhost:3000/api/goods",
+    const { data: hotlist } = await this.$ajax.get(
+      "/goods",
       {
         params: { size: 6 },
       }
@@ -101,7 +101,7 @@ export default {
     async getData(id){
         let {
             data: { data },
-        } = await axios.get("http://localhost:3000/api/goods/" + id);
+        } = await this.$ajax.get("/goods/" + id);
 
         console.log("data=", data);
 

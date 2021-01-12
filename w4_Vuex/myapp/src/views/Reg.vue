@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>免费注册</h1>
     <el-form
       :model="ruleForm"
       status-icon
@@ -26,9 +27,26 @@
   </div>
 </template>
 <script>
+
 export default {
   name: "Reg",
   data() {
+    var checkUsername = (rule, value, callback) => {
+          this.$ajax.get('/user/check',{
+            params:{
+              username:value
+            }
+          }).then(({data})=>{
+            if(data.code === 200){
+              callback();
+
+            }else if(data.code === 400){
+              callback(new Error('用户名已存在'));
+
+            }
+
+          })
+      };
     return {
       ruleForm: {
         username: "",
@@ -43,19 +61,34 @@ export default {
             message: "用户名长度必须在3到10",
             trigger: "blur",
           },
+          {
+            validator:checkUsername,trigger:'change'
+          }
         ],
         password: [
           { required: true, message: "请输入密码", trigger: "blur" },
+          {
+            min: 6,
+            max: 12,
+            message: "密码长度必须在6到12",
+            trigger: "blur",
+          },
         ],
       },
     };
   },
   methods:{
       submitForm() {
-        this.$refs.regForm.validate((valid) => {
+        this.$refs.regForm.validate(async (valid) => {
           if (valid) {
-            console.log('表单校验通过');
-            // ajax注册用户
+            const {username,password} = this.ruleForm;
+           // 发起ajax请求注册
+            const {data} = await this.$ajax.post('/user/reg',{username,password});
+            if(data.code == 200){
+              this.$router.replace('/login')
+            }else{
+              this.$message.error('注册失败，请重新注册')
+            }
           } else {
             console.log('error submit!!');
             return false;

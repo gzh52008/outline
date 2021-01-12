@@ -3,6 +3,7 @@ const mysql = require('../db/mysql');
 const mongo = require('../db/mongodb');
 const router = express.Router();
 const {formatData} = require('../utils')
+const crypto = require('crypto');
 
 // --------mysql-----------
 // 查询用户名是否存在
@@ -70,7 +71,13 @@ const colName = 'user';
 router.post('/reg',async (req,res)=>{
     const {username,password} = req.body;
 
-    const result = await mongo.create(colName,{username,password});
+    // 指定加密算法：md5,sha1,sha128,sha256,sha512
+    const hash = crypto.createHash('sha256');
+    hash.update(password);
+    const newPassword = hash.digest('base64');
+    console.log(password,newPassword);
+
+    const result = await mongo.create(colName,{username,password:newPassword});
     if(result){
         res.send(formatData())
     }else{

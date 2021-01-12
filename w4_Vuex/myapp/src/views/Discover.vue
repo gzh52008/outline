@@ -22,16 +22,18 @@
       </header>
     <el-row :gutter="20">
       <el-col :xs="12" :sm="8" :md="6" :lg="4" v-for="item in goodslist" :key="item._id" style="margin-top:20px">
-        <el-card :body-style="{ padding: '0px',height:'220px' }">
+        <el-card :body-style="{ padding: '0px',height:'420px' }">
           <img
-            :src="item.imgurl"
+            :src="'/img/'+item.imgurl"
             class="image"
             @click="gotoDetail(item._id)"
           />
           <div style="padding: 14px;">
             <h4>{{item.name}}</h4>
             <div class="bottom clearfix">
-              <p class="price"><del>{{item.price}}</del><span>{{item.sale_price}}</span></p>
+              <p class="price">
+                <del>{{item.price}}</del>
+                <span>{{item.sale_price.toFixed(2)}}</span></p>
               <el-button type="text" class="button" @click="gotoDetail(item._id)">商品详情</el-button>
             </div>
           </div>
@@ -55,7 +57,10 @@
   </div>
 </template>
 <script>
-import axios from "axios";
+// import request from '../utils/request'
+// import {request,formatDate} from '../utils'
+// import * as all from '../utils';
+// console.log('all=',all);
 
 export default {
   name: "Discover",
@@ -96,7 +101,10 @@ export default {
       },
       async getData(){
           let {page,size,sort} = this;
-           const { data } = await axios.get("http://localhost:3000/api/goods",{
+          //  const { data } = await axios.get("http://localhost:3000/api/goods",{
+          //      params:{page,size,sort}
+          //   });
+           const { data } = await this.$ajax.get("/goods",{
                params:{page,size,sort}
             });
             console.log("data=", data);
@@ -139,6 +147,11 @@ export default {
     },
 };
 </script>
-<style lang="scss">
-    .discover{padding:20px;}
+<style lang="scss" scoped>
+  // scoped: 样式只在当前组件生效
+  // 原理：data-v-[hash]配合属性选择器实现组件局部样式
+  .el-card__body{
+    h4{margin-top:0;}
+    img{width:100%;}
+  } 
 </style>

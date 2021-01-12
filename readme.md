@@ -1247,6 +1247,21 @@ mongoDB         database            collection      document
     6. 子组件beforeMount
     7. 子组件mounted
     8. 父组件mounted
+* 如何让代码停留5s
+    ```js
+        function sleep(time){
+            return new Promise((resolve)=>{
+                setTimeout(()=>{
+                    resolve()
+                },time)
+            })
+        }
+        console.log('start')
+        // 停留5s
+        await sleep(5000);
+        
+        console.log('end');
+    ```
 ### 复习
 * 路由多视图
 * watch
@@ -1276,3 +1291,10 @@ mongoDB         database            collection      document
 * ref
     * 写在html元素上：得到html元素节点
     * 写在组件上：得到组件实例
+* axios二次封装
+    * baseUrl
+* Node环境变量：process.env.NODE_ENV
+    * development
+    * production
+* 组件局部样式：scoped
+    * 原理：自定义属性`data-v-[hash]`配合属性选择器实现
