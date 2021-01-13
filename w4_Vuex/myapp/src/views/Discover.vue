@@ -150,8 +150,5 @@ export default {
 <style lang="scss" scoped>
   // scoped: 样式只在当前组件生效
   // 原理：data-v-[hash]配合属性选择器实现组件局部样式
-  .el-card__body{
-    h4{margin-top:0;}
-    img{width:100%;}
-  } 
+  
 </style>

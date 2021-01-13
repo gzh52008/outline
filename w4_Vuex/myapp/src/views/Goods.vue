@@ -1,6 +1,6 @@
 <template>
   <div class="p-3">
-    <img :src="detail.imgurl" />
+    <img :src="'/img/'+detail.imgurl" />
     <h1>{{ detail.name }}</h1>
     <p class="price">
       原价：<del>{{ detail.price }}</del>
@@ -25,10 +25,10 @@
           style="margin-top: 20px"
         >
           <el-card
-            :body-style="{ padding: '0px', height: '220px' }"
+            :body-style="{ padding: '0px', height: '260px' }"
             @click.native="gotoDetail(item._id)"
           >
-            <img :src="item.imgurl" class="image" />
+            <img :src="'/img/'+item.imgurl" class="image" />
             <div style="padding: 14px">
               <h4>{{ item.name }}</h4>
               <div class="bottom clearfix">
@@ -110,3 +110,9 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+.el-card__body{
+  h4{font-size:16px;font-weight: normal;height:36px;line-height:18px;overflow: hidden;}
+    img{width:150px;}
+  } 
+</style>

@@ -1337,3 +1337,12 @@ mongoDB         database            collection      document
             * 解密
                 * 公钥加密，私钥解密
                 * 私钥加密，公钥解密
+        * https
+            * ssl证书
+* vuex
+    > 是一个状态(state数据)管理工具
+    * 核心配置
+        * state     数据, 类似与组件中的data
+        * getters   类似与组件中的computed
+        * mutations 修改state的唯一方式，类似于组件中的methods
+            > 调用mutation方法格式：`$store.commit('changeUser',{username:"laoxie",password:123456})`

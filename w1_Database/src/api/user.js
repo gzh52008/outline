@@ -2,7 +2,7 @@ const express = require('express');
 const mysql = require('../db/mysql');
 const mongo = require('../db/mongodb');
 const router = express.Router();
-const {formatData} = require('../utils')
+const { formatData } = require('../utils')
 const crypto = require('crypto');
 
 // --------mysql-----------
@@ -68,33 +68,37 @@ const colName = 'user';
 /**
  * 注册新用户
  */
-router.post('/reg',async (req,res)=>{
-    const {username,password} = req.body;
+router.post('/reg', async (req, res) => {
+    const { username, password } = req.body;
 
     // 指定加密算法：md5,sha1,sha128,sha256,sha512
     const hash = crypto.createHash('sha256');
     hash.update(password);
     const newPassword = hash.digest('base64');
-    console.log(password,newPassword);
 
-    const result = await mongo.create(colName,{username,password:newPassword});
-    if(result){
+    let userData = {
+        username,
+        password: newPassword,
+        regtime: new Date()
+    }
+    const result = await mongo.create(colName, userData);
+    if (result) {
         res.send(formatData())
-    }else{
-        res.send(formatData({code:400}))
+    } else {
+        res.send(formatData({ code: 400 }))
     }
 });
 
 /**
  * 检测用户名是否存在
  */
-router.get('/check',async (req,res)=>{
-    let {username} = req.query;
+router.get('/check', async (req, res) => {
+    let { username } = req.query;
     // 查询用户是否存在
-    const result = await mongo.find(colName,{username});console.log('result=',result);
-    if(result.length>0){
-        res.send(formatData({code:400}));
-    }else{
+    const result = await mongo.find(colName, { username }); console.log('result=', result);
+    if (result.length > 0) {
+        res.send(formatData({ code: 400 }));
+    } else {
         res.send(formatData())
     }
 })
@@ -102,14 +106,20 @@ router.get('/check',async (req,res)=>{
 /**
  * 用户登录
  */
-router.get('/login',async (req,res)=>{
-    const {username,password} = req.query;
+router.get('/login', async (req, res) => {
+    const { username, password } = req.query;
 
-    const result = await mongo.find('user',{username,password});
-    if(result.length>0){
-        res.send(formatData())
-    }else{
-        res.send(formatData({code:400}))
+    const hash = crypto.createHash('sha256');
+    hash.update(password);
+    const newPassword = hash.digest('base64');
+
+    const result = await mongo.find('user', { username, password: newPassword }, { projection: { password: 0 } });
+    if (result.length > 0) {
+        res.send(formatData({
+            data: result[0]
+        }))
+    } else {
+        res.send(formatData({ code: 400 }))
     }
 });
 
@@ -117,14 +127,14 @@ router.get('/login',async (req,res)=>{
  * 删除用户
  * delete /api/user/:id
  */
-router.delete('/:id',async (req,res)=>{
-    const {id} = req.params;
+router.delete('/:id', async (req, res) => {
+    const { id } = req.params;
 
-    const result = await mongo.remove(colName,{_id:id});
-    if(result){
+    const result = await mongo.remove(colName, { _id: id });
+    if (result) {
         res.send(formatData())
-    }else{
-        res.send(formatData({code:400}))
+    } else {
+        res.send(formatData({ code: 400 }))
     }
 });
 

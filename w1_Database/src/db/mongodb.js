@@ -99,11 +99,41 @@ async function update(colName,query,data){
  * @param {String} colName  集合名称
  * @param {Object} query    查询条件
  */
-async function find(colName,query={}){
+async function find(colName,query={},{skip,limit,sort,projection={}}={}){
     let {client,db} = await connect();
     const col = db.collection(colName);
 
-    const result = await col.find(query).toArray();
+    if(query._id){
+        query._id = ObjectId(query._id);
+    }
+
+    // 获取所有数据
+    let result = col.find(query,{
+        projection
+    });
+
+    // 排序
+    if(sort){
+        sort = sort.split(','); //sort='addtime'->['addtime'] | sort='hot,1' -> ['hot','1']
+        if(sort.length==1){
+            sort[1] = -1;
+        }
+        result = result.sort({
+            [sort[0]]:sort[1]*1
+        });
+    }
+    
+
+    // 筛选需要的数据
+    if(skip){
+        result = result.skip(skip);
+    }
+
+    if(limit){
+        result = result.limit(limit);
+    }
+
+    result = await result.toArray();
 
     client.close();
     return result;

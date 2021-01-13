@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-header style="padding:0;background-color: #545c64">
+    <el-header style="padding: 0; background-color: #545c64">
       <el-row>
         <el-col :span="18">
           <el-menu
@@ -32,8 +32,15 @@
             padding-right: 20px;
           "
         >
-          <el-button type="text" @click="goto('/reg')">注册</el-button>
-          <el-button type="text" @click="goto('/login')">登录</el-button>
+          <template v-if="$store.getters.isLogin">
+            <el-avatar size="small" icon="el-icon-s-custom"></el-avatar>
+            <span style="vertical-align:middle">{{ $store.state.user.username }}</span>
+            <el-button type="text" @click="logout">退出</el-button>
+          </template>
+          <template v-else>
+            <el-button type="text" @click="goto('/reg')">注册</el-button>
+            <el-button type="text" @click="goto('/login')">登录</el-button>
+          </template>
         </el-col>
       </el-row>
     </el-header>
@@ -94,6 +101,10 @@ export default {
       // this.$router.push(item.path);
       this.$router.replace(path);
     },
+    logout(){
+      this.$store.commit('logout');
+      this.goto('/login');
+    }
   },
   components: {},
   created() {
@@ -134,5 +145,13 @@ nav a {
 .active {
   color: #f00;
   font-weight: bold;
+}
+.el-card__body {
+  h4 {
+    margin-top: 0;
+  }
+  img {
+    width: 100%;
+  }
 }
 </style>

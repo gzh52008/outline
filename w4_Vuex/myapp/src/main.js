@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-
+import store from './store'
 import router from './router'
 import {request} from './utils'
 
@@ -17,5 +17,7 @@ Vue.prototype.$ajax = request;
 new Vue({
   // 4. 注入根实例
   router,
+  // 把store注入到根实例
+  store,
   render: h => h(App),
 }).$mount('#app')
