@@ -27,7 +27,7 @@
   </div>
 </template>
 <script>
-
+const crypto = require('crypto');console.log('crypto=',crypto)
 export default {
   name: "Reg",
   data() {
@@ -57,12 +57,12 @@ export default {
           { required: true, message: "请输入用户名", trigger: "blur" },
           {
             min: 3,
-            max: 10,
-            message: "用户名长度必须在3到10",
+            max: 20,
+            message: "用户名长度必须在3到20",
             trigger: "blur",
           },
           {
-            validator:checkUsername,trigger:'change'
+            validator:checkUsername,trigger:'blur'
           }
         ],
         password: [
@@ -82,8 +82,14 @@ export default {
         this.$refs.regForm.validate(async (valid) => {
           if (valid) {
             const {username,password} = this.ruleForm;
+            // 加密
+            const hash = crypto.createHash('sha256');
+            hash.update(password);
+            const newPassword = hash.digest('hex');
+
+            
            // 发起ajax请求注册
-            const {data} = await this.$ajax.post('/user/reg',{username,password});
+            const {data} = await this.$ajax.post('/user/reg',{username,password:newPassword});
             if(data.code == 200){
               this.$router.replace('/login')
             }else{

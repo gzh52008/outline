@@ -1298,3 +1298,42 @@ mongoDB         database            collection      document
     * production
 * 组件局部样式：scoped
     * 原理：自定义属性`data-v-[hash]`配合属性选择器实现
+
+## day4-3
+
+### 面试题
+* watch,computed,method,data
+    ```js
+        {{data.username}}
+        // can not read the property username of undefined
+        // 不能读取undefined的username属性
+        data(){
+            return {
+                data:{}
+            }
+        },
+        created(){
+            let data = ajax()
+            this.data = {username:'laoxie'}
+        }
+        beforeMounte(){}
+        // 报错
+        mounted()
+        beforeUpdate(){}
+
+        updated(){}
+    ```
+* 在父组件中如何调用子组件的方法
+    * 组件层级: 父组件实例.children[0]
+    * ref: 父组件实例.$refs.xxx
+### 知识点
+* 加密解密
+    * 单向加密
+    * 双向加密（需要加密和解密）
+        * 对称加密
+            > 加密和解密同一把钥匙
+        * 非对称加密
+            > 有两把钥匙：公钥+私钥
+            * 解密
+                * 公钥加密，私钥解密
+                * 私钥加密，公钥解密
