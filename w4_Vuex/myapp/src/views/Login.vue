@@ -85,6 +85,7 @@ export default {
             // this.$message.error("用户名或密码错误");
             this.errMsg = '用户名或密码错误';
           }
+          // this.$store.dispatch('login',{ username, password: newPassword })
         } else {
           console.log("error submit!!");
           return false;

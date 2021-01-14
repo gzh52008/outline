@@ -1346,3 +1346,68 @@ mongoDB         database            collection      document
         * getters   类似与组件中的computed
         * mutations 修改state的唯一方式，类似于组件中的methods
             > 调用mutation方法格式：`$store.commit('changeUser',{username:"laoxie",password:123456})`
+
+## day4-4
+
+### 面试题
+* Vue组件通讯方式
+    * 父->子：props
+    * 子->父：
+        * 自定义事件
+            * v-on
+                ```js
+                    <sub-component v-on:add="addItem" ref="sub"></sub-component>
+                    // 父组件代码
+                    this.$refs.sub.$on('add',addItem);
+                    this.$children[0].$on('add',addItem);
+                    this.$refs.sub.show()
+
+                    // sub-component代码
+                    this.$on('add',addItem)
+                    this.show()
+                ```
+            * $emit()
+        * 把父组件的方法传到子组件执行
+    * 深层次组件组件通讯
+        * 逐层传递
+        * Bus总线
+        * 根实例：this.$root
+        * Vuex
+        * 注入系统：provide / inject
+            1. 父组件利用provide共享数据
+            2. 子组件通过inject接收数据
+                > 接收后，可以通过this.xxx访问
+* 父组件中如何调用子组件方法
+    * ref
+    * 组件层级
+* 专业术语
+    * BE（Backend）   后端
+    * FE（Frontend）  前端
+
+### 复习
+* Vuex: 状态管理工具，用于数据共享
+    * 使用步骤
+        1. 安装引入vuex
+        2. 使用vuex
+        3. 实例化store，并配置参数
+        4. 注入根实例
+        5. 在组件中通过this.$store使用vuex
+    * 核心配置
+        * state     共享数据（类似与组件中的data）
+        * getters   对数据的进一步处理（类似与组件中的computed）
+            * 参数：state
+        * mutations 修改state的唯一方式（类似与组件中的methods）
+            * 参数
+                * state     原来的数据
+                * payload   传递的参数
+            * 调用方式：$store.commit('mutation',参数)
+        * actions: 一般用于异步操作（类似于mutations）
+            * 调用方式：$store.dispatch('action',参数)
+    * 组件中使用
+        * 使用state: this.$store.state
+        * 使用getters: this.$store.getters
+        * 修改state: this.$store.commit('mutation',payload)
+### 知识点
+* vuex模块化（store模块化）
+    * module
+        > 在默认情况下，模块化只会影响state的获取，其他不影响

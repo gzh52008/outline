@@ -34,7 +34,7 @@
         >
           <template v-if="$store.getters.isLogin">
             <el-avatar size="small" icon="el-icon-s-custom"></el-avatar>
-            <span style="vertical-align:middle">{{ $store.state.user.username }}</span>
+            <span style="vertical-align:middle">{{ $store.state.user.userInfo.username }}</span>
             <el-button type="text" @click="logout">退出</el-button>
           </template>
           <template v-else>
