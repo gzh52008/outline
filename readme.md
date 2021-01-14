@@ -1409,5 +1409,76 @@ mongoDB         database            collection      document
         * 修改state: this.$store.commit('mutation',payload)
 ### 知识点
 * vuex模块化（store模块化）
-    * module
+    * modules
         > 在默认情况下，模块化只会影响state的获取，其他不影响
+        ```js
+            // 模块化前
+            this.$store.state.userInfo
+            this.$store.getters.totalPrice
+            this.$store.commit('add')
+            this.$store.dispatch('initCart')
+            // 模块化后(默认情况下，模块内部的 action、mutation 和 getter 是注册在全局命名空间的)
+            this.$store.state.user.userInfo
+            this.$store.getters.totalPrice
+            this.$store.commit('add')
+            this.$store.dispatch('initCart')
+        ```
+        * namespace命名空间： 解决了getter,mutations,actions的同名问题
+            ```js
+                new Vuex.Store({
+                    modules:{
+                        user:{
+                            state:{
+                                userInfo:{}
+                            },
+                            // 默认情况下，模块内部的 action、mutation 和 getter 是注册在全局命名空间的，对他们的访问和模块化前没有区别
+                            getters:{
+                                username(){
+
+                                }
+                            },
+                            mutations:{
+                                login(){},
+                                logout(){
+
+                                }
+                            },
+                            actions:{
+                                login(){
+
+                                }
+                            }
+                        },
+                        cart:{
+                            namespaced: true,
+                            state:{
+                                goodslist:{}
+                            },
+                            getters:{
+                                // 之前：this.$store.getters.username
+                                // 之后：this.$store.getters['cart/username']
+                                username(state,getter,rootState,rootGetters){
+
+                                }
+                            },
+                            mutations:{
+                                // 之前：this.$store.commit('add')
+                                // 之后：this.store.commit('cart/add')
+                                add(state,payload){
+
+                                },
+                                login(){
+
+                                }
+                            }
+                        },
+                    }
+                })
+            ```
+    * 映射
+        > 把Vuex中的数据映射到组件实例内，用于简化代码操作
+        * mapState([namespaced],state)              属性，映射到组件的computed
+        * mapGetters([namespaced],getters)          属性，映射到组件的computed
+            > 不支持函数写法
+        * mapMutations([namespaced],mutations)      方法，映射到组件的methods
+        * mapActions([namespaced],actions)          方法，映射到组件的methods

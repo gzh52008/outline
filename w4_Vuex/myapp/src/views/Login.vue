@@ -28,6 +28,7 @@
   </div>
 </template>
 <script>
+import {mapMutations} from 'vuex';
 const crypto = require("crypto");
 console.log("crypto=", crypto);
 export default {
@@ -63,6 +64,7 @@ export default {
     };
   },
   methods: {
+    ...mapMutations(['login']),
     submitForm() {
       this.$refs.loginForm.validate(async (valid) => {
         if (valid) {
@@ -80,7 +82,8 @@ export default {
             this.$router.replace("/home");
 
             // 把用户信息保存到vuex
-            this.$store.commit('login',data.data);
+            // this.$store.commit('login',data.data);
+            this.login(data.data)
           } else {
             // this.$message.error("用户名或密码错误");
             this.errMsg = '用户名或密码错误';

@@ -32,9 +32,9 @@
             padding-right: 20px;
           "
         >
-          <template v-if="$store.getters.isLogin">
+          <template v-if="isLogin">
             <el-avatar size="small" icon="el-icon-s-custom"></el-avatar>
-            <span style="vertical-align:middle">{{ $store.state.user.userInfo.username }}</span>
+            <span style="vertical-align:middle">{{ username }}</span>
             <el-button type="text" @click="logout">退出</el-button>
           </template>
           <template v-else>
@@ -49,6 +49,8 @@
 </template>
 
 <script>
+import {mapState,mapGetters,mapMutations} from 'vuex';
+
 export default {
   name: "App",
   data() {
@@ -87,6 +89,27 @@ export default {
       current: "/home",
     };
   },
+  computed:{
+    // 映射全局state
+    // ...mapState(['a','b'])
+    // ...mapState({
+    //   // num:'a',
+    //   // step:function(state){
+    //   //   return state.cart.step;
+    //   // },
+    //   username(state){
+    //     return state.user.userInfo.username;
+    //   }
+    // })
+    ...mapState({
+      username(state){
+        return state.user.userInfo.username;
+      }
+    }),
+
+    // 映射getters
+    ...mapGetters(['isLogin'])
+  },
   // 监听数据：监听实例的属性
   watch: {
     // 监听路由变化，实现高亮效果
@@ -101,13 +124,19 @@ export default {
       // this.$router.push(item.path);
       this.$router.replace(path);
     },
-    logout(){
-      this.$store.commit('logout');
-      this.goto('/login');
-    }
+    // logout(){
+    //   this.$store.commit('logout');
+    //   this.goto('/login');
+    // },
+    ...mapMutations({
+      logout:function(commit){
+        commit('logout');
+        this.goto('/login');
+      }
+    })
   },
   components: {},
-  created() {
+  created() {console.log('App=',this);
     let { path } = this.$route;
     this.current = path;
   },

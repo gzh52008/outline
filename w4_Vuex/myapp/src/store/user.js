@@ -12,6 +12,8 @@ try {
 
 
 export default {
+    // 命名空间
+    // namespaced:true,
     state: {
         userInfo,
     },
@@ -41,6 +43,7 @@ export default {
     // 异步操作
     actions: {
         async login(context, payload) {
+            // context类似与store{state,getter,commit,dispatch,rootState,rootGetters}
             console.log('actions=', arguments);
             // 发起ajax请求注册.
             const { data } = await request.get("/userInfo/login", {
