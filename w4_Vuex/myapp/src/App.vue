@@ -33,8 +33,10 @@
           "
         >
           <template v-if="isLogin">
-            <el-avatar size="small" icon="el-icon-s-custom"></el-avatar>
-            <span style="vertical-align:middle">{{ username }}</span>
+            <span style="vertical-align:middle" @click="goto('/mine')">
+              <el-avatar size="small" icon="el-icon-s-custom"></el-avatar>
+              {{ username }}
+            </span>
             <el-button type="text" @click="logout">退出</el-button>
           </template>
           <template v-else>

@@ -1482,3 +1482,44 @@ mongoDB         database            collection      document
             > 不支持函数写法
         * mapMutations([namespaced],mutations)      方法，映射到组件的methods
         * mapActions([namespaced],actions)          方法，映射到组件的methods
+
+## day5-1
+
+### 知识点
+* 后台管理系统
+    > 管理数据的系统
+    * 商品
+        * 添加
+        * 删除
+        * 修改
+        * 查询
+    * 用户
+    * 订单
+    * 物流
+    * 票据
+    * 活动
+    * ....
+* 上传
+    * 前端
+        * FormData: 表单数据，是一个构造函数
+        ```js
+            //<from action="http://localhost:2008/api/uploads/avatar" method="post" enctype="multipart/form-data">
+            <input type='file' id="" />
+            //</form>
+
+            const data = new FormData()
+            // 添加数据1： set()
+            data.set('username','laoxie')
+
+            // 添加数据2：append()
+            data.append('hobby','小保健')
+            data.append('hobby','大保健')
+            data.append('hobby','保健pro')
+
+        ```
+        
+    * 后端
+        ```js
+            // 编写上传接口
+
+        ```

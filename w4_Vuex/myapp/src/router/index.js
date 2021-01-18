@@ -15,6 +15,7 @@ import Login from '../views/Login.vue';
 import Reg from '../views/Reg.vue';
 import Goods from '../views/Goods.vue';
 import NotFound from '../views/NotFound.vue';
+import Mine from '../views/Mine.vue';
 
 
 // 2. 使用
@@ -45,6 +46,9 @@ const router = new VueRouter({
   }, {
     path: '/login',
     component: Login
+  }, {
+    path: '/mine',
+    component: Mine
   }, {
     path: '/discover',
     component: Discover,
