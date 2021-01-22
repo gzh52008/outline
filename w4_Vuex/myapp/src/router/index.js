@@ -17,6 +17,8 @@ import Goods from '../views/Goods.vue';
 import NotFound from '../views/NotFound.vue';
 import Mine from '../views/Mine.vue';
 
+import store from '../store'
+import request from '../utils/request'
 
 // 2. 使用
 Vue.use(VueRouter);
@@ -48,6 +50,7 @@ const router = new VueRouter({
     component: Login
   }, {
     path: '/mine',
+    meta: { requiresAuth: true }, // 需要登录权限才能访问
     component: Mine
   }, {
     path: '/discover',
@@ -58,6 +61,7 @@ const router = new VueRouter({
       {
         path: 'omg',
         name: 'omg',
+        meta: { requiresAuth: true },
         component: Omg
       },
       {
@@ -88,6 +92,7 @@ const router = new VueRouter({
     props: function () {
       return { a: true, b: false, c: 100 }
     },
+    meta: { requiresAuth: true },
     component: Cart, // <Cart a='10' b='20' />
   }, {
     name: 'goods',
@@ -113,8 +118,47 @@ const router = new VueRouter({
 // 全局路由守卫
 // 开始导航
 router.beforeEach(function (to, from, next) {
-  console.log('beforeEach=', to.path, from.path);
-  next();
+  console.log('beforeEach=', to,from);
+
+  // 判断当前路由是否需要登录权限
+  // if(to.meta.requiresAuth){
+  if(to.matched.some(item=>item.meta.requiresAuth)){
+    // 判断是否登录
+    if(store.getters.isLogin){
+      next();
+      request.get('/user/verify',{
+        params:{},
+        headers:{
+          Authorization:store.state.user.userInfo.Authorization
+        }
+      }).then(({data})=>{
+        if(data.code == 400){
+          router.push({
+            path:'/login',
+            query:{
+              redirectTo:to.fullPath
+            }
+          })
+        }
+      })
+    }else{
+      // next({
+      //   path:'/login',
+      //   query:{
+      //     redirectTo:to.fullPath
+      //   }
+      // })
+      router.push({
+        path:'/login',
+        query:{
+          redirectTo:to.fullPath
+        }
+      })
+    }
+    
+  }else{
+    next();
+  }
 })
 
 // 确认导航

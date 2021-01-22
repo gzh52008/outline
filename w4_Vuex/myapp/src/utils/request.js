@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 console.log('env',process.env.NODE_ENV)
-export const baseUrl = process.env.NODE_ENV=== 'development' ? 
+export const baseURL = process.env.NODE_ENV=== 'development' ? 
 'http://localhost:2008/api' :
 'http://126.36.11.23';
 

@@ -7,6 +7,7 @@
       :rules="rules"
       ref="loginForm"
       label-width="100px"
+      @keyup.native.enter="submitForm"
     >
       <el-form-item label="用户名" prop="username" :error="errMsg">
         <el-input v-model="ruleForm.username"></el-input>
@@ -75,15 +76,20 @@ export default {
           const newPassword = hash.digest("hex");
 
           // 发起ajax请求注册
-          const { data } = await this.$ajax.get("/user/login", {
+          const result = await this.$ajax.get("/user/login", {
             params: { username, password: newPassword },
           });
+          console.log('result',result)
+          const {data} = result;
           if (data.code == 200) {
-            this.$router.replace("/home");
+            
 
             // 把用户信息保存到vuex
             // this.$store.commit('login',data.data);
             this.login(data.data)
+
+            let {redirectTo='/mine'} = this.$route.query;
+            this.$router.replace(redirectTo)
           } else {
             // this.$message.error("用户名或密码错误");
             this.errMsg = '用户名或密码错误';

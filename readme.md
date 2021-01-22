@@ -1523,3 +1523,9 @@ mongoDB         database            collection      document
             // 编写上传接口
 
         ```
+
+## day5-5
+
+### 知识点
+* 页面访问权限控制（路由守卫）
+    * 购物车、我的等页面需要登录后才能访问

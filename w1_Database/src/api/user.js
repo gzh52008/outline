@@ -5,6 +5,8 @@ const router = express.Router();
 const { formatData } = require('../utils')
 const crypto = require('crypto');
 
+const token = require('../utils/token');
+
 // --------mysql-----------
 // 查询用户名是否存在
 // router.get('/check',async (req,res)=>{
@@ -113,10 +115,19 @@ router.get('/login', async (req, res) => {
     hash.update(password);
     const newPassword = hash.digest('base64');
 
+    // 创建token
+    const Authorization = token.create({username, password:newPassword})
+
     const result = await mongo.find('user', { username, password: newPassword }, { projection: { password: 0 } });
     if (result.length > 0) {
+        res.set({
+            Authorization
+        })
         res.send(formatData({
-            data: result[0]
+            data: {
+                ...result[0],
+                Authorization
+            }
         }))
     } else {
         res.send(formatData({ code: 400 }))
@@ -137,5 +148,13 @@ router.delete('/:id', async (req, res) => {
         res.send(formatData({ code: 400 }))
     }
 });
+
+router.get('/verify',async (req,res)=>{
+    let Authorization = req.get('Authorization');console.log('Authorization',Authorization)
+    const expires = await token.verify(Authorization);
+    res.send(formatData({
+        code: expires ? 200 : 400
+    }))
+})
 
 module.exports = router;
