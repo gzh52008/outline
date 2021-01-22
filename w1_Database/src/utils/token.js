@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const key = 'laoxie&jingjing'
 
-function create(data,expiresIn=60*60*24){
+function create(data,expiresIn=30){
     const token = jwt.sign(data, key,{
         expiresIn
     });

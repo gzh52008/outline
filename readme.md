@@ -1535,3 +1535,29 @@ mongoDB         database            collection      document
         2. 每次访问需要权限的页面，把token发到后端校验，校验成功放行，否则不允许访问
             * 失效
             * 篡改
+* 单页面应用
+    > 一个应用只有一个页面：index.html
+    * hash路由
+    * history: 刷新后404
+        > 解决方案：除静态资源外所有的请求都响应index.html内容
+
+* 项目验收
+    * 编写readme.md
+        > 放在项目根目录
+        * 项目名称
+        * 演示
+            * 官网
+            * 上线网址
+            * git仓库地址
+        * 团队与分工
+            * 格式：组长：xxx，成员：xxx,xxx
+            * 负责模块说明
+        * 项目页面截图
+            > 截有代表性得页面，不少于3张
+    * 更新最新代码到github的master/main
+    * 发邮件
+        * 发送：xiejinrong@1000phone.com
+        * 抄送: zhangjianze@1000phone.com,wuwenjing@1000phone.com
+    * 录视频
+        > 上传百度网盘
+    * 提交到http://manage.qfh5.cn

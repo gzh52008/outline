@@ -26,7 +26,7 @@ Vue.use(VueRouter);
 
 // 3. 配置
 const router = new VueRouter({
-  // mode:'hash', // history
+  // mode:'history', // history,hash
 
   // 路由配置
   routes: [{
@@ -61,7 +61,7 @@ const router = new VueRouter({
       {
         path: 'omg',
         name: 'omg',
-        meta: { requiresAuth: true },
+        // meta: { requiresAuth: true },
         component: Omg
       },
       {
@@ -133,6 +133,7 @@ router.beforeEach(function (to, from, next) {
         }
       }).then(({data})=>{
         if(data.code == 400){
+          store.commit('logout');
           router.push({
             path:'/login',
             query:{
