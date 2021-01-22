@@ -20,7 +20,7 @@ async function verify(token){
 }
 function decode(token){
     return new Promise((resolve,reject)=>{
-        jwt.verify(token, cert, function(err, decoded) {
+        jwt.verify(token, key, function(err, decoded) {
             if(err){
                 reject(err);
                 return
@@ -34,5 +34,6 @@ function decode(token){
 
 module.exports = {
     create,
-    verify
+    verify,
+    decode
 }

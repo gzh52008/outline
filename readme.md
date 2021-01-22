@@ -1529,3 +1529,9 @@ mongoDB         database            collection      document
 ### 知识点
 * 页面访问权限控制（路由守卫）
     * 购物车、我的等页面需要登录后才能访问
+    * token: 令牌
+        1. 登录成功，生成一个token，设置有效期，并返回到前端存储
+            * jsonwebtoken
+        2. 每次访问需要权限的页面，把token发到后端校验，校验成功放行，否则不允许访问
+            * 失效
+            * 篡改

@@ -152,6 +152,7 @@ router.delete('/:id', async (req, res) => {
 router.get('/verify',async (req,res)=>{
     let Authorization = req.get('Authorization');console.log('Authorization',Authorization)
     const expires = await token.verify(Authorization);
+    console.log('expires',expires)
     res.send(formatData({
         code: expires ? 200 : 400
     }))
