@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React的使用</title>
+    <script src="../node_modules/react/umd/react.development.js"></script>
+    <script src="../node_modules/react-dom/umd/react-dom.development.js"></script>
+</head>
+<body>
+    <h1>React的使用</h1>
+    <div id="app"></div>
+    <script>
+        // <div>虚拟节点</div>
+        // <div class="container"><h4>创建虚拟节点</h4></div>
+        // <div class="container"><h4>创建虚拟节点</h4><ul id="list"><li>data1<li><li>data2</li></ul></div>
+        ReactDOM.render(
+            // 渲染内容（使用虚拟节点）
+            // React.createElement('div',null,'虚拟节点'),
+            // React.createElement(
+            //     'div',
+            //     {className:'container'},
+            //     React.createElement('h4',null,'创建虚拟节点')
+            // ),
+            React.createElement(
+                'div',
+                {className:'container'},
+                [
+                    React.createElement('h4',null,'创建虚拟节点'),
+                    React.createElement(
+                        'ul',
+                        {id:'list'},
+                        [
+                            React.createElement('li',null,'data1'),
+                            React.createElement('li',null,'data2'),
+                        ]
+                    ),
+                ]
+            )
+            ,
+            // 挂载点
+            document.querySelector('#app')
+        )
+    </script>
+</body>
+</html>

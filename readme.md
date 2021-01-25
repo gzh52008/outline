@@ -1561,3 +1561,58 @@ mongoDB         database            collection      document
     * 录视频
         > 上传百度网盘
     * 提交到http://manage.qfh5.cn
+
+
+## day6-1
+
+### 面试题
+* call,apply,bind三则的区别
+    * 共同点：
+        * 都是函数原型方法
+        * 都能改变this指向
+    * 不同点
+        * call与apply参数不同
+        * call&apply会自动执行函数，bind不会执行函数，而是会返回一个改变了this指向后的函数
+        ```js
+            //map,filter
+            //arr.map(function(){})
+            nodeList.map();// map is not a function
+            Array.prototype.map.call(nodeList,function(item,idx){})
+        ```
+* 判断数据类型的方法
+    * typeof
+    * Object.prototype.toString
+
+    ```js
+        var a = 10;
+        a.toString();//'10'
+        Object.prototype.toString.call(a);
+        function type(data){
+            return Object.prototype.toString.call(data).slice(8,-1).toLowerCase();
+        }
+    ```
+### 知识点
+* React
+    * 版本：
+        * cjs: commonJS
+        * esm: ESModule
+        * umd: 通用模块
+    ```js
+        new Vue({
+            el:'#app',
+            template:'',
+            render(createElement){
+                return createElement()
+            }
+        })
+    ```
+    * 创建节点：React.createElement()
+    * 渲染节点：ReactDOM.render()
+* JSX
+    * babel编译
+    * 语法
+        * 不能使用js关键字
+        * 使用驼峰
+        * 结束标签
+        * 使用变量必须使用{}
+        * 样式必须使用对象写法
