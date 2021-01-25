@@ -1591,6 +1591,15 @@ mongoDB         database            collection      document
             return Object.prototype.toString.call(data).slice(8,-1).toLowerCase();
         }
     ```
+* this只能在函数中使用，表示当前对象，根据所处的环境不同代表不同的东西
+    1. 是否通过 new 调用
+    2. 是否通过 dot 调用
+        * 包含事件绑定
+    3. 是否被（call,apply,bind）修改过
+    4. 指向window
+* 事件中target与currentTarget的区别
+    * target: 事件源对象（触发事件的元素）
+    * currentTarget: 绑定事件的元素
 ### 知识点
 * React
     * 版本：
@@ -1616,3 +1625,65 @@ mongoDB         database            collection      document
         * 结束标签
         * 使用变量必须使用{}
         * 样式必须使用对象写法
+    ```js
+        let data3 = 'data3'
+        let list = <ul className="list">
+            <li>data1</li>
+            <li>data2</li>
+            <li>{'data3'.toUpperCase()}</li>
+        </ul>
+    ```
+* 组件化开发
+    * vue
+        ```js
+            // 全局组件
+            Vue.component('list',{render(createElement){}})
+
+            // 局部组件
+            components:{}
+        ```
+    * react
+        > 首字母大写
+        * 定义
+            * 函数组件：无状态组件、UI 组件
+                > 优先使用函数组件
+            * 类组件：状态组件、容器组件
+                * state
+                * this
+                    * 默认只有constructor,render,生命周期函数中可以直接使用this
+                    * 其他自定义方法默认没有this指向，需要使用bind改变this指向
+            ```js
+                function List(){
+                    return <div></div>
+                }
+            ```
+        * 使用
+            ```js
+                <List></List>
+            ```
+* 数据渲染方式
+    * js表达式：{}
+    * 列表循环
+        * map
+    * state
+        > 只能在状态组件中使用
+        * 获取：this.state.xxx
+        * 修改：this.setState()
+            > 不建议直接修改数据，必须通过setState修改，setState为异步
+            * setState(newState,callback)
+                * newState: Object|Function
+                * callback: 回掉函数，数据被修改后执行
+    * 事件绑定
+        * 驼峰
+        * 事件处理函数默认没有this指向
+    * props
+        * 接收
+            * 函数组件：函数的第一个参数
+            * 类组件：this.props
+    * ref
+        * 字符串（丢弃）
+        * 回调函数
+        * createRef()
+* 组件通讯
+    * 父->子：props
+    * 子->父：把父组件的方法传递到子组件执行

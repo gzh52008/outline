@@ -14,6 +14,11 @@
     <script type="text/babel">
         let username = 'jingjing';
         let style = {color:'#f00'}
+        let list = <ul>
+            <li>data1</li>
+            <li>data2</li>
+            <li>data3</li>
+        </ul>
         ReactDOM.render(
             // React.createElement(
             //     'div',
@@ -45,7 +50,8 @@
                     //<label htmlFor="username">用户名</label>
                 }
                 {/*<input type="text" value={username} />
-            <p>{username}</p>*/}
+                <p>{username}</p>*/}
+                {list}
             </div>
             ,
             // 挂载点

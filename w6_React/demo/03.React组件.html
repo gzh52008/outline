@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>03.React组件</title>
+    <script src="../node_modules/react/umd/react.development.js"></script>
+    <script src="../node_modules/react-dom/umd/react-dom.development.js"></script>
+    <script src="js/browser.js"></script>
+</head>
+<body>
+    <h1>03.React组件</h1>
+    <div id="app"></div>
+    <script type="text/babel">
+        /**
+            * 定义组件
+                > 创建有个标签
+                * 函数组件（无状态组件）
+                    * 简单，高性能
+                * 类组件（状态组件）
+                    > 状态改变，组件自动刷新
+         */
+
+        //  函数
+        function List(){
+            let userlist = ['laoxie','jingjing','zeze'];
+            return (
+                <ul>
+                    {/*<li>laoxie</li>
+                    <li>jingjing</li>
+                    <li>zeze</li>
+                    */}
+                    {/*userlist.map(function(item){
+                        return <li key={item}>{item}</li>
+                    })*/}
+                    {
+                        userlist.map(item=><li key={item}>{item}</li>)
+                    }
+                </ul>
+            )
+        }
+        // 类组件
+        class Datalist extends React.Component{
+            // 组件状态
+            constructor(){
+                super();
+
+                this.state = {
+                    num:10
+                }
+
+                // 修改函数this指向
+                this.changeNumber = this.changeNumber.bind(this);
+            }
+
+            // 这里的方法会成为原型方法
+            changeNumber(){
+                // 修改state方法
+                // this.state.num++
+                this.setState({
+                    num:this.state.num+1
+                },()=>{
+                    //console.log('end',this.state.num)
+                })
+                //console.log('num=',this.state.num)
+
+                // 以下方式使用较少
+                // this.setState((prevState)=>{
+                //     return {num:prevState.num+1}
+                // })
+                // this.setState((prevState)=>{
+                //     return {num:prevState.num+1}
+                // })
+                // this.setState((prevState)=>{
+                //     return {num:prevState.num+1}
+                // })
+            }
+            render(){
+                return (
+                    <div>
+                        <div>数据总数：{this.state.num}</div>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>11</td>
+                                    <td>12</td>
+                                    <td>13</td>
+                                </tr>
+                                <tr>
+                                    <td>21</td>
+                                    <td>22</td>
+                                    <td>23</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button onClick={this.changeNumber}>添加</button>
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(
+            <div>
+                <List/>
+                <Datalist/>
+            </div>
+            ,
+            document.getElementById('app')
+        )
+    </script>
+</body>
+</html>
