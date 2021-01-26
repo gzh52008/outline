@@ -1696,6 +1696,9 @@ mongoDB         database            collection      document
     * 应用
         * 扩展对象属性
         * 浅复制
+* webpack与gulp的区别
+    * gulp基于任务的构建工具
+    * webpack是基于配置的构建工具
 
 ### 复习
 * 依赖
@@ -1762,10 +1765,21 @@ mongoDB         database            collection      document
 
                 // 获取：this.el.current
             ```
+
+
+
+### 知识点
+* 组件刷新的场景
+    * state更新
+* 事件
+    * event
+    * 传参
+    * 改变this指向
+        * bind: 多次bind只生效第一次
 * 组件通讯
     * 父->子：props
     * 子->父：利用props把父组件的**方法**传到子组件执行，并传递数据
-    * 生层次组件
+    * 深层次组件
         * 逐层传递
         * Context
             1. 创建 Context
@@ -1777,13 +1791,25 @@ mongoDB         database            collection      document
                 * 类组件
                     * Consumer
                     * this.context
-
-
-### 知识点
-* 组件刷新的场景
-    * state更新
-* 事件
-    * event
-    * 传参
-    * 改变this指向
-        * bind: 多次bind只生效第一次
+                        > 设置组件`contextType`静态属性
+* 从0配置基于webpack的React环境
+    * 目录创建
+        * public
+        * src
+            * main.js
+        * webpack.config.js
+        * package.json
+    * 依赖
+        * react + react-dom
+        * webpack + webpack-cli + webpack-dev-server
+        * @babel/preset-react + babel-loader + @babel/core
+        * html-webpack-plugin
+    * webpack配置
+        * entry
+        * output
+        * devServer
+        * loader
+            > module.rules
+        * plugins
+* webpack的工作流程
+    从入口开始，分析整个项目的所有依赖，利用配置的loader和plugin编辑相应的文件，并把打包成浏览器识别的文件
