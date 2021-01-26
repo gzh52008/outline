@@ -1624,7 +1624,7 @@ mongoDB         database            collection      document
         * 使用驼峰
         * 结束标签
         * 使用变量必须使用{}
-        * 样式必须使用对象写法
+        * style内联样式必须使用对象写法
     ```js
         let data3 = 'data3'
         let list = <ul className="list">
@@ -1687,3 +1687,103 @@ mongoDB         database            collection      document
 * 组件通讯
     * 父->子：props
     * 子->父：把父组件的方法传递到子组件执行
+
+## day6-2
+
+### 面试题
+* Object.assign(target,obj1,obj2,...objN)
+    * 把后面的对象属性扩展到target
+    * 应用
+        * 扩展对象属性
+        * 浅复制
+
+### 复习
+* 依赖
+    * react
+    * react-dom         webApp
+    * react-native      nativeApp
+* 创建虚拟节点：React.createElement(type,props,children)
+* 渲染虚拟节点：ReactDOM.render(vNode,target)
+* JSX
+    * babel编译：html->js
+    * 规则
+* 组件
+    * 函数组件（无状态组件，UI组件）
+    * 类组件（状态组件，容器组件）
+        * state
+        * this
+        * 生命周期函数
+            * constructor() 初始化
+            * render()      渲染函数
+* 组件数据渲染方式
+    * props
+        * 函数组件：函数的第一个参数就是props
+        * 类组件：
+            * constructor的第一个参数
+            * this.props
+    * state: 只能在类组件中使用
+        > state的修改，组件会自动刷新
+        * 获取：this.state.xxx
+        * 设置：this.setState(newState,callback)
+            * newState: Object|Function
+        ```js
+            this.state = {
+                datalist:[],
+                idx:0,
+                current:2
+            }
+            
+            this.setState({
+                datalist:[10,20,30],
+                
+            })
+
+            this.setState(prevState=>{
+                // prevState.idx:0
+                return {idx:1}
+            })
+            this.setState(prevState=>{
+                // prevState:1
+                return {idx:2}
+            })
+        ```
+    * 事件
+        > 事件名采用驼峰写法
+        * event
+    * ref
+        * 回调函数
+            ```js
+                <input ref={el=>this.el=el} />      
+            ```
+        * React.createRef()
+            ```js
+                this.el = React.createRef();
+                <input ref={this.el} />
+
+                // 获取：this.el.current
+            ```
+* 组件通讯
+    * 父->子：props
+    * 子->父：利用props把父组件的**方法**传到子组件执行，并传递数据
+    * 生层次组件
+        * 逐层传递
+        * Context
+            1. 创建 Context
+                > 提供默认值
+            2. 父组件 Provider共享数据
+            3. 子组件接收
+                * 函数组件
+                    * Consumer
+                * 类组件
+                    * Consumer
+                    * this.context
+
+
+### 知识点
+* 组件刷新的场景
+    * state更新
+* 事件
+    * event
+    * 传参
+    * 改变this指向
+        * bind: 多次bind只生效第一次

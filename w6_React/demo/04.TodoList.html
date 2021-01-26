@@ -13,6 +13,10 @@
     <h1>04.TodoList</h1>
     <div id="app"></div>
     <script type="text/babel">
+        let defaultValue = { username: "laoxie" };
+        // 创建Context对象，对象内包含Provider与Consumer组件
+        // 默认值为在没有Provider的情况下提供的默认数据
+        let MyContext = React.createContext(defaultValue);
         /**
             * 04.TodoList
          */
@@ -25,10 +29,19 @@
                     <td>{item.todo}</td>
                     <td>{item.complete ? '是':'否'}</td>
                     <td>
-
-                        <button className="btn btn-outline-primary btn-sm">完成</button>
-                        <button className="btn btn-outline-danger btn-sm">删除</button>
-
+                        <MyContext.Consumer>
+                            {
+                                (value)=>{
+                                    console.log('value=',value);
+                                    return (
+                                        <React.Fragment>
+                                            <button className="btn btn-outline-primary btn-sm" onClick={value.complete.bind(null,item.id)}>完成</button>
+                                            <button className="btn btn-outline-danger btn-sm" onClick={value.remove.bind(null,item.id)}>删除</button>
+                                        </React.Fragment>
+                                    )
+                                }
+                            }
+                        </MyContext.Consumer>
                     </td>
                 </tr>
              )
@@ -53,9 +66,10 @@
                 </table>
              )
          }
+         
          class TodoForm extends React.Component{
-            constructor(){
-                 super();
+            constructor(props){
+                 super(props);
                  this.state = {
                     todo:''
                  }
@@ -78,6 +92,7 @@
                 })
             }
              render(){
+                 console.log('context=',this.context)
                  const {todo} = this.state;
                  return (
                     <div className="form-item">
@@ -89,6 +104,10 @@
                  )
              }
          }
+
+         // 给类组建添加静态属性
+         TodoForm.contextType = MyContext;
+
          class TodoList extends React.Component{
              constructor(){
                  super();
@@ -111,7 +130,7 @@
                         complete: false
                     }],
                 }
-
+                // 推荐在初始化时改变this指向
                 this.addItem = this.addItem.bind(this);
                 this.removeItem = this.removeItem.bind(this);
                 this.completeItem = this.completeItem.bind(this);
@@ -128,18 +147,38 @@
                     datalist:[newData,...datalist]
                  })
              }
-             removeItem(){
-
+             removeItem(id){
+                let {datalist} = this.state;
+                datalist = datalist.filter(item=>item.id!=id);
+                this.setState({
+                    datalist
+                })
              }
-             completeItem(){
-
+             completeItem(id){
+                let {datalist} = this.state;
+                datalist = datalist.map(item=>{
+                    if(item.id == id){
+                        item.complete = true
+                    }
+                    return item;
+                })
+                this.setState({
+                    datalist
+                })
              }
              render(){
                  const {datalist} = this.state;
+                 const contextData = {
+                     remove:this.removeItem,
+                     complete:this.completeItem
+                };
                 return(
                     <div className="container">
-                        <TodoConent datalist={datalist}/>
-                        <TodoForm addItem={this.addItem}/>
+                        {/*利用Provider的value属性共享数据*/}
+                        <MyContext.Provider value={contextData}>
+                            <TodoConent datalist={datalist}/>
+                            <TodoForm addItem={this.addItem}/>
+                        </MyContext.Provider>
                     </div>
                 )
              }
