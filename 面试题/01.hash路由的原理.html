@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01.hash路由的原理</title>
+</head>
+<body>
+    <h1>01.hash路由的原理</h1>
+    <nav>
+        <ul>
+            <li><a href="#/home">首页</a></li>
+            <li><a href="#/reg">注册</a></li>
+            <li><a href="#/login">登录</a></li>
+        </ul>
+    </nav>
+    <div id="view"></div>
+    <script>
+        /**
+            * 01.hash路由的原理
+                * hashchange事件
+         */
+        const view = document.querySelector('#view');
+         const routes = [{
+             path:'/home',
+             component:'<div>首页Home</div>'
+         },{
+             path:'/login',
+             component:'<div>登录Login</div>'
+         },{
+             path:'/reg',
+             component:'<div>注册Reg</div>'
+         }]
+
+         // 默认首页
+         location.hash = '/home';
+
+         window.onhashchange = function(){console.log('hashchange')
+            // 获取当前hash
+            let hash = location.hash.slice(1);
+
+            let currentRoute = routes.find((item)=>item.path===hash)
+
+            view.innerHTML = currentRoute.component;
+         }
+    </script>
+</body>
+</html>

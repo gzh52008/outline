@@ -11,8 +11,8 @@ import MyContext from './context'
 
 
 class TodoList extends Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
            datalist: [{
                id: 1,
@@ -78,7 +78,7 @@ class TodoList extends Component{
            <div className="container">
                {/*利用Provider的value属性共享数据*/}
                <MyContext.Provider value={contextData}>
-                   <TodoContent datalist={datalist}/>
+                   <TodoContent datalist={datalist} />
                    <TodoForm addItem={this.addItem}/>
                </MyContext.Provider>
            </div>

@@ -1816,6 +1816,29 @@ mongoDB         database            collection      document
 
 ## day6-3
 
+### 面试题
+* hash路由原理
+    > 核心：hashchange
+    ```js
+        window.onhashchange = function(){
+
+        }
+    ```
+* hash路由如何改为history路由
+    * 前端：mode改为'history'
+    * 后端支持：让除静态资源与数据接口外的所有请求响应index.html
+    ```js
+        // node
+        app.use(express.static('../public'))
+        app.use('/api',allRouter)
+        app.use((req,res)=>{
+            fs.readFile('../public/index.html',(err,content)=>{
+                res.set('content-type','text/html;charset=utf-8')
+                res.send(content.toString())
+            })
+        })
+    ```
+
 ### 复习
 * Context
     > 解决跨组件通讯
@@ -1877,3 +1900,42 @@ mongoDB         database            collection      document
     * 静态属性
     * 箭头函数
 * 练习：手动配置基于webpack的Vue环境
+* props
+    * children      类似于Vue中的slot
+        * String    文本
+        * Object    虚拟节点
+        * Array     多个虚拟节点
+    * Render Props
+        > 使用一个值为函数的 prop 共享代码的简单技术（类似于 Vue 中的作用域插槽）
+    * props校验
+        1. 引入prop-types模块
+        2. 设置组件的propTypes静态属性
+            * 设置props的校验规则
+    * props默认值
+        > 设置组件的defaultProps静态属性
+* state与props的区别
+    * state为组件内部数据，可以通过setState()修改
+    * props为父组件传入的数组，不能修改
+
+* 生命周期函数
+    > 只有在类组件中才存在生命周期函数，生命周函数中的this指向组件实例
+    * 定义类组件
+        * ES6 class
+        * React.createClass()
+    * Initial: 初始化阶段
+        * constructor()
+    * Mounting：挂载阶段
+        * componentWillMount(弃用)
+        * componentDidMount
+    * Updating：更新阶段
+        > 执行setState()会进入更新阶段
+        * componentWillUpdate(弃用)
+        * componentDidUpdate
+    * Unmounting：卸载阶段
+        * componentWillUnmount
+    * 特殊生命周期函数
+        * componentWillReceiveProps (弃用)
+        * shouldComponentUpdate
+* 组件刷新的场景: 所谓的刷新就是执行render函数
+    * state更新
+    * props更新
