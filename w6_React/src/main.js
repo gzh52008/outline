@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import TodoList from './components/Todolist';
+import App from './App'
 
 ReactDOM.render(
-    <TodoList/> 
+    <App/> 
     ,
     document.querySelector('#app')
 )

@@ -29,8 +29,8 @@ module.exports = {
                 use:[{
                     loader:'babel-loader',
                     options:{
-                        // plugins:[],  // babel插件
                         presets:['@babel/preset-react'],     // babel插件集
+                        plugins:['@babel/plugin-proposal-class-properties'],  // babel插件
 
                     }
                 }]

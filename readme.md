@@ -1812,4 +1812,68 @@ mongoDB         database            collection      document
             > module.rules
         * plugins
 * webpack的工作流程
-    从入口开始，分析整个项目的所有依赖，利用配置的loader和plugin编辑相应的文件，并把打包成浏览器识别的文件
+    从入口开始，分析整个项目的所有依赖，利用配置的loader和plugin编译相应的文件，并把它们打包成浏览器识别的文件
+
+## day6-3
+
+### 复习
+* Context
+    > 解决跨组件通讯
+    1. 创建Contenxt: 
+        ```js
+            const MyContext = React.createContext(defaultValue)
+        ```
+    2. 父组件共享数据：
+        ```js
+            <MyContext.Provider value={}>
+
+            </MyContext.Provider>
+        ```
+    3. 子组件接收
+        * 函数组件
+            * Consumer
+                ```js
+                    <MyContext.Consumer>
+                        {
+                            (value)=>{
+                                return (
+
+                                )
+                            }
+                        }
+                    </MyContext.Consumer>
+                ```
+            * Hook
+        * 类组件
+            * Consumer
+            * this.context
+                > 添加静态属性contextType
+* Webpack
+    * 什么是webpack：是一个构建工具（打包、合并、压缩、编译...）
+        * gulp
+        * grunt
+    * webpack的工作原理: 从入口开始，分析整个项目的所有依赖，利用配置的loader和plugin编译相应的文件，并把它们打包成浏览器识别的文件
+    * webpack与gulp的区别：
+        * gulp任务驱动
+        * webpack配置驱动
+    * webpack的常用配置
+        * entry     入口
+        * output    出口
+        * loader    加载器
+            > module.rules
+            * babel-loader
+                * @babel/core
+                * @babel/preset-react
+            * css-loader + style-loader
+            * sass-loader
+        * devServer 测试服务器
+            > webpack-dev-server
+        * plugins   插件
+### 知识点
+* 移植TodoList
+    * 模块化开发
+    * 组件化开发
+* @babel/plugin-proposal-class-properties
+    * 静态属性
+    * 箭头函数
+* 练习：手动配置基于webpack的Vue环境
