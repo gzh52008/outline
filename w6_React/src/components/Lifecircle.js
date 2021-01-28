@@ -1,6 +1,7 @@
 import React from 'react'
 
-class Lifecircle extends React.Component{
+// class Lifecircle extends React.Component{
+class Lifecircle extends React.PureComponent{
     constructor(props){
         console.log('Lifecircle.constructor');
         super(props);

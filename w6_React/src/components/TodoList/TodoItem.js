@@ -19,8 +19,8 @@ function TodoItem({item,idx}){
                                <React.Fragment>
                                    {/* <button className="btn btn-outline-primary btn-sm" onClick={value.complete.bind(null,item.id)}>完成</button>
                                    <button className="btn btn-outline-danger btn-sm" onClick={value.remove.bind(null,item.id)}>删除</button> */}
-                                   <TodoButton className="btn-outline-primary">完成</TodoButton>
-                                   <TodoButton className="btn-outline-danger">删除</TodoButton>
+                                   <TodoButton className="btn-outline-primary" onClick={value.complete.bind(null,item.id)}>完成</TodoButton>
+                                   <TodoButton className="btn-outline-danger" onClick={value.remove.bind(null,item.id)}>删除</TodoButton>
                                </React.Fragment>
                            )
                        }

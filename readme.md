@@ -1939,3 +1939,85 @@ mongoDB         database            collection      document
 * 组件刷新的场景: 所谓的刷新就是执行render函数
     * state更新
     * props更新
+
+## day6-4
+
+### 复习
+* props
+    * 普通数据
+    * Render Props
+    * children
+        * Null      <Button></Button>,<Button/>
+        * String    <Button>dddd</Button>
+        * Object    <Button><span>dddd</span></Button>
+        * Array     <Button><span>dddd</span><strong>dddd</strong></Button>
+        * Function  <Button>{()=>{}}</Button>
+    * props类型校验
+        > prop-types
+        * 设置propTypes静态属性
+    * props默认值
+        * 设置defaultProps静态属性
+* 生命周期函数
+    > 只有类组件才有生命周期
+    * 初始化阶段
+        * constructor()
+    * 挂载阶段
+        * componentWillMount（弃用）-> UNSAFE_componentWillMount
+        * componentDidMount
+    * 更新阶段
+        * componentWillUpdate（弃用）UNSAFE_componentWillUpdate
+        * componentDidUpdate
+    * 销毁阶段
+        * componentWillUnmount
+    * 特殊生命周函数
+        * componentWillReceiveProps（弃用）UNSAFE_componentWillReceiveProps
+        * shouldComponentUpdate(nextProps,nextState)
+### 知识点
+* 生命周期函数的执行过程
+* 生命周期函数适合做哪些操作
+    * constructor
+        * 初始化state
+        * 改变函数this指向
+    * componentDidMount
+        * ajax
+        * 定时器
+        * DOM 节点的操作
+        * 读取本地存储数据
+    * componentDidUpdate(prevProps,prevState)
+        > 在该生命周期函数中修改state时，要注意避免死循环
+        * ajax
+    * shouldComponentUpdate(nextProps,nextState)
+        > 该生命周期函数一定要返回Boolean（true:允许渲染（默认），false：不允许渲染），一般用于优化组件性能
+        * PureComponent: 内部已经进行shouldComponentUpdate优化的组件，内部不能使用shouldComponentUpdate生命周期函数
+
+* 组件刷新的场景
+    > 所谓的刷新组件，就是执行组件的render函数
+    * state改变
+        * nextState（将要改变的值）与this.state（当前值）
+    * props改变
+        * nextProps（将要改变的值）与this.props（当前值）
+    * 父组件刷新
+        > 子组件也会跟着刷新（但这种刷新没有必要，可以利用shouldComponentUpdate优化，更简单的优化方式：PureComponent）
+    ```js
+        state = {
+            num:1,
+            page:1
+        }
+        this.setState({
+            num:2
+        })
+
+        shoulComponentUpdate(nextProps,nextState){
+            // this.state.num: 1
+            // nextState.num:2
+            if(this.props.xxx === nextProps.xxx){
+                return false;
+            }
+        }
+        render(){}
+        componentDidUpdate(prevProps, prevState){
+            this.state.num:2
+            prevState.num:1
+            // 在该生命周期函数中修改state一定要慎重，避免死循环，一般需要条件判断
+        }
+    ```
