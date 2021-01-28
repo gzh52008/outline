@@ -1989,6 +1989,9 @@ mongoDB         database            collection      document
     * shouldComponentUpdate(nextProps,nextState)
         > 该生命周期函数一定要返回Boolean（true:允许渲染（默认），false：不允许渲染），一般用于优化组件性能
         * PureComponent: 内部已经进行shouldComponentUpdate优化的组件，内部不能使用shouldComponentUpdate生命周期函数
+    * componentWillUnmount
+        * 取消ajax
+        * 清除定时器
 
 * 组件刷新的场景
     > 所谓的刷新组件，就是执行组件的render函数
@@ -2021,3 +2024,35 @@ mongoDB         database            collection      document
             // 在该生命周期函数中修改state一定要慎重，避免死循环，一般需要条件判断
         }
     ```
+
+* React-router
+    > 组件化
+    * 路由类型
+        * hash： HashRouter
+        * history: BrowserRouter
+    * 路由配置
+        * Route
+            * path
+            * component
+            * render
+            * exact
+        * Redirect
+        * Switch
+
+* 导航
+    * 声明式导航
+        * Link
+        * NavLink
+    * 编程式导航
+        > 要使用编程式导航，必须拿到history、location、match对象
+        * 如何获取history,location,match对象？
+            * 通过<Route>组件的component属性渲染组件
+                > 会自动往组件内传入location.history,match
+            * withRouter高阶组件
+                > 高阶组件并不是一个React组件，而是一个包装函数
+            ```js
+                <Home location="xxx" history="xxx" match="xxx" />
+                <Route component={Home}>
+            ```
+* ReactUI框架
+    * ant-design
