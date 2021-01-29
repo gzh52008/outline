@@ -2001,6 +2001,8 @@ mongoDB         database            collection      document
         * nextProps（将要改变的值）与this.props（当前值）
     * 父组件刷新
         > 子组件也会跟着刷新（但这种刷新没有必要，可以利用shouldComponentUpdate优化，更简单的优化方式：PureComponent）
+    * 强制刷新
+        this.forceUpdate()
     ```js
         state = {
             num:1,
@@ -2056,3 +2058,70 @@ mongoDB         database            collection      document
             ```
 * ReactUI框架
     * ant-design
+
+## day6-5
+
+### 面试题
+* 以最快速度找出数组中最大值
+    ```js
+        let arr = [10,20,2,23,21]
+        Math.max(...arr);
+        Math.max.apply(null,arr)
+        // arguments.map(function(){})
+        Array.prototype.map.call(arguments,function(){})
+        [].map.call()
+
+        // 以最快的速度找出数组中两个数相加等于13的数
+        let arr = [1,2,3,4,5,6,7,8,9,10]
+    ```
+* call,apply,bind三者的区别
+* review 
+* 环境
+    * development
+    * production
+    * UAT
+* Vue组件通讯
+    * 父->子：props
+    * 子->父：
+        * 自定义事件
+        * 父组件的方法传到子组件执行
+    * 多层级组件通讯
+        * Bus
+        * Vuex
+        * 注入系统：provide / inject
+* 函数柯里化
+### 复习
+* ReactRouter路由
+    > 组件化
+    * 路由类型
+        * HashRouter
+        * BrowserRouter
+    * 路由渲染
+        * Route
+        * Redirect
+        * Switch
+    * 路由跳转
+        * 声明式导航
+            * Link
+            * NavLink
+        * 编程式导航
+            > history,location,match
+            * 获取
+                * Route渲染组件
+                * withRouter高阶组件
+### 知识点
+* 高阶组件HOC（High Order Component）
+    > 高阶组件并不是React组件，而是一个高阶函数，也是一个**纯函数**
+    * 纯函数：不改变传入的参数，固定的输入有固定的输出
+    ```js
+        function sum(a,b){
+            return a+b;
+        }
+        sum(1,2);//3
+        sum(1,2);//3
+        function randomNumber(min,max){
+            return parseInt(Math.random()*(max-min+1))+min
+        }
+    ```
+    * 自定义高阶组件
+        * 属性代理

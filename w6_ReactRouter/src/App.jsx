@@ -5,11 +5,13 @@ import {
     HomeOutlined,
     LoginOutlined,
     UserOutlined,
+    EyeOutlined,
   } from '@ant-design/icons';
 
 import Home from './views/Home'
 import Login from './views/Login'
 import Reg from './views/Reg'
+import Discover from './views/Discover'
 
 import 'antd/dist/antd.css'
 import './App.scss';
@@ -22,6 +24,11 @@ function App(props){
         text:'首页',
         name:'home',
         icon:<HomeOutlined/>
+    },{
+        path:'/discover',
+        text:'发现',
+        name:'discover',
+        icon:<EyeOutlined />
     },{
         path:'/login',
         text:'登录',
@@ -61,6 +68,7 @@ function App(props){
             <Route path="/home" component={Home}/>
             <Route path="/login" component={Login}/>
             <Route path="/reg" component={Reg}/>
+            <Route path="/discover" component={Discover}/>
            
             <Route path="/notfound" render={()=><div>404</div>}/>
             <Redirect from="/" to="/home" exact />

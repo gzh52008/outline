@@ -25,6 +25,7 @@
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-proposal-decorators": "^7.12.12",
     "@babel/preset-react": "^7.12.10",
     "babel-loader": "^8.2.2",
     "css-loader": "^5.0.1",
@@ -33,7 +34,7 @@
     "sass-loader": "^10.1.1",
     "style-loader": "^2.0.0",
     "webpack": "^5.18.0",
-    "webpack-dev-server": "^3.11.2",
-    "webpack-cli": "^3.3.12"
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.2"
   }
 }
