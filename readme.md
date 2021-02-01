@@ -2148,3 +2148,6 @@ mongoDB         database            collection      document
 
 ### 知识点
 * 路由传参
+* 事件
+    * event
+        > 事件处理函数的最后一个参数

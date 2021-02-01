@@ -13,6 +13,7 @@ import Login from './views/Login'
 import Reg from './views/Reg'
 import Discover from './views/Discover'
 import Mine from './views/Mine'
+import IQ from './views/IQ'
 
 import 'antd/dist/antd.css'
 import './App.scss';
@@ -86,7 +87,7 @@ function App(props){
             </Row>
 
         </Layout.Header>
-        <Layout.Content style={{padding:20}}>
+        <Layout.Content style={{padding:20,backgroundColor:'#fff'}}>
             <Switch>
                 {/* <Route path="/" component={Home} exact/> */}
                 <Route path="/home" component={Home}/>
@@ -94,6 +95,7 @@ function App(props){
                 <Route path="/reg" component={Reg}/>
                 <Route path="/discover" component={Discover}/>
                 <Route path="/mine" component={Mine}/>
+                <Route path="/iq/:id" component={IQ}/>
             
                 <Route path="/notfound" render={()=><div>404</div>}/>
                 <Redirect from="/" to="/home" exact />
@@ -102,6 +104,9 @@ function App(props){
                 <Redirect to="/notfound" />
             </Switch>
         </Layout.Content>
+        <Layout.Footer>
+            &copy; 版权归属
+        </Layout.Footer>
     </Layout>
 }
 
