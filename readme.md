@@ -2113,15 +2113,38 @@ mongoDB         database            collection      document
 * 高阶组件HOC（High Order Component）
     > 高阶组件并不是React组件，而是一个高阶函数，也是一个**纯函数**
     * 纯函数：不改变传入的参数，固定的输入有固定的输出
-    ```js
-        function sum(a,b){
-            return a+b;
-        }
-        sum(1,2);//3
-        sum(1,2);//3
-        function randomNumber(min,max){
-            return parseInt(Math.random()*(max-min+1))+min
-        }
-    ```
+        ```js
+            function sum(a,b){
+                return a+b;
+            }
+            sum(1,2);//3
+            sum(1,2);//3
+            function randomNumber(min,max){
+                return parseInt(Math.random()*(max-min+1))+min
+            }
+        ```
     * 自定义高阶组件
         * 属性代理
+        * 反向继承
+            > 只适用于类组件
+
+## day7-1
+
+### 复习
+* 高阶组件：纯函数
+    * withRouter
+    * 自定义高阶组件
+        * withUser
+        ```js
+            Login = withUser(Login)
+        ```
+        * withStorage
+        ```js
+            // withStorage返回值才是高阶组件
+            Login = withStorage('currentUser')(Login)
+        ```
+* ES7装饰器：@
+    > 依赖插件 `@babel/plugin-proposal-decorators`
+
+### 知识点
+* 路由传参

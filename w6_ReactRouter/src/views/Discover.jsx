@@ -1,10 +1,10 @@
 import React from 'react'
 
-import {withUser} from '@/utils/hoc'
+import {withUser,withStorage} from '@/utils/hoc'
 
 // ES7装饰器
 @withUser
-@witStorage('token')
+@withStorage('token')
 class Discover extends React.Component{
     componentDidMount(){
         

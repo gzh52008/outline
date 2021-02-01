@@ -40,9 +40,9 @@ export function withUser(InnerComponent){
 }
 
 // 具有参数的高阶组件
-function withStorage(key){
+export function withStorage(key){
     return function(InnerComponent){
-        return function OuterComponent(){
+        return function OuterComponent(props){
                  let data = localStorage.getItem(key);
             try{
                 data = JSON.parse(data) || {}
@@ -61,19 +61,19 @@ function withStorage(key){
 // 函数柯里化
 
 // 定义高阶组件方式一：反向继承
-export const withStorage = (InnerComponent) => {
-    return class extends InnerComponent {
-      componentDidMount() {
-        let data = localStorage.getItem("data");
-        this.setState({ data });
+// export const withStorage = (InnerComponent) => {
+//     return class extends InnerComponent {
+//       componentDidMount() {
+//         let data = localStorage.getItem("data");
+//         this.setState({ data });
   
-        // 调用父类生命周期函数，使之不被覆盖
-        super.componentDidMount();
-      }
+//         // 调用父类生命周期函数，使之不被覆盖
+//         super.componentDidMount();
+//       }
   
-      render() {
-        // 调用父类render方法实现渲染
-        return super.render();
-      }
-    };
-};
+//       render() {
+//         // 调用父类render方法实现渲染
+//         return super.render();
+//       }
+//     };
+// };
