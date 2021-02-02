@@ -1,4 +1,6 @@
 import React from 'react';
+import store from '../store'
+import Discover from '../views/Discover';
 
 // 定义高阶组件方式一：属性代理
 export function withUser(InnerComponent){
@@ -77,3 +79,49 @@ export function withStorage(key){
 //       }
 //     };
 // };
+
+// export function withStore(InnerComponent){
+//     return class OuterComponent extends React.Component{
+//         constructor(props){
+//             super(props);
+//             this.state = store.getState();
+//         }
+//         componentDidMount(){
+//             store.subscribe(()=>{
+//                 this.setState(store.getState())
+//             })
+//         }
+//         render(){
+//             return <InnerComponent dispatch={store.dispatch} {...this.props} {...this.state} />
+//         }
+//     }
+// }
+// withStore('money','userInfo')(Discover)
+export function withStore(...keys){
+    return function(InnerComponent){
+        return class OuterComponent extends React.Component{
+            constructor(props){
+                super(props);
+
+                this.state = this.filteData()
+            }
+            componentDidMount(){
+                store.subscribe(()=>{
+                    this.setState(this.filteData())
+                })
+            }
+            filteData(){
+                let reduxData = store.getState();
+                let shareData = {}
+
+                keys.forEach(key=>{
+                    shareData[key] = reduxData[key]
+                });
+                return keys.length>0 ? shareData : reduxData;
+            }
+            render(){
+                return <InnerComponent dispatch={store.dispatch} {...this.props} {...this.state} />
+            }
+        }
+    }
+}

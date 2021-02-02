@@ -2197,9 +2197,58 @@ mongoDB         database            collection      document
             > 状态，全局共享的数据
         * Action
             > 格式：{type:'xxx'}，通过store.dispatch(action)触发
-    * 获取state
-        > store.getState()，得到最新的state
-    * 修改
-        > store.dispatch(action)
-    * 监听
-        > store.subscribe(listener)
+    * 常用方法
+        * 获取state
+            > store.getState()，得到最新的state
+        * 修改
+            > store.dispatch(action)
+        * 监听
+            > store.subscribe(listener)
+    * 使用步骤
+        1. 安装
+            ```bash
+                # npm
+                npm i -D redux
+                # yarn
+                yarn add redux --dev
+            ```
+        2. 引用、创建store，并定义reducer
+            ```js
+                import {createStore} from 'redux'
+                const reuducer = function(state=initState,action){
+                    switch(action.type){
+                        case xxx:
+                            return {}
+                        case xxx:
+                            return {}
+                        default:
+                            return state
+                    }
+
+                    
+                }
+                const store = createStore(reducer,initState)
+
+                // store为一个对象，包含以下方法
+                // {getState(),dispatch()}
+            ```
+        3. 操作
+            * 获取：store.getState()
+            * 修改：store.dispach(action)
+            * 监听：store.subscribe(listener)
+* 组件刷新场景
+    * state改变
+    * props改变
+    * 父组件刷新
+    * 强制刷新
+* 封装一个高阶组件，实现redux与react组件的完美结合
+    * withStore
+* react-redux
+    * `<Provider/>`   用于共享redux数据
+    * `connect()`     高阶组件，用于向组件中传入数据
+    * 使用步骤
+        1. 利用`<Provider/>`共享store
+            > 原理：`<Context.Provider/>`
+        2. 利用`connect()`高阶组件在组件中定义需要的redux数据
+            * mapStateToProps: 映射数据到组件props
+            * mapDispatchToProps: 映射修改方法到组件props

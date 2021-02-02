@@ -6,7 +6,8 @@ const initState = {
         password:123,
         role:'svip'
     },
-    token:'xxx'
+    token:'laoxiejingjingtiantianzeze',
+    money:300000
 }
 
 const reducer = function(state=initState,action){
@@ -29,6 +30,19 @@ const reducer = function(state=initState,action){
                     password:action.password
                 }
             }
+        case 'changemoney':
+            return {
+                ...state,
+                userInfo:{
+                    ...state.userInfo,
+                },
+                money:action.money
+            }
+        case 'changeuser':
+            return {
+                ...state,
+                userInfo:action.userInfo
+            }
     }
     return state;
 }
@@ -39,6 +53,12 @@ const store = createStore(reducer)
 // 监听修改，state只要有修改，就执行回调函数
 store.subscribe(()=>{
     console.log(666,store.getState())
+})
+store.subscribe(()=>{
+    console.log(777,store.getState())
+})
+store.subscribe(()=>{
+    console.log(888,store.getState())
 })
 
 console.log('store',store);

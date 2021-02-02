@@ -1,8 +1,8 @@
 import React from 'react'
-import {Menu,Layout} from 'antd'
-import {withUser,withStorage} from '@/utils/hoc'
+import {Menu,Layout,Button} from 'antd'
+import {withUser,withStorage,withStore} from '@/utils/hoc'
 
-import store from '@/store'
+// import store from '@/store'
 
 
 import Vue from './Vue'
@@ -12,8 +12,10 @@ import jQuery from './jQuery'
 import { Redirect,Route, Switch } from 'react-router-dom'
 
 // ES7装饰器
-@withUser
-@withStorage('token')
+// @withUser
+// @withStorage('token')
+// @withStore
+@withStore()
 class Discover extends React.Component{
     state = {
         menu:[{
@@ -37,13 +39,13 @@ class Discover extends React.Component{
         this.props.history.push(url + key);
     }
     componentDidMount(){
-        store.subscribe(()=>{
-            this.forceUpdate();
-        })
+        // store.subscribe(()=>{
+        //     this.forceUpdate();
+        // })
     }
     render(){
         const {menu,current} = this.state;
-        const {match} = this.props;
+        const {match,userInfo,dispatch,money} = this.props;
         console.log('Discover.props',this.props);
         return (
             <Layout style={{backgroundColor:'#fff',margin:'0 -20px'}}>
@@ -59,12 +61,17 @@ class Discover extends React.Component{
                     
                     
                 </Menu>
-                <button onClick={()=>{
-                    let action = {type:'changeusername',username:'laoxie'}
-                    store.dispatch(action)
-                }}>{store.getState().userInfo.username}</button>
+               
                 </Layout.Sider>
-                <Layout.Content>
+                <Layout.Content style={{padding:20}}>
+                    <Button type="primary" onClick={()=>{
+                        let action = {type:'changeusername',username:'laoxie'}
+                        dispatch(action)
+                    }}>{userInfo.username}</Button>
+                    <Button type="primary" ghost onClick={()=>{
+                        let action = {type:'changemoney',money:money+1000}
+                        dispatch(action)
+                    }}>{money}</Button>
                     <Switch>
                         <Route path={match.path + '/vue'} component={Vue} />
                         <Route path={match.path + '/react'} component={ReactComponent} />
