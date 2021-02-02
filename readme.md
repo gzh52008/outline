@@ -2148,6 +2148,58 @@ mongoDB         database            collection      document
 
 ### 知识点
 * 路由传参
+    * 动态路由: `/iq/:id`
+        > 获取：match.params
+    * 查询参数：`search="?a=10&b=20"`
+        > 获取：location.search，可以配合`querystring`模块实现操作
+    * state: 
+        > 获取：`location.state`，刷新后消失
 * 事件
     * event
         > 事件处理函数的最后一个参数
+* 嵌套路由
+    > Route的嵌套
+    ```js
+        // /discover/vue
+        // /discover/react
+        // /discover/node
+        // 嵌套路由
+        <Route path='/discover' component={Discover}>
+        // Discover
+        <Route path={match.path + '/vue'} component={Vue}>
+        <Route path={match.path + '/react'} component={React}>
+
+        // 动态路由
+        <Route path='/discover/:cat' component={Discover}>
+    ```
+* 路由监听
+    ```js
+        history.listen((location)=>{
+
+        })
+    ```
+
+
+## day7-2
+
+### 知识点
+* redux
+    > 类似的状态管理工具：Flux, Mobx...
+    * 核心
+        * Store
+            > 通过`createStore(reducer,initState)`创建
+        * Reducer
+            > 用于修改state，是一个纯函数，必须返回一个新的state
+            * 参数
+                * state
+                * action
+        * State
+            > 状态，全局共享的数据
+        * Action
+            > 格式：{type:'xxx'}，通过store.dispatch(action)触发
+    * 获取state
+        > store.getState()，得到最新的state
+    * 修改
+        > store.dispatch(action)
+    * 监听
+        > store.subscribe(listener)
