@@ -1,7 +1,26 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Button} from 'antd'
-
+import { withLogin } from '../utils/hoc';
+const mapStateToProps = function(state){
+    // state: redux中的state
+    return {
+        userInfo:state.userInfo,
+        className:'2008'
+    };
+}
+const mapDispatchToPorps = function(dispatch){
+    return {
+        changeUser(userInfo){
+            dispatch({
+                type:'changeuser',
+                userInfo
+            })
+        }
+    }
+}
+@withLogin
+@connect(mapStateToProps,mapDispatchToPorps)
 class Mine extends React.Component{
     componentDidMount(){
         
@@ -23,25 +42,9 @@ class Mine extends React.Component{
         )
     }
 }
-const mapStateToProps = function(state){
-    // state: redux中的state
-    return {
-        userInfo:state.userInfo,
-        className:'2008'
-    };
-}
-const mapDispatchToPorps = function(dispatch){
-    return {
-        changeUser(userInfo){
-            dispatch({
-                type:'changeuser',
-                userInfo
-            })
-        }
-    }
-}
+
 // mapStateToProps: 映射数据到组件props
 // mapDispatchToProps：映射修改方法到组件props（默认映射dispatch到组件）
-Mine = connect(mapStateToProps,mapDispatchToPorps)(Mine)
+// Mine = connect(mapStateToProps,mapDispatchToPorps)(Mine)
 
 export default Mine;

@@ -1,10 +1,16 @@
 import React from 'react'
-import { Form,Input,Checkbox,Button } from 'antd'
+import { Form,Input,Checkbox,Button,message } from 'antd'
 import { withUser } from '@/utils/hoc'
+import {myapi,request} from '@/utils/request'
+import { connect } from 'react-redux';
+import querystring from 'querystring'
+
+import cryptoJS,{SHA256,enc} from 'crypto-js'
+console.log('cryptoJS',cryptoJS)
 
 const layout = {
     labelCol: {
-        span: 8,
+        span: 6,
     },
     wrapperCol: {
         span: 16,
@@ -12,39 +18,72 @@ const layout = {
 };
 const tailLayout = {
     wrapperCol: {
-        offset: 8,
+        offset: 6,
         span: 16,
     },
 };
-
-function Login(props) {
-    console.log('Login.props', props)
-    const rules = {
-        username: [
-            {
-                required: true,
-                message: '请输入用户名',
-            },
-        ],
-        password: [
-            {
-                required: true,
-                message: '请输入密码',
-            },
-        ]
+const mapStateToProps = function(state){
+    return {}
+}
+const mapDispatchToProps = function(dispatch){
+    return {
+        login(userInfo){
+            dispatch({type:'login',userInfo})
+        }
     }
-    const onFinish = (values) => {
-        console.log('Success:', values);
+}
+@connect(mapStateToProps,mapDispatchToProps)
+class Login extends React.Component{
+    state = {
+        rules: {
+            username: [
+                {
+                    required: true,
+                    message: '请输入用户名',
+                },
+            ],
+            password: [
+                {
+                    required: true,
+                    message: '请输入密码',
+                },
+            ]
+        }
+    }
+    onFinish = async (values) => {
+        const {login,location,history} = this.props;
+        let {username,password,mdl} = values;
+
+        console.log('1',password)
+        password = SHA256(password);
+        console.log('2',password)
+        password = enc.Hex.stringify(password)
+        console.log('3',password)
+        const {data} = await myapi.get('/user/login',{
+            username,
+            password,
+            mdl
+        });
+
+        if(data.code === 200){
+            login(data.data);
+            const {redirectTo='/mine'} = querystring.parse(location.search.slice(1))
+            history.push(redirectTo)
+        }else{
+            message.error('用户名或密码错误')
+        }
     };
-    return (
-        <div>
+    render(){
+        const {rules} = this.state;
+        return (
+            <div>
             <Form
                 {...layout}
                 name="basic"
                 initialValues={{
                     remember: true,
                 }}
-                onFinish={onFinish}
+                onFinish={this.onFinish}
 
             >
                 <Form.Item
@@ -74,9 +113,9 @@ function Login(props) {
                 </Form.Item>
             </Form>
         </div>
-    )
+        )
+    }
 }
 
-Login = withUser(Login);
 
 export default Login;

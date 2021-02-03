@@ -10,9 +10,26 @@ export const request = axios.create({
     baseURL:baseURL + '/api'
 })
 
+request.get = function(url,data,config={}){
+    return request({
+        url,
+        ...config,
+        params:data
+    })
+}
+
+
 export const myapi = axios.create({
     baseURL:(process.env.NODE_ENV=== 'development' ?'http://localhost:2008' : baseURL) + '/api'
 })
+
+myapi.get = function(url,data,config={}){
+    return myapi({
+        url,
+        ...config,
+        params:data
+    })
+}
 
 
 export default request;

@@ -1,15 +1,22 @@
+import {LOGIN,LOGOUT,CHANGE_PASSWORD,CHANGE_USERNAME} from '../actions/user'
+
+// 数据持久化
+// 刷新页面重新获取本地数据，并写入初始state
+let userInfo = localStorage.getItem('userInfo');// {},null,xxxx
+try{
+    userInfo = JSON.parse(userInfo) || {}
+}catch(err){
+    userInfo = {}
+}
+
 const initState = {
-    userInfo:{
-        username:'jingjing',
-        password:123,
-        role:'svip'
-    },
+    userInfo
 }
 
 const reducer = function(state=initState,action){
     // 定义修改state的逻辑
     switch(action.type){
-        case 'changeusername':
+        case CHANGE_USERNAME:
             // state.userInfo.username = action.username
             return {
                 ...state,
@@ -18,7 +25,7 @@ const reducer = function(state=initState,action){
                     username:action.username
                 }
             }
-        case 'changepassword':
+        case CHANGE_PASSWORD:
             return {
                 ...state,
                 userInfo:{
@@ -26,12 +33,15 @@ const reducer = function(state=initState,action){
                     password:action.password
                 }
             }
-        case 'login':
+        case LOGIN:
+            // 存入本地
+            localStorage.setItem('userInfo',JSON.stringify(action.userInfo))
             return {
                 ...state,
                 userInfo:action.userInfo
             }
-        case 'logou':
+        case LOGOUT:
+            localStorage.removeItem('userInfo')
             return {
                 ...state,
                 userInfo:{}

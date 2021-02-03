@@ -1,9 +1,9 @@
 import {createStore} from 'redux'
-
+import { composeWithDevTools } from 'redux-devtools-extension';
 import reducer from './reducer'
 
 // const store = createStore(reducer,initState);
-const store = createStore(reducer)
+const store = createStore(reducer,composeWithDevTools())
 
 // 监听修改，state只要有修改，就执行回调函数
 // store.subscribe(()=>{

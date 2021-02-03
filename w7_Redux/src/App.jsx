@@ -1,12 +1,12 @@
 import React from 'react'
-import {Route,Link,Redirect,Switch,NavLink,withRouter} from 'react-router-dom'
-import { Menu,Layout,Row,Col,Button } from 'antd';
+import { Route, Link, Redirect, Switch, NavLink, withRouter } from 'react-router-dom'
+import { Menu, Layout, Row, Col, Button, Avatar } from 'antd';
 import {
     HomeOutlined,
     LoginOutlined,
     UserOutlined,
     EyeOutlined,
-  } from '@ant-design/icons';
+} from '@ant-design/icons';
 
 import Home from './views/Home'
 import Login from './views/Login'
@@ -17,25 +17,28 @@ import IQ from './views/IQ'
 
 import 'antd/dist/antd.css'
 import './App.scss';
-
-function App(props){
-    console.log('App.props',props);
+import {bindActionCreators} from 'redux'
+import { connect } from 'react-redux';
+import { baseURL } from '@/utils/request'
+import userAction from './store/actions/user'
+function App(props) {
+    console.log('App.props', props);
     const currentPath = props.location.pathname
     const nav = [{
-        path:'/home',
-        text:'首页',
-        name:'home',
-        icon:<HomeOutlined/>
-    },{
-        path:'/discover',
-        text:'发现',
-        name:'discover',
-        icon:<EyeOutlined />
-    },{
-        path:'/mine',
-        text:'我的',
-        name:'mine',
-        icon:<UserOutlined/>
+        path: '/home',
+        text: '首页',
+        name: 'home',
+        icon: <HomeOutlined />
+    }, {
+        path: '/discover',
+        text: '发现',
+        name: 'discover',
+        icon: <EyeOutlined />
+    }, {
+        path: '/mine',
+        text: '我的',
+        name: 'mine',
+        icon: <UserOutlined />
     },
         // {
         //     path:'/login',
@@ -49,15 +52,15 @@ function App(props){
         //     icon:<UserOutlined/>
         // }
     ];
-    const changeMenu = function({key}){
+    const changeMenu = function ({ key }) {
         props.history.push(key);
     }
-    const goto = function(path,e){
-        console.log('path',path,e);
+    const goto = function (path, e) {
+        console.log('path', path, e);
         props.history.push(path)
     }
     return <Layout>
-        <Layout.Header style={{padding:0}}>
+        <Layout.Header style={{ padding: 0 }}>
             {/* <Link to="/home">首页</Link>
             <Link to="/login">登录</Link>
             <Link to="/reg">注册</Link> */}
@@ -69,35 +72,50 @@ function App(props){
                     activeClassName='active'
                 >{item.text}</NavLink>)
             } */}
-            <Row>
+            <Row gutter={10}>
                 <Col span={16}>
                     <Menu mode="horizontal" theme="dark" onClick={changeMenu} defaultSelectedKeys={[currentPath]}>
                         {
-                            nav.map(item=><Menu.Item 
-                                key={item.path} 
+                            nav.map(item => <Menu.Item
+                                key={item.path}
                                 icon={item.icon}
                             >{item.text}</Menu.Item>)
                         }
                     </Menu>
                 </Col>
-                <Col span={8} style={{textAlign:'right'}}>
-                    <Button type="link" onClick={goto.bind(null,'/login')}>登录</Button>
-                    <Button type="link" onClick={goto.bind(null,'/reg')}>注册</Button>
+                <Col span={8} style={{ textAlign: 'right' }}>
+                    {
+                        props.userInfo.username ?
+                            <>
+                                <Avatar
+                                    icon={<UserOutlined />}
+                                    src={baseURL + props.userInfo.avatar}
+                                    size="small"
+                                ></Avatar>
+                                <Button type="link" size="small" style={{color:'#fff'}}>{props.userInfo.username}</Button>
+                                <Button type="link" size="small" onClick={props.logout}>退出</Button>
+                            </>
+                            :
+                            <>
+                                <Button type="link" onClick={goto.bind(null, '/login?redirectTo='+props.location.pathname)}>登录</Button>
+                                <Button type="link" onClick={goto.bind(null, '/reg')}>注册</Button>
+                            </>
+                    }
                 </Col>
             </Row>
 
         </Layout.Header>
-        <Layout.Content style={{padding:20,backgroundColor:'#fff'}}>
+        <Layout.Content style={{ padding: 20, backgroundColor: '#fff' }}>
             <Switch>
                 {/* <Route path="/" component={Home} exact/> */}
-                <Route path="/home" component={Home}/>
-                <Route path="/login" component={Login}/>
-                <Route path="/reg" component={Reg}/>
-                <Route path="/discover" component={Discover}/>
-                <Route path="/mine" component={Mine}/>
-                <Route path="/iq/:id" component={IQ}/>
-            
-                <Route path="/notfound" render={()=><div>404</div>}/>
+                <Route path="/home" component={Home} />
+                <Route path="/login" component={Login} />
+                <Route path="/reg" component={Reg} />
+                <Route path="/discover" component={Discover} />
+                <Route path="/mine" component={Mine} />
+                <Route path="/iq/:id" component={IQ} />
+
+                <Route path="/notfound" render={() => <div>404</div>} />
                 <Redirect from="/" to="/home" exact />
                 {/* 404 */}
                 {/* <Redirect from="*" to="/notfound" /> */}
@@ -109,6 +127,34 @@ function App(props){
         </Layout.Footer>
     </Layout>
 }
+
+const mapStateToProps = function (state) {
+    return {
+        userInfo: state.user.userInfo
+    }
+}
+const mapDispatchToProps = function (dispatch) {
+    // return {
+    //     logout() {
+    //         // dispatch({ type: 'logout' })
+                // 利用action create简化操作
+    //         dispatch(userAction.logout())
+    //     }
+    // }
+
+    // 利用bindActionCreators简化操作
+    // 原理：把ActionCreator中默认导出的所有方法(export default中的方法)绑定到组件props并自动隐式调用dispatch(action)）
+    return bindActionCreators(userAction,dispatch)
+    // return {
+    //     login(){
+    //         dispatch(login())
+    //     },
+    //     logout(){
+    //         dispatch(logout())
+    //     }
+    // }
+}
+App = connect(mapStateToProps, mapDispatchToProps)(App)
 
 // withRouter高阶组件
 App = withRouter(App)

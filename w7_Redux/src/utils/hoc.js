@@ -1,6 +1,8 @@
 import React from 'react';
 import store from '../store'
-import Discover from '../views/Discover';
+import {connect} from 'react-redux'
+import {Redirect} from 'react-router-dom'
+import {myapi} from '@/utils/request';
 
 // 定义高阶组件方式一：属性代理
 export function withUser(InnerComponent){
@@ -124,4 +126,54 @@ export function withStore(...keys){
             }
         }
     }
+}
+
+export function withLogin(InnerComponent){
+    const mapStateToProps = function(state){
+        return {
+            userInfo:state.user.userInfo
+        }
+    }
+    const mapDispatchToProps = function(dispatch){
+        return {
+            logout(){
+                dispatch({type:'logout'})
+            }
+        }
+    }
+    @connect(mapStateToProps,mapDispatchToProps)
+    class OuterComponent extends React.Component{
+        componentDidMount(){
+            const {userInfo,logout,history,location} = this.props;
+            // 校验token有效性
+            myapi({
+                url:'/user/verify',
+                headers:{
+                    Authorization:userInfo.Authorization
+                }
+            }).then(({data})=>{
+                if(data.code === 400){
+                    logout();
+                    // history.push('/login?redirectTo='+location.pathname)
+                    history.push({
+                        pathname:'/login',
+                        search:'?redirectTo='+location.pathname
+                    })
+                }
+            })
+        }
+        componentWillUnmount(){
+            // 取消ajax请求
+        }
+        render(){
+            const {userInfo} = this.props;
+            if(userInfo._id){
+                return <InnerComponent {...this.props} />
+            }else{
+                return <Redirect to={"/login?redirectTo="+location.pathname} />
+            }
+        }
+    }
+
+    return OuterComponent
 }

@@ -2291,3 +2291,10 @@ mongoDB         database            collection      document
 ### 知识点
 * 模块化reducer
     > 利用combineReducers合并多个reducer，并组合成一个大的reducer，影响state的获取，但影响state的修改
+* 页面访问权限控制
+    > 高阶组件
+
+* Action Creator: action构造器（定义创建action的函数）
+    > 简化action编写
+    * bindActionCreators：简化所有dispatch的操作
+    
