@@ -45,7 +45,7 @@ class Discover extends React.Component{
     }
     render(){
         const {menu,current} = this.state;
-        const {match,userInfo,dispatch,money} = this.props;
+        const {match} = this.props;
         console.log('Discover.props',this.props);
         return (
             <Layout style={{backgroundColor:'#fff',margin:'0 -20px'}}>
@@ -64,14 +64,6 @@ class Discover extends React.Component{
                
                 </Layout.Sider>
                 <Layout.Content style={{padding:20}}>
-                    <Button type="primary" onClick={()=>{
-                        let action = {type:'changeusername',username:'laoxie'}
-                        dispatch(action)
-                    }}>{userInfo.username}</Button>
-                    <Button type="primary" ghost onClick={()=>{
-                        let action = {type:'changemoney',money:money+1000}
-                        dispatch(action)
-                    }}>{money}</Button>
                     <Switch>
                         <Route path={match.path + '/vue'} component={Vue} />
                         <Route path={match.path + '/react'} component={ReactComponent} />

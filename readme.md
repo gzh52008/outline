@@ -2252,3 +2252,42 @@ mongoDB         database            collection      document
         2. 利用`connect()`高阶组件在组件中定义需要的redux数据
             * mapStateToProps: 映射数据到组件props
             * mapDispatchToProps: 映射修改方法到组件props
+
+## day7-3
+
+### 复习
+* redux
+    * 使用步骤
+        1. 安装redux
+        2. 创建store
+            ```js
+                import {createStore} from 'redux'
+                const store = createStore(reducer,initState)
+            ```
+        3. 操作
+            * 获取：store.getState()
+            * 修改：store.dispatch(action)
+            * 监听：store.subscribe(fn)
+
+    * 核心
+        * store
+        * reducer：用于修改state
+            * 参数
+                * state
+                * action
+        * state: 状态（共享数据）
+        * action：动作/命名
+* react-redux桥接工具
+    * <Provider/>
+        > 原理：利用Context技术共享redux数据
+    * connect(mapStateToProps,mapDispatchToProps)
+        > 原理：利用高阶组件代理redux属性到目标组件
+        * mapStateToProps：映射数据到组件
+        * mapDispatchToProps：映射修改方法到组件
+            > 默认映射dispatch到组件
+* 简化版redux
+* 查看源码
+
+### 知识点
+* 模块化reducer
+    > 利用combineReducers合并多个reducer，并组合成一个大的reducer，影响state的获取，但影响state的修改

@@ -10,5 +10,9 @@ export const request = axios.create({
     baseURL:baseURL + '/api'
 })
 
+export const myapi = axios.create({
+    baseURL:(process.env.NODE_ENV=== 'development' ?'http://localhost:2008' : baseURL) + '/api'
+})
+
 
 export default request;
