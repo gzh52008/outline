@@ -2297,4 +2297,70 @@ mongoDB         database            collection      document
 * Action Creator: action构造器（定义创建action的函数）
     > 简化action编写
     * bindActionCreators：简化所有dispatch的操作
-    
+
+## day7-4
+
+### 面试题
+* 发版
+* 估时间
+* 联调
+* 副作用 effect
+
+### 复习
+* redux模块化：combineReducers
+* Action Creator
+    > 用于创建Action的函数，实现简化操作
+    * bindActionCreators
+* 调试程序
+    * react developer tools
+    * redux dev tools
+        > 需要安装`redux-devtools-extension`，并配合中间件实现调试
+
+### 知识点
+* redux
+    * state
+    * reducer
+    * 中间件
+
+* VueX
+    * state
+    * getters
+    * mutations
+    * actions
+    ```js
+        actions:{
+            atest(context){
+                axios().then(res=>{
+                    // ...很多代码
+                    context.commit('xxxx')
+                })
+            }
+        }
+
+        $store.dispatch('atest')
+
+    ```
+* redux中间件
+    * redux-chunk
+    * redux-promise
+    * redux-saga
+        * generator 生成器函数
+        * Iterator  迭代器
+            * for...of  能遍历具有迭代特性的数据
+
+    ```js
+        function sum(){
+            
+        }
+        sum();// undefined
+
+        async function sum(){
+        
+        }
+        sum();// Promise对象
+
+        function * sum(){
+            
+        }
+        sum();// Iterator
+    ```
