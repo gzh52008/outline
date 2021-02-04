@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02.生成器函数与迭代器</title>
+</head>
+
+<body>
+    <h1>02.生成器函数与迭代器</h1>
+    <script>
+        /**
+            * 02.生成器函数与迭代器
+                * Generator
+                    > 生成器函数返回一个迭代器
+                    * yield  暂停
+                    * return 结束
+                * Iterator  迭代器
+                    * next()    返回一个对象，格式{value,done}
+                        * value 每一次迭代的返回值
+                        * done  迭代器是否迭代完成
+                
+                * 遍历
+                    * for           一般用于遍历具有索引值的数据
+                    * for...in      一般用于遍历具有键值对的数据
+                    * for...of      一般用户遍历具有迭代特性的数据
+                        * String
+                        * Array
+                        * NodeList
+                        * HTMLCollection
+                        * Set
+                        * Map
+                        * ...
+         */
+
+        function* create() {
+            console.log('start')
+            yield 'zeze'
+            console.log(2)
+            yield 'tiantian'
+            console.log(3)
+            yield 'jingjing'
+            console.log(4)
+            yield 'laoxie'
+            console.log('end')
+        }
+
+        const it = create();
+        console.log('it=', it);
+
+        // for(let item of it){
+        //     console.log('item=',item);
+        // }
+
+        const arr = [10,20,30,40,50]
+        function * create2(){
+            for(let i=0;i<arr.length;i++){
+                yield arr[i];
+            }
+        }
+
+        // for of 默认不能遍历普通对象
+        var user = {
+			name: 'laoxie',
+			age: 18,
+			gender: '男'
+        }
+        // 报错：user is not iterable
+        // for(let item of user){
+        // }
+
+        // 让for...of能遍历普通对象
+        function* initIterator(o) {
+			for (var key in o) {
+				yield [key,o[key]];
+			}
+        }
+        Object.defineProperty(Object.prototype,Symbol.iterator,{
+            value:function(){
+                return initIterator(this);
+            }
+        })
+
+        for(let item of user){
+            console.log('item=',item);
+        }
+
+    </script>
+</body>
+
+</html>

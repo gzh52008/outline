@@ -5,12 +5,13 @@ import { withLogin } from '../utils/hoc';
 const mapStateToProps = function(state){
     // state: redux中的state
     return {
-        userInfo:state.userInfo,
+        userInfo:state.user.userInfo,
         className:'2008'
     };
 }
 const mapDispatchToPorps = function(dispatch){
     return {
+        dispatch,
         changeUser(userInfo){
             dispatch({
                 type:'changeuser',
@@ -23,7 +24,11 @@ const mapDispatchToPorps = function(dispatch){
 @connect(mapStateToProps,mapDispatchToPorps)
 class Mine extends React.Component{
     componentDidMount(){
-        
+        // 触发中间件action： saga action
+        // this.props.dispatch({
+        //     type:'CHANGE_USERNAME_ASYNC',
+        //     id:this.props.userInfo._id
+        // })
     }
     render(){
         console.log('Mine.props',this.props)

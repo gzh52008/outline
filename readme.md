@@ -2305,6 +2305,8 @@ mongoDB         database            collection      document
 * 估时间
 * 联调
 * 副作用 effect
+* 单元测试 Unit Test
+    * 测试用例
 
 ### 复习
 * redux模块化：combineReducers
@@ -2364,3 +2366,22 @@ mongoDB         database            collection      document
         }
         sum();// Iterator
     ```
+* 使用redux-saga步骤
+    1. 安装与引入saga
+        ```js
+            import createSagaMiddleware from 'redux-saga';
+        ```
+    2. 创建saga中间件
+        ```js
+            const sagaMiddleware = createSagaMiddleware();
+        ```
+    3. 将 sagaMiddleware 连接至 Store
+        ```js
+            let enhancer = applyMiddleware(sagaMiddleware)
+            const store = createStore(reducer,composeWithDevTools(enhancer))
+        ```
+    4. 引入并运行自定义Saga配置
+        ```js
+            import mySaga from './saga'
+            sagaMiddleware.run(mySaga);
+        ```

@@ -134,6 +134,19 @@ router.get('/login', async (req, res) => {
     }
 });
 
+router.get('/:id', async (req, res) => {
+    const { id } = req.params;
+
+    const result = await mongo.find(colName, { _id: id });
+    if (result.length>0) {
+        res.send(formatData({
+            data:result[0]
+        }))
+    } else {
+        res.send(formatData({ code: 400 }))
+    }
+});
+
 /**
  * 删除用户
  * delete /api/user/:id
