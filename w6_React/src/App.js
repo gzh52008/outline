@@ -3,11 +3,12 @@ import React from 'react';
 import TodoList from './components/Todolist'
 import RenderProp from './components/RenderProp'
 import Lifecircle from './components/Lifecircle'
+import Hook from './hooks'
 
 function App(){
     return (
-        <div>
-            <TodoList/>
+        <div className="container-fluid">
+            {/* <TodoList/> */}
             {/* <RenderProp username="laoxie" renderHeader={(user)=>{
                 return (
                     <div>
@@ -24,7 +25,8 @@ function App(){
                 }
 
             </RenderProp> */}
-            <Lifecircle/>
+            {/* <Lifecircle/> */}
+            <Hook/>
         </div>
     )
 }

@@ -2110,7 +2110,7 @@ mongoDB         database            collection      document
                 * Route渲染组件
                 * withRouter高阶组件
 ### 知识点
-* 高阶组件HOC（High Order Component）
+* 高阶组件HOC���High Order Component）
     > 高阶组件并不是React组件，而是一个高阶函数，也是一个**纯函数**
     * 纯函数：不改变传入的参数，固定的输入有固定的输出
         ```js
@@ -2397,3 +2397,27 @@ mongoDB         database            collection      document
         * 在组织中创建项目
         * 使用git
         
+## day8-2
+
+### 知识点
+
+* 组件类型
+    * 函数组件（无状态组件）
+    * 类组件（状态组件）
+        * state
+        * 生命周期函数
+        * this
+* 组件刷新场景
+    > 类组件：执行render方法；函数组件：从头到尾执行所有代码
+    * props改变
+    * 父组件刷新
+    * state改变
+        > this.setState()
+    * 强制刷新
+        > this.foreUpdate()
+* Hook
+    > 为函数组件而推出的功能
+    * useState
+        > 取代类组件中的State
+    * useEffect
+        > 取代类组件中的生命周期函数
