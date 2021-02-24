@@ -26,10 +26,11 @@ function UseEffect(){
 
     // 用法四：Effect中返回一个函数，等效于componentWillUnmount
     useEffect(()=>{
-        
+        // 发起ajax
         return function(){
             // 这里的代码在组件销毁时执行
             console.log('Effect中返回一个函数')
+            // 取消ajax
         }
     })
 

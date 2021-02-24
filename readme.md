@@ -2421,3 +2421,77 @@ mongoDB         database            collection      document
         > 取代类组件中的State
     * useEffect
         > 取代类组件中的生命周期函数
+
+
+## day8-3
+
+### 复习
+* HooK
+    > Hook为一个函数
+    * useState
+        > 实现类组件state功能，返回一个数组：[数据,数据修改方法]，数据修改方法能实现函数组件的自我刷新
+        ```js
+            let [user,changeUser] = useState({
+                    username:'xxx',
+                    pasw:123,
+                })
+            let [score,changeScore] = useState({
+                        en:100,math:120,cn:140
+                    })
+            changeUser({
+                ...user,
+                score:{
+                    ...user.score,
+                    en:90
+                }
+            })
+        ```
+    * useEffect
+        > 在初始化时且组件渲染后执行一次
+        * 默认用法
+            > 初始化和数据更新时执行
+            ```js
+                console.log(0)
+                useEffect(()=>{
+                    console.log(1)
+                })
+                console.log(2)
+            ```
+        * 指定依赖
+            > 初始化和依赖修改时执行
+            ```js
+                useEffect(()=>{
+                    console.log(1)
+                },[qty])
+            ```
+        * 空依赖
+            > 只有初始化时执行
+            ```js
+                useEffect(()=>{
+                    console.log(1)
+                },[])
+            ```
+        * 返回一个函数
+            > 返回的函数在组件被销毁时执行
+            ```js
+                useEffect(()=>{
+                    // 
+                    console.log(1)
+                    return function(){
+                        // 这里的代码在组件销毁后执行
+                    }
+                })
+
+            ```
+### 知识点
+* useMemo
+    > 返回计算结果
+* useCallback
+
+
+connect(mapStateToProps,matDispatchToProps)
+import {useDispatch} from 'react-redux'
+function Home(){
+    const dispatch = useDispatch()
+
+}
