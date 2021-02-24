@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useLayoutEffect} from 'react'
 
 function UseEffect(){
     let [qty,changeQty] = useState(0);
@@ -34,6 +34,11 @@ function UseEffect(){
         }
     })
 
+    useLayoutEffect(()=>{
+        console.log('useLayoutEffect')
+    })
+
+    console.log('return')
     return (
         <div>
             <h4>useEffect</h4>

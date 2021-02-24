@@ -2487,11 +2487,36 @@ mongoDB         database            collection      document
 * useMemo
     > 返回计算结果
 * useCallback
+    > 返回传入的函数
+* useContext
+    > 简化context获取
+* useReducer
+    > 利用useReducer+useContext实现redux的功能（注意唯一数据源的问题）
+* useRef
+* useLayoutEffect   useEffect的同步版本
 
+* 第三方Hook
+    * react-router
+        ```js
+            function Home(props){
+                const history = props.history
+                const history = useHistory()
+            }
 
-connect(mapStateToProps,matDispatchToProps)
-import {useDispatch} from 'react-redux'
-function Home(){
-    const dispatch = useDispatch()
+            Home = withRouter(Home)
+        ```
+    * react-redux
+        ```js
+         function Home(props){
+             const dispatch = useDispatch()
+             const goodslist = useSelector((state)=>state.cart.goodslist)
 
-}
+             dispatch({type:'add',goods})
+         }
+         Home = connect(function(state){
+             return {
+                 goodslist:state.cart.goodslist
+             }
+         })(Home)
+        ```
+* 自定义Hook

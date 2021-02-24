@@ -6,8 +6,10 @@ function UseContext(){
     const handleClick = useCallback(()=>{
         changeQty(qty+1)
     },[qty]);
+
     const user = useContext(mycontext)
     console.log('user=',user);
+    
     return (
         <div>
             <h4>useContext</h4>
