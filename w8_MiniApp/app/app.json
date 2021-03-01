@@ -1,0 +1,17 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/class/class",
+    "pages/mine/mine"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#58bc58",
+    "navigationBarTitleText": "班级管理系统",
+    "backgroundColor":"#f60",
+    "enablePullDownRefresh":true
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

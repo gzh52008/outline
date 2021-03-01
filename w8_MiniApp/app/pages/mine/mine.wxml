@@ -1,0 +1,19 @@
+<view class="mine">
+  <view>
+    <text data-title="{{currentClass}}">当前班级：{{currentClass}}</text>
+  </view>
+  单向+事件：<input type="text" value="{{currentClass}}" bindinput="changeClass"  />
+  model：<input type="text" model:value="{{currentClass}}" />
+  <rich-text nodes="<h1>hello</h1><p class=\"price\">价格：<span style='text-decoration:underline'>998</span></p>"></rich-text>
+  <button bind:tap="handleClick">点我</button>
+  <view>列表渲染</view>
+  <view wx:for="{{classList}}" wx:key="id">
+    {{item.name}}
+    <block wx:for="{{item.student}}" wx:key="*this" wx:for-item="name" wx:for-index="idx">
+      <view>
+          {{item.name}}-{{idx}}-{{name}}
+      </view>
+      <view>{{name}}</view>
+    </block>
+  </view>
+</view>

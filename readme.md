@@ -2520,3 +2520,58 @@ mongoDB         database            collection      document
          })(Home)
         ```
 * 自定义Hook
+
+## day9-1
+
+### 知识点：小程序
+* webApp
+* NativeApp
+* 小程序
+    * 文件类型
+        * .json         配置文件
+        * .js           逻辑文件
+            
+        * .wxss         样式文件
+        * .wxml         结构文件
+    * 按作用范围分类
+        * 全局通用文件
+            > 放在项目根目录
+        * 页面级别文件
+            > 页面目录
+* js逻辑文件
+    * 类型
+        * App   应用（全局）
+            > 注册一个小程序
+        * Page  页面（局部）
+            > 注册小程序中的一个页面
+            * 配置参数
+                * data  初始数据
+                    > 修改数据：this.setData()，数据修改后页面会自动刷新
+* wxml常用语法
+    * 数据绑定
+        * 单向：{{}}
+        * 双向：
+            * 单向+事件
+    * 事件绑定
+        * bind
+        * catch
+        * event
+        * 传参
+            > 使用自定义属性`data-*`实现传参
+    * 列表循环
+        * wx:for
+        * wx:key
+            * 设置一个唯一**属性名**
+            ```js
+                classList:[{id:1,name:'2008'},{id:2,name:'2009'},{id:3,name:'2010'},]
+
+                v-bind:key="item.id"
+                key={item.id}
+                wx:key="id"
+            ```
+
+* 小程序生命周期函数的执行顺序
+* 导航
+    * 声明式导航: <navigator>
+    * 编程式导航: 接口
+        * wx.navigateTo()
