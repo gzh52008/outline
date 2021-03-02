@@ -1,0 +1,3 @@
+<map class="map" scale="18" longitude="{{pos.longitude}}" latitude="{{pos.latitude}}" markers="{{markers}}">
+  <cover-view>{{pos.longitude}},{{pos.latitude}}</cover-view>
+</map>

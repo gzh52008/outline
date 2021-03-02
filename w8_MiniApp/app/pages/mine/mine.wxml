@@ -16,4 +16,7 @@
       <view>{{name}}</view>
     </block>
   </view>
+  <datalist idx="10"></datalist>
+  <datalist></datalist>
+  <datalist idx="{{30}}"></datalist>
 </view>

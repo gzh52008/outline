@@ -3,6 +3,8 @@
     "pages/index/index",
     "pages/logs/logs",
     "pages/class/class",
+    "pages/camera/camera",
+    "pages/map/map",
     "pages/mine/mine"
   ],
   "window": {
@@ -21,17 +23,25 @@
     "position": "top",
     "backgroundColor": "#58bc58",
     "list":[{
-      "pagePath":"pages/index/index",
-      "text":"首页",
-      "iconPath":"img/home.png",
-      "selectedIconPath":"img/home_active.png"
-    },
-    {
-      "pagePath":"pages/mine/mine",
-      "text":"我的",
-      "iconPath":"img/mine.png",
-      "selectedIconPath":"img/mine_active.png"
+        "pagePath":"pages/index/index",
+        "text":"首页",
+        "iconPath":"img/home.png",
+        "selectedIconPath":"img/home_active.png"
+      },
+      {
+        "pagePath":"pages/mine/mine",
+        "text":"我的",
+        "iconPath":"img/mine.png",
+        "selectedIconPath":"img/mine_active.png"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
     }
-  ]
+  },
+  "usingComponents": {
+    "datalist":"/components/list/list"
   }
 }

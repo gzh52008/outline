@@ -1,0 +1,7 @@
+/* custom-tab-bar/index.wxss */
+.tabbar{
+  display: flex;
+  padding:20rpx;
+  background-color: rgba(0,0,0,0.5);
+}
+.tabbar image{display:block;width:60rpx;height:60rpx;}

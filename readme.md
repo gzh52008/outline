@@ -2579,8 +2579,7 @@ mongoDB         database            collection      document
 
 ### 知识点
 * 小程序页面类型
-    * tabbar页面
-        
+    * tabbar页面  
     * 普通页面
 * tabbar配置
-    > 由于收到很多限制，不够灵活，实际开发中一般很少使用tabbar配置，而是采用自定义tabbar
+    > 由于收到很多限制，不够灵活，实际开发中一般很少使用tabbar配置，而是采用自定义tabbar（配置custom:true）

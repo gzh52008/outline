@@ -1,0 +1,3 @@
+<view>
+  list自定义组件{{idx}}
+</view>

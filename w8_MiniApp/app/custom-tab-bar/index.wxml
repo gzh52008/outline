@@ -1,0 +1,6 @@
+<view class="tabbar">
+  <view wx:for="{{list}}" wx:key="pagePath" bindtap="changeTab" data-url="{{item.pagePath}}">
+    <image src="{{'/'+item.iconPath}}"></image>
+    <text>{{item.text}}</text>
+  </view>
+</view>

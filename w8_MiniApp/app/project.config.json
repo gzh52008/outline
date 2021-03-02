@@ -38,7 +38,7 @@
   },
   "compileType": "miniprogram",
   "libVersion": "2.14.4",
-  "appid": "wx5c705a88bbefba8d",
+  "appid": "wx8cf6111b4ab000f2",
   "projectname": "app",
   "debugOptions": {
     "hidedInDevtools": []
@@ -62,6 +62,13 @@
         {
           "name": "mine",
           "pathName": "pages/mine/mine",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "map",
+          "pathName": "pages/map/map",
+          "query": "",
           "scene": null
         }
       ]
