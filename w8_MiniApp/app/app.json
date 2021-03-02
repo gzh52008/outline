@@ -13,5 +13,25 @@
     "enablePullDownRefresh":true
   },
   "style": "v2",
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "tabBar":{
+    "custom":true,
+    "color":"#fff",
+    "selectedColor":"#ff0",
+    "position": "top",
+    "backgroundColor": "#58bc58",
+    "list":[{
+      "pagePath":"pages/index/index",
+      "text":"首页",
+      "iconPath":"img/home.png",
+      "selectedIconPath":"img/home_active.png"
+    },
+    {
+      "pagePath":"pages/mine/mine",
+      "text":"我的",
+      "iconPath":"img/mine.png",
+      "selectedIconPath":"img/mine_active.png"
+    }
+  ]
+  }
 }

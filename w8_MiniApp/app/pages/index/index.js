@@ -54,7 +54,10 @@ Page({
   goto(e){
     console.log('goto',e);
     const {url} = e.currentTarget.dataset
-    wx.navigateTo({
+    // wx.navigateTo({
+    //   url
+    // })
+    wx.reLaunch({
       url
     })
   }

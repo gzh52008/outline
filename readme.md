@@ -2530,7 +2530,6 @@ mongoDB         database            collection      document
     * 文件类型
         * .json         配置文件
         * .js           逻辑文件
-            
         * .wxss         样式文件
         * .wxml         结构文件
     * 按作用范围分类
@@ -2575,3 +2574,13 @@ mongoDB         database            collection      document
     * 声明式导航: <navigator>
     * 编程式导航: 接口
         * wx.navigateTo()
+
+## day9-2
+
+### 知识点
+* 小程序页面类型
+    * tabbar页面
+        
+    * 普通页面
+* tabbar配置
+    > 由于收到很多限制，不够灵活，实际开发中一般很少使用tabbar配置，而是采用自定义tabbar
