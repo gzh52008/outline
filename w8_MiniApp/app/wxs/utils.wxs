@@ -1,0 +1,15 @@
+function formatDate(){
+
+}
+
+function formatMoney(number){
+    // 10000 -> 10,000
+    var reg = getRegExp('\B(?=(\d{3})+(?!\d))','g')
+    console.log('reg',reg)
+    return number.toString().replace(reg,',')
+}
+
+module.exports = {
+    formatDate:formatDate,
+    formatMoney:formatMoney
+}

@@ -1,3 +1,9 @@
+const request = require('../../utils/http').default;
+// import request from '../../utils/http';
+const axios = require('axios');
+// import axios from 'axios';
+
+console.log('axios=',axios);
 // index.js
 // 获取应用实例
 const app = getApp()
@@ -60,5 +66,8 @@ Page({
     wx.reLaunch({
       url
     })
+  },
+  formatDate(){
+    return 'jingjing'
   }
 })

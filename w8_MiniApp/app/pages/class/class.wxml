@@ -1,2 +1,31 @@
-<!--pages/class/class.wxml-->
-<text>pages/class/class.wxml</text>
+<wxs module="m1">
+    var username = 'jingjing';
+    var upperUser = function(){
+        return username.toUpperCase();
+    }
+    module.exports = {
+        username:username,
+        upperUser:upperUser
+    }
+</wxs>
+<wxs module="m2">
+    var formatString = function(str){
+        return str.toUpperCase();
+    }
+    var handleClick = function(){
+        console.log('click')
+    }
+    module.exports = {
+        formatString:formatString,
+        handleClick:handleClick
+    }
+</wxs>
+<wxs module="utils" src="../../wxs/utils.wxs"></wxs>
+<view>
+    用户名：{{m1.username}}
+    <view>{{m1.upperUser()}}</view>
+    <view>{{m2.formatString('laoxie')}}</view>
+    <view>{{utils.formatMoney(100000)}}</view>
+    <view>{{utils.formatMoney(10000000)}}</view>
+    <button bindtap="{{m2.handleClick}}">点我</button>
+</view>

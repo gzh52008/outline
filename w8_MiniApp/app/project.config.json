@@ -70,6 +70,12 @@
           "pathName": "pages/map/map",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "class",
+          "pathName": "pages/class/class",
+          "query": "",
+          "scene": null
         }
       ]
     }

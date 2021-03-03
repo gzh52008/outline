@@ -2582,4 +2582,47 @@ mongoDB         database            collection      document
     * tabbar页面  
     * 普通页面
 * tabbar配置
-    > 由于收到很多限制，不够灵活，实际开发中一般很少使用tabbar配置，而是采用自定义tabbar（配置custom:true）
+    > 由于收到很多限制，不够灵活，实际开发中一般很少使用tabbar配置，而是采用自定义tabbar（配置`custom:true`）
+* 路由跳转
+    * 声明式导航: `<navigator>`
+        * open-type
+    * 编程式导航: 接口
+        * wx.navigateTo() 
+        * wx.redirectTo()
+        * wx.navigateBack()
+        * wx.switchTab()
+        * wx.reLaunch()
+* 自定义tabbar
+    > 自定义组件，自动出现在tabbar页面中
+    1. custom:true
+    2. custom-tab-bar
+        * index.json
+        * index.js
+        * index.wxss
+        * index.wxml
+* 自定义组件
+    * 定义
+        * 构造器：Component()
+        * 配置：component: true
+    * 使用：`usingComponents`
+        * 全局组件:在`app.json`中配置
+        * 局部组件：在页面或组件中配置
+
+* 内置组件
+
+## day9-3
+
+### 知识点
+* 模块化
+    * CommonJS      NodeJS
+    * ESModule      ES6
+    * AMD/CMD       require.js/sea.js
+* 小程序模块化开发
+    > 支持commonJS与ESModule
+    * 使用npm模块
+        > 在小程序中使用npm模块，必须重新构建（编译成小程序支持的格式）
+    * wxs模块
+        ```js
+            <script>xxx</script>
+            <script type="module"></script>
+        ```

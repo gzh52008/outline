@@ -15,3 +15,4 @@
 <button bind:tap="goto" data-url="/pages/mine/mine">我的</button>
 <button bind:tap="goto" data-url="/pages/logs/logs">日志</button>
 <datalist></datalist>
+<div>formatDate:{{formatDate()}}</div>
