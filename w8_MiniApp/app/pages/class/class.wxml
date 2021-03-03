@@ -21,6 +21,7 @@
     }
 </wxs>
 <wxs module="utils" src="../../wxs/utils.wxs"></wxs>
+
 <view>
     用户名：{{m1.username}}
     <view>{{m1.upperUser()}}</view>
@@ -29,3 +30,10 @@
     <view>{{utils.formatMoney(10000000)}}</view>
     <button bindtap="{{m2.handleClick}}">点我</button>
 </view>
+<include src="../../template/index.wxml"/>
+
+<import src="../../template/index.wxml" />
+
+<template is="datalist" data="{{list:[10,20,30],idx:1}}"></template>
+<template is="datalist" data="{{list:['laoxie','jingjing','zeze'],idx:0}}"></template>
+<template is="goodslist"></template>

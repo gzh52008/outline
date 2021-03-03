@@ -1,0 +1,46 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/class/class",
+    "pages/mine/mine",
+    "pages/user/user",
+    "pages/category/category",
+    "pages/city/city",
+    "pages/classlist/classlist"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#58bc58",
+    "navigationBarTitleText": "班级管理系统",
+    "navigationBarTextStyle":"white"
+  },
+  "tabBar":{
+    "custom":true,
+    "color":"#fff",
+    "selectedColor":"#ff0",
+    "position": "top",
+    "backgroundColor": "#58bc58",
+    "list":[{
+        "pagePath":"pages/index/index",
+        "text":"首页"
+      },
+      {
+        "pagePath":"pages/classlist/classlist",
+        "text":"班级"
+        
+      },
+      {
+        "pagePath":"pages/mine/mine",
+        "text":"我的"
+      
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "mp-cells": "weui-miniprogram/cells/cells",
+    "mp-cell": "weui-miniprogram/cell/cell",
+    "mp-icon": "weui-miniprogram/icon/icon"
+  }
+}

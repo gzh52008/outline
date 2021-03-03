@@ -2626,3 +2626,4 @@ mongoDB         database            collection      document
             <script>xxx</script>
             <script type="module"></script>
         ```
+* wxml模板

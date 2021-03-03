@@ -1,0 +1,21 @@
+<template name="datalist">
+  <view>
+    Datalist
+    <view wx:for="{{list}}" class="{{index===idx ? 'active':''}}">{{item}}</view>
+  </view>
+</template>
+
+<template name="goodslist">
+  <view>
+    Goodslist
+  </view>
+</template>
+
+<view>
+  其他内容 {{m1.username}}
+</view>
+
+<wxs module="m1">
+  var username="jingjing"
+  module.exports.username = username;
+</wxs>

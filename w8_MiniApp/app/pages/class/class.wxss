@@ -1,1 +1,2 @@
 /* pages/class/class.wxss */
+.active{color:#f00;}

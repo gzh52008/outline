@@ -1,0 +1,13 @@
+
+<mp-cells ext-class="user-list" title="当前班级学生列表">
+  <text wx:for="{{userList}}" wx:key="_id" bindtap="gotoUser" data-id="{{item._id}}">{{item.username}}</text>
+</mp-cells>
+<mp-cells ext-class="my-cells" title="班级列表">
+    <mp-cell link wx:for="{{classList}}" wx:key="_id" value="{{index+1}}. {{item.city}}-{{item.category}}-{{item.name}}" footer="{{item.category}}" bindtap="gotoClass" data-id="{{item._id}}">
+      <!-- <mp-icon slot="icon" icon="arrow" color="#999" size="{{10}}"></mp-icon> -->
+    </mp-cell>
+    <!-- <mp-cell>
+        <view>标题文字（使用slot）</view>
+        <view slot="footer">说明文字</view>
+    </mp-cell> -->
+</mp-cells>
