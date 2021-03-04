@@ -26,7 +26,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    //在页面展示后，获取tabbar实例，并设置Tabbar组件的current值
+    const tabBar = this.getTabBar();console.log('tabbar=',tabBar)
+    tabBar.setCurrent(1);
   },
 
   /**

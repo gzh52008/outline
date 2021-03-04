@@ -24,6 +24,11 @@ Page({
     });
     console.log('user=',data)
   },
+  onShow(){
+    //在页面展示后，获取tabbar实例，并设置Tabbar组件的current值
+    const tabBar = this.getTabBar();
+    tabBar.setCurrent(0)
+  },
   async getData(){
     const {data} = await request.get('/class');
     console.log('data=',data);

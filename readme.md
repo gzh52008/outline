@@ -2627,3 +2627,23 @@ mongoDB         database            collection      document
             <script type="module"></script>
         ```
 * wxml模板
+    * 定义与使用：`<template>`
+        * name      定义模板
+        * is        使用模板
+        * data      给模板传入数据
+    * 引入
+        * `<import/>`   引入template所有内容
+            * src
+        * `<include/>`  引入除tamplate和wxs外当所有内容
+            * src
+* 第三方组件库
+    * weui-miniprogram
+    * 使用步骤
+        1. 安装
+            > 必须配置`package.json`
+        2. 构建
+            > 把第三方模块编译成小程序支持的模块
+        3. 引入
+* ajax请求
+    > wx.request() + Promise 封装ajax请求
+    * 需要https合法域名

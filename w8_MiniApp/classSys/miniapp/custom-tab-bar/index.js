@@ -11,27 +11,30 @@ Component({
    * 组件的初始数据
    */
   data: {
-    "list":[{
-        "pagePath":"/pages/index/index",
-        "text":"首页",
-        iconPath:'/icon/home.png',
-        selectedIconPath:'/icon/home_active.png'
-      },
-      {
-        "pagePath":"/pages/classlist/classlist",
-        "text":"班级",
-        iconPath:'/miniapp/icon/list.png',
-        selectedIconPath:'/miniapp/icon/list_active.png'
-      },
-      {
-        "pagePath":"/pages/mine/mine",
-        "text":"我的",
-        dot:true,
-        iconPath:'/miniapp/icon/mine.png',
-        selectedIconPath:'/miniapp/icon/mine_active.png'
-      }
+    current:0,
+    "list": [{
+      "pagePath": "/pages/index/index",
+      "text": "首页",
+      iconPath: '/icon/home.png',
+      selectedIconPath: '/icon/home_active.png'
+    },
+    {
+      "pagePath": "/pages/classlist/classlist",
+      "text": "班级",
+      iconPath: '/icon/list.png',
+      selectedIconPath: '/icon/list_active.png'
+    },
+    {
+      "pagePath": "/pages/mine/mine",
+      "text": "我的",
+      dot: true,
+      iconPath: '/icon/mine.png',
+      selectedIconPath: '/icon/mine_active.png'
+    }
     ]
-},
+  },
+
+  // 页面生命周期函数
 
 
   /**
@@ -39,10 +42,17 @@ Component({
    */
   methods: {
     tabChange(e) {
-      console.log(e)
+
       wx.switchTab({
         url: e.detail.item.pagePath,
       })
-  }
+      // this.setCurrent(e.detail.index);
+    },
+    setCurrent(current){
+      console.log('current',current)
+      this.setData({
+        current
+      })
+    }
   }
 })
