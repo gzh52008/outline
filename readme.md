@@ -2647,3 +2647,84 @@ mongoDB         database            collection      document
 * ajax请求
     > wx.request() + Promise 封装ajax请求
     * 需要https合法域名
+
+
+## day9-4
+
+### 知识点
+* 云开发
+    * 准备工作
+* 使用云开发
+    * 小程序端
+        1. 初始化
+            > 一个小程序只需要初始化一次，所以一般放在app.js中执行
+            ```js
+                wx.cloud.init({
+                    env: 'qf-52690b'
+                })
+            ```
+        2. 操作
+            * 数据库
+                ```js
+                    // 获取数据库
+                    const db = wx.cloud.database()
+
+                    // 获取集合
+                    const col = db.collection('city')
+
+                    // 操作集合中的数据
+                    // 1. 获取
+                    col.get()
+                    // 2. 增加
+                    col.add({data:添加的数据)
+                    // 3. 删除
+                    col.where(条件).remove()
+                    // 3. 修改
+                    col.where(条件).update({data:修改的数据})
+
+                    // 过滤与筛选
+
+                    // 操作符
+                    const _ = db.command
+                ```
+            * 存储文件
+                ```js
+                    // 获取文件真实地址
+                    wx.cloud.getTempFileURL({
+                        fileList:[文件id]
+                    })
+
+                    // 上传
+                     wx.chooseImage({
+                        success(res){
+                            console.log('res=',res);
+                            wx.cloud.uploadFile({
+                                cloudPath: 'jj.png', // 文件名称
+                                filePath: res.tempFilePaths[0], // 文件路径
+                            }).then(res=>{
+                                console.log(res.fileID)
+                            })
+                        }
+                    })
+
+                    // 下载
+
+                ```
+            * 云函数
+    * 服务端
+        > 在服务端必须使用官方sdk（wx-server-sdk）获取cloud对象
+        1. 初始化
+            ```js
+                const cloud = require('wx-server-sdk')
+                cloud.init({
+                    env: cloud.DYNAMIC_CURRENT_ENV
+                })
+            ```
+        2. 操作
+            * 数据库
+                ```js
+                    const db = cloud.database();
+                    const col = db.collection('category');
+                ```
+            * 存储文件
+            * 云函数

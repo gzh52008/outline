@@ -1,2 +1,4 @@
 <!--pages/classlist/classlist.wxml-->
 <text>pages/classlist/classlist.wxml</text>
+
+<button bindtap="uploadPic">上传照片</button>

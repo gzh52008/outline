@@ -15,8 +15,8 @@ Component({
     "list": [{
       "pagePath": "/pages/index/index",
       "text": "首页",
-      iconPath: '/icon/home.png',
-      selectedIconPath: '/icon/home_active.png'
+      iconPath: 'cloud://qf-52690b.7166-qf-52690b-1257864894/icons/home.png',
+      selectedIconPath: 'cloud://qf-52690b.7166-qf-52690b-1257864894/icons/home_active.png'
     },
     {
       "pagePath": "/pages/classlist/classlist",
