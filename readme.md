@@ -2754,3 +2754,9 @@ mongoDB         database            collection      document
 ## day9-5
 
 ### 知识点
+* 小程序开发模式
+    * 使用独立服务器
+        > 在小程序中通过ajax请求获取独立服务器的数据（必须使用https）
+    * 云开发
+        > 直接调用云函数获取数据
+* 上线流程

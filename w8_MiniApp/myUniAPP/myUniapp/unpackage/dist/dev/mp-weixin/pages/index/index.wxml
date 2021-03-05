@@ -1,0 +1,1 @@
+<view class="content"><image class="logo _img" src="/static/logo.png"></image><view class="text-area"><text class="title">{{title}}</text></view><view class="_h1">UniApp测试</view><button data-event-opts="{{[['tap',[['handleClick',['$event']]]]]}}" bindtap="__e">{{"qty:"+qty}}</button></view>
