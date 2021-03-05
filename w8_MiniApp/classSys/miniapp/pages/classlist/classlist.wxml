@@ -2,3 +2,5 @@
 <text>pages/classlist/classlist.wxml</text>
 
 <button bindtap="uploadPic">上传照片</button>
+
+<button bindtap="getClass">获取班级列表</button>

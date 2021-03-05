@@ -94,5 +94,26 @@ Page({
       }
     })
    
+  },
+  async getClass(){
+    // 调用云函数
+    const result = await wx.cloud.callFunction({
+      name:'test2008',
+      data:{
+        size:10,
+        page:1
+      }
+    })
+
+    console.log('result=',result);
+
+    // const result = await wx.cloud.callFunction({
+    //   name:'class',
+    //   data:{
+    //     type:'find',
+    //     id:'123',
+    //     query:{}
+    //   }
+    // })
   }
 })

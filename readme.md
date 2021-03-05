@@ -2654,6 +2654,10 @@ mongoDB         database            collection      document
 ### 知识点
 * 云开发
     * 准备工作
+    * 资源
+        * 数据库
+        * 存储空间
+        * 云函数(类似与服务器，用于编写数据接口)
 * 使用云开发
     * 小程序端
         1. 初始化
@@ -2711,14 +2715,28 @@ mongoDB         database            collection      document
 
                 ```
             * 云函数
+                ```js
+                    // 在小程序端调用云函数（可以规避一些权限问题）
+                    const result = await wx.cloud.callFunction({
+                        name:'xxx',
+                        data
+                    })
+                ```
+
     * 服务端
         > 在服务端必须使用官方sdk（wx-server-sdk）获取cloud对象
         1. 初始化
             ```js
                 const cloud = require('wx-server-sdk')
                 cloud.init({
-                    env: cloud.DYNAMIC_CURRENT_ENV
+                    env: cloud.DYNAMIC_CURRENT_ENV 
                 })
+
+                // 定义云函数
+                // 云函数入口：调用云函数，会自动执行这里的代码
+                exports.main = function(){
+
+                }
             ```
         2. 操作
             * 数据库
@@ -2727,4 +2745,12 @@ mongoDB         database            collection      document
                     const col = db.collection('category');
                 ```
             * 存储文件
+                
             * 云函数
+                ```js
+                    //在云函数中调用云函数
+                ```
+
+## day9-5
+
+### 知识点
