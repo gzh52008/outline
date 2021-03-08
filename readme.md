@@ -2110,7 +2110,7 @@ mongoDB         database            collection      document
                 * Route渲染组件
                 * withRouter高阶组件
 ### 知识点
-* 高阶组件HOC���High Order Component）
+* 高阶组件HOC�������High Order Component）
     > 高阶组件并不是React组件，而是一个高阶函数，也是一个**纯函数**
     * 纯函数：不改变传入的参数，固定的输入有固定的输出
         ```js
@@ -2759,4 +2759,25 @@ mongoDB         database            collection      document
         > 在小程序中通过ajax请求获取独立服务器的数据（必须使用https）
     * 云开发
         > 直接调用云函数获取数据
+    * 独立服务器与云开发混合使用
+        > 在自己的服务器中通过httpApi调用云开发接口（需要用户授权）
+        ```js
+            // 1. 获取access_token
+            get https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET
+
+            // 2. 调用云开发http接口
+            POST https://api.weixin.qq.com/tcb/databasequery?access_token=ACCESS_TOKEN
+        ```
+
 * 上线流程
+
+
+## day10-1
+
+### 知识点
+* 小程序跨平台框架
+    > 实现的原理：编译器
+    * uni-app： 利用Vue开发小程序
+        * HBuilder
+        * VueCLI
+    
