@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title></title>
+	<style>
+		.preview img{width:100%}
+	</style>
+    <script type="text/javascript">
+    	
+   		document.addEventListener('plusready', function(){
+   			//console.log("所有plus api都应该在此事件发生后调用，否则会出现plus is undefined。")
+   			
+   		});
+   		
+    </script>
+</head>
+<body>
+	<h1>DCloud H5+Runtime接口测试</h1>
+	<ul>
+		<li>
+			<button id="btnPZ">拍照1</button>
+			<button>录像</button>
+			<div class="preview">
+				
+			</div>
+		</li>
+	</ul>
+	<script>
+		const preview = document.querySelector('.preview')
+		const btnPZ = document.querySelector('#btnPZ')
+		btnPZ.onclick = function(){
+			const cmr = plus.camera.getCamera(2);
+			
+			cmr.captureImage((filePath)=>{
+				console.log('filePath=',filePath)
+				plus.gallery.save( filePath, ()=>{
+					plus.nativeUI.toast('保存到相册成功');
+				});
+				
+				// 把地址转成平台地址
+				const realPath = plus.io.convertLocalFileSystemURL( filePath )
+				console.log('realPath=',realPath)
+				const img = new Image()
+				img.src = realPath;
+				preview.appendChild(img);
+			})
+		}
+	</script>
+</body>
+</html>

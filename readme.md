@@ -2842,3 +2842,25 @@ mongoDB         database            collection      document
 
     ```
     
+## day10-1
+
+### 知识点
+* hybridApp
+    > 半Native半web的开发模式
+    * 团队开发成员
+        * **后端开发工程师**：数据接口联调
+        * **Native工程师**：硬件接口联调
+        * **前端开发工程师**：界面与业务逻辑
+
+* Hybrid常见开发模式
+    * Native原生主导开发（主流）
+    * H5主导的混合开发模式
+        > 团队中没有native工程师，借助一些第三方封装好的工具（如下）来实现应用的**打包**及**调用设备**的原生功能
+        
+        * 打包方式
+            * 云平台
+                > 提供了硬件接口与打包环境
+                * DCloud平台的5+Runtime
+                * APICloud
+            * 本地打包
+                * Phonegap/Cordova
