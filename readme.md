@@ -2780,4 +2780,65 @@ mongoDB         database            collection      document
     * uni-app： 利用Vue开发小程序
         * HBuilder
         * VueCLI
+    * mpVue: 利用Vue开发小程序
+    * wePY: 采用类似于Vue的语法来开发小程序
+    * taro
+        * React
+        * Vue
+* 小程序限制
+    * 不超过2M
+    * 分包机制
+        > 1.7.3推出分包机制，并把小程序总体大小提高到20M，但每个包的大小依然不能超过2m
+        * 主包
+        * 分包
+    ```js
+        ├── app.js
+        ├── app.json
+        ├── app.wxss
+        ├── pages
+        │   ├── index
+        │   ├── mine
+        │   └── logs
+        ├── package-class
+        │   ├── class
+        │   ├── list
+        ├── package-manage
+        │   ├── class
+        │   ├── user
+        │   ├── category
+        │   ├── city
+        └── utils
+        {
+            "pages":[
+                "pages/index/index",
+                "pages/mine/mine",
+                "pages/class/class",
+                "pages/list/list"
+            ],
+
+            "subpackages":[
+                // 分包配置
+                {
+                    "root": "package-class", // 分包根目录
+                    "name":"class", // 分包别名，一般用于预加载
+                    "pages":[
+                        "class/class",
+                        "list/list"
+                    ]
+                },
+                {
+                    "root": "package-manage", // 分包根目录
+                    "name":"manage", // 分包别名，一般用于预加载
+                    "pages":[
+                        "class/class",
+                        "user/user",
+                        "category/category",
+                        "city/city"
+                    ],
+                    "independent": true // 设置为独立分包
+                }
+            ]
+        }
+
+    ```
     
