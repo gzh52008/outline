@@ -16,14 +16,8 @@
 <body>
 	<h1>DCloud H5+Runtime接口测试</h1>
 	<ul>
-		<li>
-			<button id="btnPZ">拍照1</button>
-			<button id="btnLX">录像</button>
-			
-			
-			<div class="preview">
-				
-			</div>
+		<li class="cameraPage">
+			摄像头功能
 		</li>
 		<li>
 			<button id="btnSM">扫码1</button>
@@ -33,53 +27,19 @@
 	<script>
 		document.addEventListener('plusready', function(){
 			//console.log("所有plus api都应该在此事件发生后调用，否则会出现plus is undefined。")
-			const preview = document.querySelector('.preview')
-			const btnPZ = document.querySelector('#btnPZ')
-			const btnLX = document.querySelector('#btnLX')
+			const cameraPage = document.querySelector('.cameraPage')
+			
 			const btnSM = document.querySelector('#btnSM')
 			const btnSB = document.querySelector('#btnSB')
 			
-			const cmr = plus.camera.getCamera(2);
-			// 拍照
-			btnPZ.onclick = function(){
+			// 利用webview实现页面跳转
+			cameraPage.onclick = function(){
+				// 创建webview
+				// const wv = plus.webview.create('views/camera.html','pageCamera')
 				
+				// plus.webview.show(wv,'slide-in-left')
 				
-				cmr.captureImage((filePath)=>{
-					console.log('filePath=',filePath)
-					plus.gallery.save( filePath, ()=>{
-						plus.nativeUI.toast('保存到相册成功');
-					});
-					
-					// 把地址转成平台地址
-					const realPath = plus.io.convertLocalFileSystemURL( filePath )
-					console.log('realPath=',realPath)
-					const img = new Image()
-					img.src = realPath;
-					preview.appendChild(img);
-				})
-			}
-			
-			// 录像
-			btnLX.onclick = function(){
-				cmr.startVideoCapture((filePath)=>{
-					console.log('filePath=',filePath)
-					
-					plus.gallery.save( filePath, ()=>{
-						plus.nativeUI.toast('保存到相册成功');
-					});
-					
-					const realPath = plus.io.convertLocalFileSystemURL( filePath )
-					console.log('realPath=',realPath)
-					
-					let video = document.createElement('video')
-					video.src = realPath;
-					// video.autoplay = true;
-					video.controls = true
-					video.poster = './img/jj.png'
-					preview.appendChild(video);
-					
-					// video.play()
-				})
+				plus.webview.open('views/camera.html','pageCamera',{},'slide-in-left')
 			}
 			
 			// 扫码

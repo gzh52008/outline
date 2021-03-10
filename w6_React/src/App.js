@@ -27,6 +27,11 @@ function App(){
             </RenderProp> */}
             {/* <Lifecircle/> */}
             <Hook/>
+            {/* <button onClick={()=>{
+                if(window.plus){
+                    const cmr = plus.camera.getCamera(1)
+                }
+            }}>拍照</button> */}
         </div>
     )
 }
