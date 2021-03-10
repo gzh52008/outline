@@ -2854,6 +2854,8 @@ mongoDB         database            collection      document
 
 * Hybrid常见开发模式
     * Native原生主导开发（主流）
+        1. Native工程师通过**window对象**提供接口，然后在js中调用
+        2. web工程师通过**window对象**提供方法，然后在native（）中调用 
     * H5主导的混合开发模式
         > 团队中没有native工程师，借助一些第三方封装好的工具（如下）来实现应用的**打包**及**调用设备**的原生功能
         

@@ -5,14 +5,11 @@
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title></title>
 	<style>
-		.preview img{width:100%}
+		.preview img,.preview video{width:100%}
 	</style>
     <script type="text/javascript">
     	
-   		document.addEventListener('plusready', function(){
-   			//console.log("所有plus api都应该在此事件发生后调用，否则会出现plus is undefined。")
-   			
-   		});
+   		
    		
     </script>
 </head>
@@ -21,32 +18,101 @@
 	<ul>
 		<li>
 			<button id="btnPZ">拍照1</button>
-			<button>录像</button>
+			<button id="btnLX">录像</button>
+			
+			
 			<div class="preview">
 				
 			</div>
 		</li>
+		<li>
+			<button id="btnSM">扫码1</button>
+			<button id="btnSB">识别图条码</button>
+		</li>
 	</ul>
 	<script>
-		const preview = document.querySelector('.preview')
-		const btnPZ = document.querySelector('#btnPZ')
-		btnPZ.onclick = function(){
-			const cmr = plus.camera.getCamera(2);
+		document.addEventListener('plusready', function(){
+			//console.log("所有plus api都应该在此事件发生后调用，否则会出现plus is undefined。")
+			const preview = document.querySelector('.preview')
+			const btnPZ = document.querySelector('#btnPZ')
+			const btnLX = document.querySelector('#btnLX')
+			const btnSM = document.querySelector('#btnSM')
+			const btnSB = document.querySelector('#btnSB')
 			
-			cmr.captureImage((filePath)=>{
-				console.log('filePath=',filePath)
-				plus.gallery.save( filePath, ()=>{
-					plus.nativeUI.toast('保存到相册成功');
-				});
+			const cmr = plus.camera.getCamera(2);
+			// 拍照
+			btnPZ.onclick = function(){
 				
-				// 把地址转成平台地址
-				const realPath = plus.io.convertLocalFileSystemURL( filePath )
-				console.log('realPath=',realPath)
-				const img = new Image()
-				img.src = realPath;
-				preview.appendChild(img);
-			})
-		}
+				
+				cmr.captureImage((filePath)=>{
+					console.log('filePath=',filePath)
+					plus.gallery.save( filePath, ()=>{
+						plus.nativeUI.toast('保存到相册成功');
+					});
+					
+					// 把地址转成平台地址
+					const realPath = plus.io.convertLocalFileSystemURL( filePath )
+					console.log('realPath=',realPath)
+					const img = new Image()
+					img.src = realPath;
+					preview.appendChild(img);
+				})
+			}
+			
+			// 录像
+			btnLX.onclick = function(){
+				cmr.startVideoCapture((filePath)=>{
+					console.log('filePath=',filePath)
+					
+					plus.gallery.save( filePath, ()=>{
+						plus.nativeUI.toast('保存到相册成功');
+					});
+					
+					const realPath = plus.io.convertLocalFileSystemURL( filePath )
+					console.log('realPath=',realPath)
+					
+					let video = document.createElement('video')
+					video.src = realPath;
+					// video.autoplay = true;
+					video.controls = true
+					video.poster = './img/jj.png'
+					preview.appendChild(video);
+					
+					// video.play()
+				})
+			}
+			
+			// 扫码
+			btnSM.onclick = function(){
+				const {QR,EAN13,EAN8} = plus.barcode
+				const barcode = plus.barcode.create('sm',[QR,EAN13,EAN8], {
+			top:'0px',
+			left:'0px',
+			width: '100%',
+			height: '100%',
+			position: 'absolute'
+		})
+				// 扫码空间是一个webview对象，需要添加到当前webview才能看到扫码效果
+				plus.webview.currentWebview().append(barcode);
+				
+				barcode.onmarked = function(type,code,file){
+					console.log('onmarked',type,code,file)
+					barcode.close();
+				}
+				barcode.start()
+			}
+			
+			// 识别条码
+			btnSB.onclick = function(){
+				plus.gallery.pick((picPath)=>{
+					
+					plus.barcode.scan(picPath,(type,code)=>{
+						console.log('scan',type,code)
+					})
+				})
+			}
+		});
+		
 	</script>
 </body>
 </html>
