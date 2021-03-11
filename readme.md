@@ -2908,14 +2908,78 @@ mongoDB         database            collection      document
     * Web Storage
     * WebSocket
 * Typescript
-
     ```js
         let username = 'laoxie'
-
         // 此处省略1万行代码...
         username = 18;
-
         username.length;// 6
-
         username.toUpperCase()
+
+        // typescript
+        let username:string = 'laoxie'
+        username = 18; // 报错
     ```
+    * ts的解决了js哪些痛点
+        1. 类型校验：js无变量类型校验，容易出现一些安全隐患
+        2. 调试:js的错误提示不是很完善，出现问题调式比较麻烦
+        3. 提示：开发工具提示不完善
+        4. 兼容：js兼容性问题
+            * javascript
+            * jscript
+            * ECMAScript
+    * 变量类型
+        > 静态类型
+        * 基础类型
+            * string
+            * number
+            * boolean
+        * 特殊类型
+            * null
+            * undefined
+            * void
+            * never
+            * any
+        * 字面量
+        * 引用类型
+            * 函数
+                ```js
+                    function getData(url:string,type:string='get'){
+
+                    }
+                ```
+            * 数组
+            * 对象
+
+* typescript声明文件：`.d.ts`
+
+* typescript编译
+    * 手动编译：全局安装typescript，然后在命令行中通过tsc命令实现编译
+        ```js
+            tsc 文件 参数
+        ```
+    * webpack环境编译
+        * 依赖
+            * webpack + webpack-cli + webpack-dev-server
+            * typescript + ts-loader
+                > 一般需要配置tsconfig.json
+
+            * @babel/core + babel-loader + @babel/preset-env
+
+            ```js
+                 module: {
+                    rules: [
+                        { test: /\.tsx?$/, use: [
+                            {
+                                loader:'babel-loader',
+                                options:{
+                                    presets:[],
+                                    plugins:[]
+                                }
+                            },
+                            "ts-loader"
+                            ] 
+                        },
+                    ]
+                }
+
+            ```

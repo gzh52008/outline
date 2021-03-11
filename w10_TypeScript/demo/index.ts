@@ -22,22 +22,6 @@ c = '10'
 c = true;
 
 
-// 赋值式
-function sum(a:number,b:number):number{
-    return a+b;
-}
-sum(10,20)
-
-function sum2(a:number,b:number):never{
-    console.log(a+b);
-    throw new Error('xxx')
-}
-
-const sum3:(a:number,b?:number)=>number = function(a:number,b?:number):number{
-    return a+b;
-}
-sum3(10,20)
-
 // 字面量类型声明
 let num:10 = 10;
 
@@ -52,3 +36,66 @@ let e:number|string = 20;
 type ns = number|string;
 let f:ns = 30;
 f = '30'
+
+
+// 引用类型
+// 函数类型
+function getData(url:string,type:string='get'):void{
+    
+}
+const sum:(a:number,b:number)=>number = function(a:number,b:number):number{
+    return a+b
+}
+getData('/api/list','post')
+sum(10,20);
+// sum('a','b'); // 报错
+
+// 数组类型
+// 1. 类型[]
+let arr1:number[] = [10,20,30,40]
+// 2. 泛型编程
+let arr2:Array<string> = ['laoxie','jingjing']
+
+// 元组Tuple：相当于一个已知数量和元素类型的数组
+let arr3:[number,number,string,string] = [10,20,'laoxie','jingjing']
+
+// 对象类型：接口Interface
+interface Person{
+    // 只读属性
+    readonly age:number;
+    username:string;
+    // 可选属性
+    gender?:string;
+
+    // 方法类型
+    say():void;
+
+    [propName:string]:any
+}
+let user:Person = {username:'jingjing',gender:'女',age:36,say:function(){}}
+// user.age = 37; // 报错
+let user2:Person = {username:'tiantian',age:28,isMarry:123,say(){ }}
+
+// 数组与对象的结合
+interface IGoods{
+    name:string;
+    price:number;
+    kucun:number;
+    imgurl:string;
+    oldPrice?:number;
+}
+
+// const goodslist:IGoods[] = [
+const goodslist:Array<IGoods> = [
+    {name:'goods1',price:998,oldPrice:10086,kucun:10,imgurl:'img/goods1.jpg'},
+    {name:'goods2',price:198,kucun:16,imgurl:'img/goods1.jpg'}
+]
+
+// 泛型编程
+function add<T,K>(a:T,b:K):T{
+    return a ;
+}
+
+console.log(add(2,2));// 4
+console.log(add('2','2'));// 22
+

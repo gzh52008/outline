@@ -49,9 +49,10 @@ var goodslist = [
     { name: 'goods1', price: 998, oldPrice: 10086, kucun: 10, imgurl: 'img/goods1.jpg' },
     { name: 'goods2', price: 198, kucun: 16, imgurl: 'img/goods1.jpg' }
 ];
+
 // 泛型编程
 function add(a, b) {
-    return a;
+    return a + b;
 }
 console.log(add(2, 2)); // 4
 console.log(add('2', '2')); // 22
