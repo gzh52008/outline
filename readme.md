@@ -2881,7 +2881,7 @@ mongoDB         database            collection      document
 * 打包
     * 下载安装
 
-* React
+* React开发
     * webApp
         * react
         * react-dom
@@ -2889,3 +2889,33 @@ mongoDB         database            collection      document
         > 利用web技术开发Native应用
         * react
         * react-native
+
+
+## day10-4
+
+### 知识点
+* HTML5新特性
+    * 语义标签
+    * 增强型表单
+    * 视频Video和音频Audio
+    * SVG绘图
+    * Canvas绘图
+    * FileReader
+    * FormDate
+    * Geolocation
+    * draggable拖放API
+    * Web Worker
+    * Web Storage
+    * WebSocket
+* Typescript
+
+    ```js
+        let username = 'laoxie'
+
+        // 此处省略1万行代码...
+        username = 18;
+
+        username.length;// 6
+
+        username.toUpperCase()
+    ```

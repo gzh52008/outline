@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>FileReader实现本地图片预览</title>
+	<script>
+		/*
+			FileReader
+				无论读取成功或失败，方法返回读取结果在实例的result属性中。
+			方法：
+				* abort() 						中断读取
+				* readAsBinaryString(file)		将文件读取为二进制码
+				* readAsDataURL(file)			将文件读取为 DataURL
+				* readAsText(file[,encoding])	将文件读取为文本
+
+
+			事件：
+				* onabort		中断时触发
+				* onerror		出错时触发
+				* onload		文件读取成功完成时触发
+				* onloadend		读取完成触发，无论成功或失败
+				* onloadstart	读取开始时触发
+				* onprogress	读取中
+		 */
+		
+		document.addEventListener('DOMContentLoaded',()=>{
+			let myImg = document.querySelector('#myImg');
+			let view = document.querySelector('.view');
+
+			myImg.onchange = function(f){console.log(f)
+				let file = this.files[0];
+
+				let reader = new FileReader();
+
+				reader.readAsDataURL(file);
+				// reader.readAsText(file,'gb2312');
+				// reader.readAsBinaryString(file);
+
+				reader.onload = function(e){
+					console.log(this.result);
+
+					let img = new Image();
+					img.src = this.result;
+
+					view.innerText = '';
+					view.appendChild(img)
+
+					// view.innerHTML = this.result;
+				}
+			}
+		})
+	</script>
+</head>
+<body>
+	<h1>fileReader实现本地图片预览</h1>
+	<input type="file" id="myImg">
+	<div class="view"></div>
+</body>
+</html>

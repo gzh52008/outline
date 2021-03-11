@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>history</title>
+	<script>
+		/*
+			* history
+				* pushState(state,name,url)
+				* replaceState(state,name,url)
+			* window事件
+				* onpopstate
+					* 可在事件中获取history.state
+				* onhaschange
+		 */
+		document.addEventListener('DOMContentLoaded',()=>{
+			let btnGo = document.querySelector('.btnGo');
+
+			let idx = 1;
+
+			btnGo.onclick = function(){
+				// 点击按钮时插入状态: history.pushState(页面状态,页面标题,url地址)
+				// * 关键是第一个参数,其他的,可省略
+				// * 参数
+				// 	 * 页面状态(Object):在onpopstate事件中通过history.state获取
+				// 	 	可以根据这个对象在事件中跳到你想要的页面
+				//   * 页面标题:意义不大
+				//   * url地址:你所需的效果可以用这个参数,然后在onpopstate事件中获取url地址进行判断
+				history.pushState({page:idx},'laoxie','history.html?s=go'+idx++);
+			}
+
+
+			// 点击浏览器的前进后退会执行这个事件
+			window.onpopstate = function(){
+				console.log(history.state);// 这里输出:{page:1},{page:2}...
+
+				// 根据history.state的值做相应操作
+				if(history.state.page == 1){
+				}
+
+				// 也可以根据当前url的地址:location.href,利用正则匹配做相应操作
+			}
+		})
+	</script>
+</head>
+<body>
+	<h1>History</h1>
+	<button class="btnGo">页面跳转</button>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>HTML5新特性-draggable</title>
+	<style>
+		.target{width:600px;height:500px;padding:10px;border:2px solid #ccc;}
+		.target img{height:100%;}
+		.active{border:2px dotted #f00;}
+	</style>
+	<script>
+		/*
+			HTML5新特性
+				* 语义标签
+				* 增强型表单
+				* 视频Video和音频Audio
+				* SVG绘图
+				* Canvas绘图
+				* FileReader
+				* FormDate
+				* Geolocation
+				* 拖放API
+				* Web Worker
+				* Web Storage
+				* WebSocket
+				* ...
+
+			拖放Draggable
+				* 事件
+					* 源对象：
+						* dragstart：源对象开始拖放。
+						* drag：源对象拖放过程中。
+						* dragend：源对象拖放结束。
+					* 过程对象：
+						* dragenter：源对象开始进入过程对象范围内。
+						* dragover：源对象在过程对象范围内移动。
+						* dragleave：源对象离开过程对象的范围。
+					* 目标对象：
+						* drop：源对象被拖放到目标对象内。
+				* dataTransfer对象：用于在源对象和目标对象间传递数据
+					* 属性
+						* effectAllowed
+						* dropEffect 属性
+						这两个属性结合起来设置拖放的视觉效果。
+					* 方法
+						* setData(name,val)
+							* name: 参数名字
+							* val：参数值（只能为字符串）
+						* getData(name)
+							* 只能在ondrop中获取到数据
+						* clearData()
+						* setDragImage()
+			
+		 */
+		
+		document.addEventListener('DOMContentLoaded',()=>{
+			let meinv = document.querySelector('#meinv');//源对象
+			let target = document.querySelector('.target');//目标对象
+
+			meinv.ondragstart = function(e){
+				console.log('dragstart');
+
+				e.dataTransfer.setData('id','#meinv');
+
+				// target.innerText = '开始拖拽';
+			}
+
+			meinv.ondrag = function(){
+				console.log('drag');
+				// target.innerText = '拖拽ing...';
+			}
+			meinv.ondragend = function(e){
+				console.log('dragend');
+				// target.innerText = '完成';
+				console.log(e.dataTransfer.getData('id'))
+				
+			}
+
+
+			// document.ondrop = function(e){
+			// 	if(e.target.classList.contains('target')){
+				target.ondrop = function(e){
+					console.log('drop',e.dataTransfer.getData('id'));
+
+					// 移动图片到目标位置
+					target.appendChild(meinv);
+					
+				}
+			// 	e.preventDefault();
+			// }
+
+			// 拖拽经过元素效果
+			document.ondragenter = function(e){
+				if(e.target.classList.contains('target')){
+					e.target.classList.add('active')
+				}
+			}
+
+			// 避免浏览器的默认行为
+			document.ondragover = function(e){
+				// 不写会触发不了ondrop事件
+				e.preventDefault();
+			}
+
+			document.ondragleave = function(e){
+				if(e.target.classList.contains('target')){
+					e.target.classList.remove('active')
+				}
+			}
+		})
+	</script>
+</head>
+<body>
+	<h1>HTML5新特性-draggable</h1>
+	<img src="img/g3.jpg" id="meinv">
+	<!-- <span id="meinv" draggable="true">美女</span> -->
+	<div class="target"></div>
+</body>
+</html>

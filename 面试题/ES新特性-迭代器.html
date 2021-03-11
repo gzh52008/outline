@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>迭代器</title>
+	<script>
+		/*
+			迭代器Iterator
+				* 带next方法的对象
+				* 具有Symbol.iterator作为方法的对象
+					* 能被for..of遍历
+					* 每次自动调用迭代器的next方法，并发value值赋值给变量
+		 */
+
+
+		function createIterator(o) {
+			var idx = 0;
+			var isArray = Array.isArray(o);
+			var keys = Object.keys(o);
+			return {
+				next() {
+					var end = idx >= ( isArray ? o.length : keys.length);
+					idx = idx++;
+					var val = end ? undefined : (isArray ? o[idx] :[keys[idx],o[keys[idx]]])
+					return {
+						value: val,
+						done: end
+					}
+				}
+			}
+		}
+
+		var it = createIterator([20, 30, 40, 50]);
+
+
+		// 创建普通对象
+		
+		var laoxie = {
+			name: 'laoxie',
+			age: 18,
+			gender: '男'
+		}
+
+		// 把普通对象设置成具有迭代器的对象：添加Symbol.iterator和next属性
+		Object.defineProperties(laoxie, {
+			[Symbol.iterator]:{
+				value(){
+					var idx = 0;//this
+					return {
+						next:()=> {
+							var done = idx >= Object.keys(this).length;
+							var key = Object.keys(this)[idx];
+							var value = this[key];
+							idx++;
+							return {
+								value: [key, value],
+								done: done
+							}
+						}
+					};
+				}
+			},
+			// next: {
+			// 	value() {
+			// 		var done = idx >= Object.keys(this).length;
+			// 		var key = Object.keys(this)[idx];
+			// 		var value = this[key];
+			// 		idx++;
+			// 		return {
+			// 			value: [key, value],
+			// 			done: done
+			// 		}
+			// 	}
+			// }
+		});
+
+		// 具有迭代器的数据可以被for...of替代
+		console.group('for..of遍历对象')
+		for (let item of laoxie) {
+			console.log(item);
+		}
+		console.groupEnd();
+
+		// 生成器函数直接得到一个迭代器：等效于createIterator()
+		function* initIterator(o) {
+			for (var key in o) {
+				yield [key,o[key]];
+			}
+		}
+
+
+		var person = {
+			a: 1,
+			b: 2,
+			c: 3,
+		}
+
+		Object.defineProperty(person, Symbol.iterator, {
+			value: function () {
+				// this指向person
+				return initIterator(this);
+			}
+		})
+
+
+		for(let [key,val] of person){
+			console.log(key,val)
+		}
+	</script>
+</head>
+
+<body>
+	<h1>迭代器</h1>
+</body>
+
+</html>
